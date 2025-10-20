@@ -15,5 +15,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4"
-  }
+  },
+  "engines": {
+  "node": "20.x"
+}
 }
