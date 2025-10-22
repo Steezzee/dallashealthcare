@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { label: 'Home', path: '/' },
   { label: 'My Insurance', path: '/insurance' },
-  { label: 'Map', path: '/map' },
   { label: 'My Health', path: '/health' },
   { label: 'My Cost', path: '/cost' },
 ];
@@ -14,7 +13,7 @@ export default function NavigationBar() {
   const pathname = usePathname();
 
   return (
-    <nav style={{ backgroundColor: '#004080', display: 'flex', justifyContent: 'space-around', padding: '12px' }}>
+    <nav style={{ backgroundColor: '#004080', display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
       {navItems.map(({ label, path }) => (
         <Link key={path} href={path} style={{
                 color: pathname === path ? '#FFD700' : '#FFFFFF',
