@@ -26,5 +26,12 @@
 }
 
 .tabButton:hover {
-    background-color: #1976d2;
+    background-color: #C4D9D2;
+}
+
+.activeTab {
+    flex: 1;
+    border:#1976d2;
+    border-radius: 6px;
+    background-color: #D5EBE3;
 }

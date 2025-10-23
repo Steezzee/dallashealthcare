@@ -1,0 +1,39 @@
+.container {
+    background-color: rgb(247, 244, 244);
+    border: 1px solid #d2d9d7;
+    border-radius: 6px;
+    padding: 10px;
+    width: 75%;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.tableHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #ececec;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 2px solid #cdd4d2;
+}
+
+.tableBody {
+    margin-top: 5px;
+}
+
+.docEntry {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 8px 10px;
+    border-bottom: 1px solid #dcdcdc;
+    transition: background-color 0.2s ease;
+}
+
+.docEntry:hover {
+    background-color: #edf3f2;
+}

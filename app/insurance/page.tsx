@@ -1,11 +1,35 @@
 import Image from "next/image";
+import UploadedDocuments from "../_components/UploadedDocuments";
 
-export default function Health() {
+export default function Insurance() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div style = {{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }}>
+      <main 
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        gap: '2rem', // space between columns
+        padding: '2rem',
+        minHeight: '60vh',
+        flex: 1
+      }} 
+      >
+        <UploadedDocuments />
         <section>
-          My Insurance page
+          **PlaceHolder**
+
+          <div> Upload New Document</div>
+          <div> Enter Title</div>
+          <div> Enter Case Number</div>
+          <div> Enter Document Date </div>
+
+          <div> UPLOAD </div>
         </section>
       </main>
     </div>
