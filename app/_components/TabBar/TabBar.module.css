@@ -1,14 +1,15 @@
 .tabBar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: left;
     background-color: #ffffff;
-    padding: 5rem 0;
+    padding-top: 2rem;
+    padding-bottom: 0;
 }
 
 .tabButton {
     flex: 1;
     max-width: 240px;
-    height: 64px;
+    height: 48px;
     margin: 0 8px;
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
@@ -23,6 +24,9 @@
     border: none;
     border-radius: 4px;
     transition: background-color 0.3s;
+
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 .tabButton:hover {
