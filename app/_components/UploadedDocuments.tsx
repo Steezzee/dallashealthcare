@@ -15,8 +15,8 @@ const UploadedDocuments = () => {
                 Uploaded Documents
             </h3>
             <div className={styles.tableHeader}>
-                <span>  Name  </span>
-                <span>  Case Number  </span>
+                <span>  Document Name  </span>
+                <span>  Claim Number  </span>
                 <span>  Date </span>
             </div>
             <div className={styles.tableBody}>
