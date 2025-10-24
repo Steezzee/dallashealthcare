@@ -1,6 +1,6 @@
 import Image from "next/image";
 import AppointmentTracker from '../app/_components/AppointmentTracker/AppointmentTracker';
-import UploadedDocuments from "./_components/UploadedDocuments";
+
 export default function Home() {
   return (
     <main
@@ -14,7 +14,7 @@ export default function Home() {
         minHeight: '80vh'
       }}
     >
-      <UploadedDocuments />
+      
       <AppointmentTracker />
       
       {/* Uncomment and add these as you build more components */}
