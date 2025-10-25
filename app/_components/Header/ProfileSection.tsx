@@ -6,7 +6,7 @@ const ProfileSection: React.FC = () => (
       width: "60px",
       height: "60px",
       borderRadius: "50%",
-      background: "#2064a8ff"
+      background: "#000000"
     }} />
     <div>
       <div style={{ fontWeight: "bold", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>username</div>
