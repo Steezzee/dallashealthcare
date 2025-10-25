@@ -2,17 +2,24 @@
     display: flex;
     justify-content: center;
     background-color: #ffffff;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 8px;
-    width: 250px;
-    height: 600px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;   
+    margin: 2rem auto; 
 }
+
+.container:hover{
+    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.5);
+    transform: translateY(-2px);
+  }
 
 .heading {
     font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .list {
@@ -31,9 +38,15 @@
     margin-right: 0.6rem;
 }
 
+input[type="checkbox"]:hover {
+    box-shadow: 0 0 4px rgb(41, 208, 230);
+    cursor: pointer;
+}
+
 .label {
     font-size: 1rem;
 }
+
 
 
 
