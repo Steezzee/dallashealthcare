@@ -29,6 +29,10 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
+  .prescriptionCard:not(:last-child) {
+    margin-bottom: 1.25rem;
+  }
+
   .prescriptionCard:hover{
     transform: scale(1.1);
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
