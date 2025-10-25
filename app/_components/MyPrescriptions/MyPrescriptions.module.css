@@ -3,20 +3,20 @@
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     align-items: flex-start;
     gap: 1rem;
 }
 
-.container:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
-}
+  .container:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
+  }
   
   .heading {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
   }
@@ -27,36 +27,20 @@
     border-radius: 10px;
     padding: 1rem 1.25rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom:2rem;
+    border-left: 6px solid #2c9a54; 
+    border-bottom: 3px solid #2c9a54;
   }
 
   .prescriptionCard:hover{
-    transform: scale(1.1);
-    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
   }
 
-  .infoSection {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+  .prescriptionList{
+    display: grid;
+    gap:1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    width: 100%;    
   }
-  
-  .infoRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f1f5f9; /* optional subtle divider */
-    padding-bottom:0.4rem;
-  }
-  
-  .label {
-    font-weight: 600;
-    width: 50%;
-  }
-  
-  .value {
-    font-weight: 400;
-    width: 50%;
-    text-align: right;
-  }
-  
+

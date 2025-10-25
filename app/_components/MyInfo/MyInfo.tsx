@@ -23,7 +23,7 @@ const MyInfo: React.FC = () => (
           <span className={styles.value}>{userInfo.dob}</span>
         </div>
   
-        <div className={styles.infoSection}>
+        <div className={styles.infoRow}>
           <span className={styles.label}>Active Insurances:</span>
         </div>
   
