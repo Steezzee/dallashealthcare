@@ -18,20 +18,31 @@
     margin-bottom: 0.75rem;
 }
 
-.emojiButton {
-    font-size: 1.8rem;
-    background:none;
-    border:none;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+.notesList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.emojiButton:hover {
-    transform: scale(1.5);
+  .noteCard {
+    background-color: #f3faf7;
+    border: 1px solid #d1fae5;
+    border-radius: 10px;
+    padding: 0.9rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 6px solid #2c9a54; 
+    border-bottom: 3px solid #2c9a54; 
+  }
+
+.noteCard:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
 }
 
 .journal {
     width: 100%;
+    margin-top: 0.7rem;
     height: 100px;
     padding: 10px;
     border-radius: 8px;
@@ -46,12 +57,6 @@
     box-shadow: 0 0 0 3px rgba(44, 204, 97, 0.15);
     outline: none;
   }
-  
-  .moodSelector { 
-    display:flex; 
-    gap:8px; 
-    margin-bottom: 8px; 
-}
 
   .saveButton {
     margin-top: 10px;
