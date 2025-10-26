@@ -14,16 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style = {{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh'
-      }}>
-        <Header />
-        <TabBar />
-          {children}
-        
+      <body>
+        <div className="app-wrapper">
+          <Header />
+          <TabBar />
+          <main>{children}</main>
           <Footer />
+        </div>
       </body>
     </html>
   );
