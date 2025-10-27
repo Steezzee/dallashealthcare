@@ -29,7 +29,7 @@ export default function Insurance() {
       >
         <UploadedDocuments />
 
-        {/*  MyInsurance Section  */}
+        {/*  MyInsurance Section   */}
         <section style={{ flex: 1 }}>
           <h2>Upload your documents here!</h2>
 
