@@ -5,9 +5,10 @@ import Trademark from "./Trademark";
 const Footer: React.FC = () => {
     return (
         <footer className={styles.footer}>
-            <Trademark />
+                <Trademark />
         </footer>
     );
 };
 
 export default Footer;
+
