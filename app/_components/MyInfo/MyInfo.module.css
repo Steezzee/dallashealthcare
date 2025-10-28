@@ -6,7 +6,8 @@
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       flex-direction: column;
-      max-width:440px;
+      max-width:430px;
+
   }
 
   .container:hover {
