@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import React from "react";
 import styles from "./UploadedDocuments.module.css";
 
 
@@ -7,35 +6,15 @@ type Doc = {
     title: string | null;
     fileNum: string | null;
     date: string | null;
-}
+};
 
 const defaultDocs: Doc[] = [
     { title: "Debra_Smith_BCBS_051", fileNum: "1433232", date: "12/25/25"},
     { title: "Debra_Smith_BCBS_223", fileNum: "4872402", date: "11/22/25"},
-    //{ title: "Debra_Smith_BCBS_107", fileNum: "3889223", date: "1/25/25"},
 ];
 
+const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index: number, isDefault: boolean) => void; }) => {
 
-const UploadedDocuments = () => {
-    const [docs, setDocs] = useState<Doc[]>(defaultDocs);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedTitle= localStorage.getItem('title');
-            const storedFileNum = localStorage.getItem('fileNum');
-            const storedDate = localStorage.getItem('date');
-            if (storedTitle || storedFileNum || storedDate) {
-                setDocs((prevDocs) => [
-                    ...prevDocs,
-                    {
-                        title: storedTitle,
-                        fileNum: storedFileNum,
-                        date: storedDate,
-                    },
-                ]);
-            }
-        }
-    }, []);
     return (
         <div className={styles.container}>
             <h3 className={styles.title}>
@@ -45,14 +24,30 @@ const UploadedDocuments = () => {
                 <span>  Document Name  </span>
                 <span>  Claim Number  </span>
                 <span>  Date </span>
+                <span> </span> { /* for delete button */ }
             </div>
             <div className={styles.tableBody}>
-                {docs.map(({ title, fileNum, date }, index) => (
-                    <div key={index} className={styles.docEntry}>
+                {defaultDocs.map(({ title, fileNum, date }, index) => (
+                    <div key={`default-${index}`} className={styles.docEntry}>
                         <span>{title}</span>
                         <span>{fileNum}</span>
                         <span>{date}</span>
                         </div>
+                ))}
+                {/* Render uploaded docs after default docs*/}
+                {docs.map(({ title, fileNum, date }, index) => (
+                    <div key={`doc-${index}`} className={styles.docEntry}>
+                        <span>{title}</span>
+                        <span>{fileNum}</span>
+                        <span>{date}</span>
+                        <button
+                            onClick={() => onDelete(index, false)}
+                            className={styles.deleteButton}
+                            aria-label="Delete Document"
+                            >
+                            Delete
+                        </button>
+                    </div>
                 ))}
             </div>
         </div>

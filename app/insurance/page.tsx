@@ -2,37 +2,57 @@
 
 import React, { useState, useEffect } from "react";
 import UploadedDocuments from "../_components/UploadedDocuments";
-import {router} from "next/client";
+
+type Doc = {
+    title: string;
+    fileNum: string;
+    date: string;
+};
 
 export default function Insurance() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [docs, setDocs] = useState<Doc[]>([]);
   const [title, setTitle] = useState("");
   const [fileNum, setFileNum] = useState("");
   const [date, setDate] = useState("");
 
   useEffect(() => {
       if (typeof window !== "undefined") {
-          const storedTitle= localStorage.getItem('title');
-          const storedFileNum= localStorage.getItem('fileNum');
-          const storedDate = localStorage.getItem('date');
-          setTitle(storedTitle ?? "");
-          setFileNum(storedFileNum ?? "");
-          setDate(storedDate ?? "");
-         }
+          const stored = localStorage.getItem("uploadedDocs");
+          if (stored) {
+              setDocs(JSON.parse(stored));
+          }
+        }
       }, []);
 
   const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
+
+      const newDoc: Doc = { title, fileNum, date };
+      const updatedDocs = [...docs, newDoc];
+
+      setDocs(updatedDocs);
+
       if (typeof window !== "undefined") {
-          localStorage.setItem('title', title);
-          localStorage.setItem('fileNum', fileNum);
-          localStorage.setItem('date', date);
+          localStorage.setItem("uploadedDocs", JSON.stringify(updatedDocs));
       }
+
       setIsModalOpen(false);
       setTitle("");
       setFileNum("");
       setDate("");
+  };
 
+  const handleDelete = (index: number, isDefault: boolean) => {
+      if (isDefault) {
+          alert("Deleting default documents requires additional state management...");
+      } else {
+          const updatedDocs = docs.filter((_, i) => i !== index);
+          setDocs(updatedDocs);
+          if (typeof window !== "undefined") {
+              localStorage.setItem("uploadedDocs", JSON.stringify(updatedDocs));
+          }
+      }
   };
 
 
@@ -57,7 +77,7 @@ export default function Insurance() {
           flex: 1,
         }}
       >
-        <UploadedDocuments />
+        <UploadedDocuments docs={docs} onDelete={handleDelete}/>
 
         {/*  MyInsurance Section  */}
         <section style={{ flex: 1 }}>
