@@ -1,10 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UploadedDocuments from "../_components/UploadedDocuments";
+import {router} from "next/client";
 
 export default function Insurance() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [fileNum, setFileNum] = useState("");
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+      if (typeof window !== "undefined") {
+          const storedTitle= localStorage.getItem('title');
+          const storedFileNum= localStorage.getItem('fileNum');
+          const storedDate = localStorage.getItem('date');
+          setTitle(storedTitle ?? "");
+          setFileNum(storedFileNum ?? "");
+          setDate(storedDate ?? "");
+         }
+      }, []);
+
+  const handleSubmit = (event: React.FormEvent) => {
+      event.preventDefault();
+      if (typeof window !== "undefined") {
+          localStorage.setItem('title', title);
+          localStorage.setItem('fileNum', fileNum);
+          localStorage.setItem('date', date);
+      }
+      setIsModalOpen(false);
+      setTitle("");
+      setFileNum("");
+      setDate("");
+
+  };
+
 
   return (
     <div
@@ -103,10 +133,12 @@ export default function Insurance() {
 
             <h2 style={{ textAlign: "center" }}>Upload a Document</h2>
 
-            <form>
+            <form onSubmit = {handleSubmit}>
               <label htmlFor="title">Title:</label>
               <input
                 type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 id="title"
                 name="title"
                 placeholder="Enter title"
@@ -117,6 +149,8 @@ export default function Insurance() {
               <label htmlFor="fileNumber">File Number:</label>
               <input
                 type="text"
+                value={fileNum}
+                onChange={(e) => setFileNum(e.target.value)}
                 id="fileNumber"
                 name="fileNumber"
                 placeholder="Enter file number"
@@ -127,6 +161,8 @@ export default function Insurance() {
               <label htmlFor="date">Date (MM/DD/YYYY):</label>
               <input
                 type="text"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
                 id="date"
                 name="date"
                 placeholder="MM/DD/YYYY"
