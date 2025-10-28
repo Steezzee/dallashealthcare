@@ -4,15 +4,18 @@
     background-color: #ffffff;
     padding-top: 2rem;
     padding-bottom: 0;
+    
 }
 
 .tabButton {
     flex: 1;
     max-width: 240px;
     height: 48px;
-    margin: 0 8px;
+    margin: 0;
     padding: 0.5rem 1rem;
     font-size: 1.1rem;
+    margin: 0 -2px; 
+
 
     display: flex;
     justify-content: center;
@@ -36,6 +39,6 @@
 .activeTab {
     flex: 1;
     border:#1976d2;
-    border-radius: 6px;
+    /*border-radius: 6px;*/
     background-color: #D5EBE3;
 }

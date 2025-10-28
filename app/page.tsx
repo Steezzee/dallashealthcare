@@ -13,7 +13,7 @@ export default function Home() {
     <main
       style={{
         display: 'grid', //flex
-        gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
         flexDirection: 'row',
         alignItems: 'start', //flex-start
         gap: '1.4rem 2rem', // space between columns
@@ -26,14 +26,9 @@ export default function Home() {
 
       <MyInfo />
       <MyPrescriptions />
-
       <AppointmentTracker />
-      
- 
       <MyFitness />
-
       <MyMood />
-
       <MyNotes />
 
 

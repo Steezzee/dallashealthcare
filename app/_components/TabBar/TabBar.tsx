@@ -7,9 +7,9 @@ import { usePathname } from "next/navigation";
 
 const tabs = [
     { label: "Home", href: "/", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
-    { label: "My Insurance", href: "/insurance", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
-    { label: "My Health", href: "/health", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
-    { label: "My Cost", href: "/cost", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
+    { label: "MyInsurance", href: "/insurance", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
+    { label: "MyHealth", href: "/health", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
+    { label: "MyCost", href: "/cost", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
 ];
 
 const TabBar: React.FC = () => {
