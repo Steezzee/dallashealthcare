@@ -28,7 +28,8 @@
 
 .docEntry {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 70px;
+    align-items: center;
     padding: 8px 10px;
     border-bottom: 1px solid #dcdcdc;
     transition: background-color 0.2s ease;
@@ -36,4 +37,26 @@
 
 .docEntry:hover {
     background-color: #edf3f2;
+}
+
+.deleteCell {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.deleteButton {
+    border: 1px solid #888;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.deleteButton:hover {
+    background-color: #fdd;
+    border-color: #f00;
 }

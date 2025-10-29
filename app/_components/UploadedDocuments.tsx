@@ -1,14 +1,20 @@
-import Reacht from "react";
-import Link from "next/link";
+import React from "react";
 import styles from "./UploadedDocuments.module.css";
 
-const docs = [
-    { name: "Debra_Smith_BCBS_051.pdf", caseNum: "1433232", date: "12/25/25"},
-    { name: "Debra_Smith_BCBS_223", caseNum: "4872402", date: "11/22/25"},
-    { name: "Debra_Smith_BCBS_107", caseNum: "3889223", date: "1/25/25"},
+
+type Doc = {
+    title: string | null;
+    fileNum: string | null;
+    date: string | null;
+};
+
+const defaultDocs: Doc[] = [
+    { title: "Debra_Smith_BCBS_051", fileNum: "1433232", date: "12/25/25"},
+    { title: "Debra_Smith_BCBS_223", fileNum: "4872402", date: "11/22/25"},
 ];
 
-const UploadedDocuments = () => {
+const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index: number, isDefault: boolean) => void; }) => {
+
     return (
         <div className={styles.container}>
             <h3 className={styles.title}>
@@ -18,14 +24,30 @@ const UploadedDocuments = () => {
                 <span>  Document Name  </span>
                 <span>  Claim Number  </span>
                 <span>  Date </span>
+                <span> </span> { /* for delete button */ }
             </div>
             <div className={styles.tableBody}>
-                {docs.map(({ name, caseNum, date }, index) => (
-                    <div key={index} className={styles.docEntry}>
-                        <span>{name}</span>
-                        <span>{caseNum}</span>
+                {defaultDocs.map(({ title, fileNum, date }, index) => (
+                    <div key={`default-${index}`} className={styles.docEntry}>
+                        <span>{title}</span>
+                        <span>{fileNum}</span>
                         <span>{date}</span>
                         </div>
+                ))}
+                {/* Render uploaded docs after default docs*/}
+                {docs.map(({ title, fileNum, date }, index) => (
+                    <div key={`doc-${index}`} className={styles.docEntry}>
+                        <span>{title}</span>
+                        <span>{fileNum}</span>
+                        <span>{date}</span>
+                        <button
+                            onClick={() => onDelete(index, false)}
+                            className={styles.deleteButton}
+                            aria-label="Delete Document"
+                            >
+                            Delete
+                        </button>
+                    </div>
                 ))}
             </div>
         </div>
