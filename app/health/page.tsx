@@ -2,18 +2,14 @@ import Image from "next/image";
 import UploadedDocuments from "../_components/UploadedDocuments";
 import MyHealth_Map from "../_components/MyHealth_Map";
 
-<MyHealth_Map />
-
 export default function Health() {
   return (
-   <div  
-      style = {{
+   <div style = {{
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh'
     }}>
-      <main 
-      style={{
+      <main style={{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -24,8 +20,7 @@ export default function Health() {
         flex: 1
       }} 
       >
-    <div 
-      style={{
+    <div style={{
         width: '900px',
         height: '300px',
         borderRadius: '8px',
