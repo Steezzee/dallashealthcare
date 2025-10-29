@@ -9,8 +9,8 @@ const ProfileSection: React.FC = () => (
       background: "#2064a8ff"
     }} />
     <div>
-      <div style={{ fontWeight: "bold", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>username</div>
-      <div style={{ fontSize: "0.9em", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>ID: xx-xxx</div>
+      <div style={{ fontWeight: "bold", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>Noah Ark</div>
+      <div style={{ fontSize: "0.9em", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>ID: 33-123</div>
     </div>
   </div>
 );

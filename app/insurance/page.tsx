@@ -104,7 +104,7 @@ export default function Insurance() {
             <h2 style={{ textAlign: "center" }}>Upload a Document</h2>
 
             <form>
-              <label htmlFor="title">Title:</label>
+              <label htmlFor="title">Document Name:</label>
               <input
                 type="text"
                 id="title"
@@ -124,14 +124,14 @@ export default function Insurance() {
                 style={inputStyle}
               />
 
-              <label htmlFor="date">Date (MM/DD/YYYY):</label>
+              <label htmlFor="date">Date (MM/DD/YY):</label>
               <input
                 type="text"
                 id="date"
                 name="date"
-                placeholder="MM/DD/YYYY"
+                placeholder="MM/DD/YY"
                 required
-                pattern="\d{2}/\d{2}/\d{4}"
+                pattern="\d{2}/\d{2}/\d{2}"
                 style={inputStyle}
               />
 
