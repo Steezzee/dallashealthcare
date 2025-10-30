@@ -4,7 +4,13 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-const localLocations = [
+interface Location {
+    text: string;
+    position: [number, number];
+    inNetwork: 'true' | 'false';
+}
+
+const localLocations: Location[] = [
     {
         text: "UTD Hypothetical Health Center", 
         position: [32.9859, -96.7503],
