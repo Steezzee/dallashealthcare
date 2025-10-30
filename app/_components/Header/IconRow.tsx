@@ -2,16 +2,25 @@ import React from "react";
 
 const IconRow: React.FC = () => (
   <div style={{ display: "flex", gap: "16px" }}>
+
     <span style={{
-      width: 36, height: 36, background: "#C4D9D2", borderRadius: "50%", display: "inline-block"
-    }} title="Star" />
+      width: 54, height: 54, background: "#6ab2eeff", borderRadius: "50%", display: "flex", overflow: "hidden", position: "relative", alignItems: "center", justifyContent: "center",
+    }}
+    >
+    <img src="/searchPlaceholder.svg" 
+        alt="Profile Picture" style={{ width: "80%", height: "80%", objectFit: "cover" }} 
+    />
+    </span>
+
     <span style={{
-      width: 36, height: 36, background: "#B1C9C0", borderRadius: "50%", display: "inline-block"
-    }} title="Search" />
-    <span style={{
-      width: 36, height: 36, background: "#9DB5AC", borderRadius: "50%", display: "inline-block"
-    }} title="Menu" />
+      width: 54, height: 54, background: "#90caf9", borderRadius: "100%", display: "flex", overflow: "hidden", position: "relative", alignItems: "center", justifyContent: "center",
+    }} title="Menu"
+    >
+    <img src="/hamburgerPlaceholder.svg" 
+        alt="Profile Picture" style={{ width: "80%", height: "80%", objectFit: "cover",  }} 
+        />
+    </span>
   </div>
 );
 
-export default IconRow;
+export default IconRow; 
