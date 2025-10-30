@@ -2,7 +2,8 @@ import Image from "next/image";
 import UploadedDocuments from "../_components/UploadedDocuments";
 import MyHealth_Map from "../_components/MyHealth_Map";
 
-export default function Health() {
+
+export default function HealthPage() {
   return (
    <div style = {{
       display: 'flex',
