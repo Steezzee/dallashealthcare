@@ -1,7 +1,14 @@
+'use client';
+
 import Image from "next/image";
 import UploadedDocuments from "../_components/UploadedDocuments";
-import MyHealth_Map from "../_components/MyHealth_Map";
+import dynamic from "next/dynamic";
+import { use } from "react";
 
+const MyHealth_Map = dynamic(
+  () => import("../_components/MyHealth_Map").then(m => m.default),
+  { ssr: false, loading: () => <div style={{ height: 400 }}>Loading map…</div> }
+);
 
 export default function HealthPage() {
   return (
@@ -27,10 +34,8 @@ export default function HealthPage() {
         borderRadius: '8px',
         overflow: 'hidden',
         flexShrink: 0,
-      }}
-    ></div>
-        <MyHealth_Map 
-        />
+      }}></div>
+        <MyHealth_Map />
       </main>
     </div>
   );
