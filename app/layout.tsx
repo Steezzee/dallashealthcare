@@ -6,6 +6,7 @@ import Footer from './_components/Footer/Footer';
 import TabBar from './_components/TabBar/TabBar';
 
 
+
 export const metadata = {
   title: 'Dallas Healthcare',
   description: 'Find quality healthcare in Dallas',
