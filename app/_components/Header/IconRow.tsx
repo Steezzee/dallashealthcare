@@ -8,7 +8,7 @@ const IconRow: React.FC = () => (
     }}
     >
     <img src="/searchPlaceholder.svg" 
-        alt="Profile Picture" style={{ width: "80%", height: "80%", objectFit: "cover" }} 
+        alt="Profile Picture" style={{ width: "50%", height: "50%", objectFit: "cover" }} 
     />
     </span>
 
@@ -17,7 +17,7 @@ const IconRow: React.FC = () => (
     }} title="Menu"
     >
     <img src="/hamburgerPlaceholder.svg" 
-        alt="Profile Picture" style={{ width: "80%", height: "80%", objectFit: "cover",  }} 
+        alt="Profile Picture" style={{ width: "50%", height: "50%", objectFit: "cover",  }} 
         />
     </span>
   </div>
