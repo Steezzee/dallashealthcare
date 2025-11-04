@@ -7,7 +7,8 @@ type Doc = {
     title: string;
     fileNum: string;
     date: string;
-};
+    fileUrl?: string;  /* added fileUrl */
+  }; 
 
 export default function Insurance() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function Insurance() {
   const [title, setTitle] = useState("");
   const [fileNum, setFileNum] = useState("");
   const [date, setDate] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+
 
   useEffect(() => {
       if (typeof window !== "undefined") {
@@ -27,9 +30,14 @@ export default function Insurance() {
 
   const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
-
-      const newDoc: Doc = { title, fileNum, date };
+      if (!file){ /*added to ensure file is uploaded */
+        alert("Please upload a file");
+        return;
+      }
+      const fileUrl = URL.createObjectURL(file); /* added to click file to view it */
+      const newDoc: Doc = { title, fileNum, date, fileUrl };
       const updatedDocs = [...docs, newDoc];
+
 
       setDocs(updatedDocs);
 
@@ -41,6 +49,7 @@ export default function Insurance() {
       setTitle("");
       setFileNum("");
       setDate("");
+      setFile(null);
   };
 
   const handleDelete = (index: number, isDefault: boolean) => {
@@ -204,7 +213,18 @@ export default function Insurance() {
                 }}
               >
                 <p>Drag & drop your file here, or</p>
-                <input type="file" id="fileInput" name="file" required style={{ display: "none" }} />
+                <input
+                  type="file"
+                  id="fileInput"
+                  name="file"
+                  required
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setFile(e.target.files[0]);
+                    }
+                  }}
+                />
                 <label
                   htmlFor="fileInput"
                   style={{
