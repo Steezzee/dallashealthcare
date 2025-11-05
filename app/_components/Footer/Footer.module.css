@@ -1,3 +1,7 @@
+.main{
+    padding-bottom: 56px; /* Height of the footer */
+}
+
 .footer {
     display: flex;
     align-items: center;
@@ -12,6 +16,7 @@
     bottom:0;
     width: 100%;
 
+    z-index: 1000;
 }
 
 
