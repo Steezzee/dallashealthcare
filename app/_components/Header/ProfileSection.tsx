@@ -12,8 +12,8 @@ const ProfileSection: React.FC = () => (
         alt="Profile Picture" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
     </div>
     <div>
-      <div style={{ fontWeight: "bold", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>username</div>
-      <div style={{ fontSize: "0.9em", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>ID: xx-xxx</div>
+      <div style={{ fontWeight: "bold", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>Noah Ark</div>
+      <div style={{ fontSize: "0.9em", color: "#0E3C35", fontFamily: "Kanit, sans-serif" }}>ID: 31-124</div>
     </div>
   </div>
 );

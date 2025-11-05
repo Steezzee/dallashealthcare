@@ -22,5 +22,10 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "To view the live website, visit [https://dallashealthcare.vercel.app](https://dallashealthcare.vercel.app/)",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
