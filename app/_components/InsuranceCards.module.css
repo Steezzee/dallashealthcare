@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    max-width:430px;
+
+}
+
+.container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(123,153,142,0.4);
+  }
+
+
+
+.infoSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem; 
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+}
+
+
+.insuranceList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 0.6rem;
+  justify-content: center;
+}
+
+.insuranceCard {
+  background: linear-gradient(145deg, #f8fafc, #ffffff);
+  border: 2px solid #e0e0e0;
+  font-size: 1.25rem;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #0f172a;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.insuranceCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(44, 204, 97, 0.12);
+}
+
+

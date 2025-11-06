@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import UploadedDocuments from "../_components/UploadedDocuments";
+import InsuranceCards from "../_components/InsuranceCards";
 
 type Doc = {
     title: string;
@@ -106,6 +107,18 @@ export default function Insurance() {
           >
             Upload Document
           </button>
+        </section>
+        <section style={{   
+            flex: 1,
+            width: "100%",
+            display: "flex",
+            justifyContent: "left",
+            alignItems: "center",
+            borderRadius: "10px",
+            padding: "2rem 0", 
+          }}>
+          
+           <InsuranceCards />
         </section>
       </main>
 
@@ -232,24 +245,4 @@ export default function Insurance() {
                   borderRadius: "6px",
                   fontSize: "1rem",
                   cursor: "pointer",
-                  transition: "background-color 0.3s",
-                }}
-              >
-                Upload
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "0.5rem",
-  border: "1px solid #ccc",
-  borderRadius: "6px",
-  fontSize: "1rem",
-  marginTop: "0.5rem",
-};
+                  
