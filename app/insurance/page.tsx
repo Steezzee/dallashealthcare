@@ -68,7 +68,7 @@ export default function Insurance() {
       <main
         style={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "flex-start",
           gap: "2rem",
@@ -81,7 +81,6 @@ export default function Insurance() {
 
         {/*  MyInsurance Section  */}
         <section style={{ flex: 1 }}>
-          <h2>Upload your documents here!</h2>
 
           {/* Upload Document Button */}
           <button
