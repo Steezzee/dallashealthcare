@@ -69,45 +69,39 @@ export default function Insurance() {
       <main
         style={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          gap: "2rem",
+          gap: "3rem",
           padding: "2rem",
           minHeight: "60vh",
-          flex: 1,
+          flexWrap: "wrap",
         }}
       >
-        <UploadedDocuments docs={docs} onDelete={handleDelete}/>
+      <section style={{ flex: "1 1 55%", maxWidth: "70%", display: "flex", flexDirection: "column", }}>
+      <UploadedDocuments docs={docs} onDelete={handleDelete} />
 
-        {/*  MyInsurance Section  */}
-        <section style={{ flex: 1 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "1.5rem" }}>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          style={{
+            backgroundColor: "#C4D9D2",
+            color: "black",
+            border: "none",
+            borderRadius: "10px",
+            padding: "2rem 4rem",
+            fontSize: "1.5em",
+            cursor: "pointer",
+            transition: "background-color 0.3s",
+            
+          }}
+        >
+          Upload Document
+        </button>
+      </div>
 
-          {/* Upload Document Button */}
-          <button
-            onClick={() => setIsModalOpen(true)}
-            style={{
-              backgroundColor: "#C4D9D2",
-              color: "black",
-              border: "none",
-              borderRadius: "10px",
-              padding: "1rem 2rem",
-              fontSize: "1.1rem",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }}
-            onMouseOver={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#ACCCC1")
-            }
-            onMouseOut={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#C4D9D2")
-            }
-          >
-            Upload Document
-          </button>
-        </section>
+     </section>
+
         <section style={{   
             flex: 1,
             width: "100%",
@@ -117,7 +111,6 @@ export default function Insurance() {
             borderRadius: "10px",
             padding: "2rem 0", 
           }}>
-          
            <InsuranceCards />
         </section>
       </main>
@@ -245,4 +238,24 @@ export default function Insurance() {
                   borderRadius: "6px",
                   fontSize: "1rem",
                   cursor: "pointer",
-                  
+                  transition: "background-color 0.3s",
+                }}
+              >
+                Upload
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "0.5rem",
+  border: "1px solid #ccc",
+  borderRadius: "6px",
+  fontSize: "1rem",
+  marginTop: "0.5rem",
+};

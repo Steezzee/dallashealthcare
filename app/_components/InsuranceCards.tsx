@@ -36,12 +36,14 @@ const InsuranceCards: React.FC = () => (
         <div className={styles.insuranceList}>
           {cardInfo.map((insurance, i) => (
             <div key={i} className={styles.insuranceCard}>
-              <h3 className={styles.provider}>{insurance.providerName}</h3>
-              <p><strong>Member:</strong> {insurance.memberName}</p>
-              <p><strong>Member ID:</strong> {insurance.memberID}</p>
-              <p><strong>Group #:</strong> {insurance.groupNumber}</p>
-              <p><strong>Plan:</strong> {insurance.planType}</p>
-              <p><strong>Phone:</strong> {insurance.phone}</p>
+              <h2 className={styles.provider}>{insurance.providerName}</h2>
+              <div className={styles.insuranceInfo}>
+                <p>Member:{insurance.memberName}</p>
+                <p>Member ID: {insurance.memberID}</p>
+                <p>Group #:{insurance.groupNumber}</p>
+                <p>Plan:{insurance.planType}</p>
+                <p>Phone: {insurance.phone}</p>
+              </div>
             </div>
           ))}
       </div>
