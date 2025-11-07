@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import UploadedDocuments from "../_components/UploadedDocuments";
+import InsuranceCards from "../_components/InsuranceCards";
 
 type Doc = {
     title: string;
@@ -69,16 +70,16 @@ export default function Insurance() {
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         minHeight: "100vh",
         fontFamily: "'Kanit', sans-serif",
       }}
     >
-      <main
+     <main
         style={{
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
+          flexDirection: "row", 
+          justifyContent: "space-between",
           alignItems: "flex-start",
           gap: "2rem",
           padding: "2rem",
@@ -86,38 +87,53 @@ export default function Insurance() {
           flex: 1,
         }}
       >
-        <UploadedDocuments docs={docs} onDelete={handleDelete}/>
+      <div
+       style={{
+        width: "100%",        
+        display:"flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+      >
+        <UploadedDocuments docs={docs} onDelete={handleDelete} />
 
-        {/*  MyInsurance Section  */}
-        <section style={{ flex: 1 }}>
-          <h2>Upload your documents here!</h2>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          style={{
+            backgroundColor: "#C4D9D2",
+            color: "black",
+            border: "none",
+            borderRadius: "10px",
+            padding: "1rem 2rem",
+            fontSize: "1.1rem",
+            cursor: "pointer",
+            transition: "background-color 0.3s",
+            width: "30%",
 
-          {/* Upload Document Button */}
-          <button
-            onClick={() => setIsModalOpen(true)}
-            style={{
-              backgroundColor: "#C4D9D2",
-              color: "black",
-              border: "none",
-              borderRadius: "10px",
-              padding: "1rem 2rem",
-              fontSize: "1.1rem",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }}
-            onMouseOver={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#ACCCC1")
-            }
-            onMouseOut={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#C4D9D2")
-            }
-          >
-            Upload Document
-          </button>
-        </section>
-      </main>
+          }}
+          onMouseOver={(e) =>
+            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#ACCCC1")
+          }
+          onMouseOut={(e) =>
+            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C4D9D2")
+          }
+        >
+          Upload Document
+        </button>
+      </div>
+
+      <div
+        style={{
+          flex: "1 1 55%",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+        }}
+      >
+        <InsuranceCards />
+      </div>
+    </main>
+
 
       {/*  Upload Modal  */}
       {isModalOpen && (
