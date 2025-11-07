@@ -1,0 +1,29 @@
+.insuranceCard {
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .insuranceCard:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
+  }
+  
+  .provider {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .insuranceList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 340px;
+  }
+  
