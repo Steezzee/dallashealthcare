@@ -1,24 +1,25 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 
-type Doctor = {
+export type Doctor = {
     name: string;
     specialty: string;
 }
 
-type Location = {
+export type Location = {
     popUp: string;
     position: [number, number];
     inNetwork: 'true' | 'false';
     doctors: Doctor[];
 }
 
-interface MyHealthMapFilteringProp{
+type MyHealthMapFilteringProp = {
     filter: 'all' | 'inNetwork' | 'outOfNetwork';
+    onLocationSelect?: (location: Location) => void;
 }
 
 const customIcon = new Icon({
@@ -26,7 +27,17 @@ const customIcon = new Icon({
     iconAnchor: [13, 15],
 })
 
-export default function MyHealth_Map({ filter }: MyHealthMapFilteringProp) {
+export default function MyHealth_Map({ 
+    filter,
+    onLocationSelect 
+}: {
+    filter: 'all' | 'inNetwork' | 'outOfNetwork'; 
+    onLocationSelect?: (location: Location) => void}
+) {
+    
+    const [constant, setConstant] = React.useState(false);
+    useEffect(() => setConstant(true), [])
+
     const localLocations: Location[] = [
     {
         popUp: "UTD Hypothetical Health Center", 
@@ -69,6 +80,7 @@ export default function MyHealth_Map({ filter }: MyHealthMapFilteringProp) {
         ]
     }
 ];
+
 const filteredLocations = useMemo(() => {
     return localLocations.filter(loc => {
         if (filter === 'all') return true;
@@ -77,6 +89,8 @@ const filteredLocations = useMemo(() => {
         return false;
     });
 }, [filter]);
+
+    if (!constant) return null;
 
     return (
         <MapContainer center={[32.9859, -96.7503]} 
@@ -89,11 +103,16 @@ const filteredLocations = useMemo(() => {
                 <Marker 
                     key={loc.popUp}
                     position={loc.position} 
-                    icon={customIcon}>
+                    icon={customIcon}
+                    eventHandlers={{
+                        click: () => onLocationSelect?.(loc),
+                    }}
+                >
                     <Popup>
                     {loc.popUp}
                     <div style={{fontWeight: 'bold', textAlign: 'center'}}>
-                        {loc.inNetwork === 'true' ? 'In-Network' : 'Out-of-Network'}</div>
+                        {loc.inNetwork === 'true' ? 'In-Network' : 'Out-of-Network'}
+                    </div>
                     </Popup>
                 </Marker>
             ))}
