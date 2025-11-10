@@ -23,7 +23,7 @@ const inputStyle: CSSProperties = {
 export default function HealthPageClient({
   addAppointment,
 }: {
-  addAppointment: (label: string, date: string) => void
+  addAppointment?: (label: string, date: string) => void
 }) {
   const [filter, setFilter] = useState<'all' | 'inNetwork' | 'outOfNetwork'>('all');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
@@ -174,7 +174,7 @@ export default function HealthPageClient({
             onConfirm={(payload) => {
               if(payload.location && payload.doctor){
                 const label = `${payload.doctor.name}- ${payload.doctor.specialty} at ${payload.location.popUp}`;
-                addAppointment(label, payload.date)
+                addAppointment?.(label, payload.date)
               }
               console.log('test payload', payload);
               setIsScheduleOpen(false);

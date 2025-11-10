@@ -3,5 +3,5 @@ import AppointmentObject from "../_components/AppointmentTracker/AppointmentObje
 
 
 export default function Page() {
-  return <AppointmentObject />;
+  return <HealthPageClient />;
 }
