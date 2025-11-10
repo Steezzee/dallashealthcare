@@ -2,19 +2,29 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import type { Location } from "../_components/MyHealth_Map";
+import type { Location, Doctor } from "../_components/MyHealth_Map";
+import type { CSSProperties } from "react";
 
 const MyHealth_Map = dynamic(
   () => import("../_components/MyHealth_Map").then(m => m.default),
   { ssr: false, loading: () => <div style={{ height: 600 }}>Loading map…</div> }
 );
 
+const inputStyle: CSSProperties = {
+  width: "100%",
+  padding: "0.5rem",
+  border: "1px solid #ccc",
+  borderRadius: "6px",
+  fontSize: "1rem",
+  marginTop: "0.5rem",
+};
+
 export default function HealthPage() {
   const [filter, setFilter] = useState<'all' | 'inNetwork' | 'outOfNetwork'>('all');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [showDoctorModal, setShowDoctorModal] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState<{ name: string; specialty: string } | null>(null);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
 
   return (  
    <div style = {{
@@ -135,7 +145,7 @@ export default function HealthPage() {
       >
         <MyHealth_Map  
           filter={filter} 
-          onLocationSelect={(location) => {
+          onLocationSelect={(location: Location) => {
             setSelectedLocation(location);
           }}
         />
@@ -146,15 +156,19 @@ export default function HealthPage() {
             onClose={() => setShowDoctorModal(false)}
             onSchedule={(doctor) => {
               setSelectedDoctor(doctor);
-              setIsModalOpen(true);
+              setIsScheduleOpen(true);
             }}
           />
         )}
           <ScheduleModal
-            open={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
+            open={isScheduleOpen}
+            onClose={() => setIsScheduleOpen(false)}
             selectedLocation={selectedLocation}
             selectedDoctor={selectedDoctor}
+            onConfirm={(payload) => {
+              console.log('test payload', payload);
+              setIsScheduleOpen(false);
+            }}
           />
       </div>
   );
@@ -167,7 +181,7 @@ function DoctorModal({
 }: { 
   location: Location;
   onClose: () => void;
-  onSchedule: () => (doctor: { name: string; specialty: string }) => void;
+  onSchedule: (doctor: Doctor) => void;
 }) {
     return (
         <div
@@ -229,7 +243,7 @@ function DoctorModal({
         </div>
             <div style={{ padding: '1rem', overflowY: 'auto' }}>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                    {location.doctors.map((doc) => (
+                    {location.doctors.map((doc: Doctor) => (
                         <li
                             key={`${doc.name}-${doc.specialty}`}
                             style={{
@@ -260,13 +274,13 @@ function DoctorModal({
                             }}
                             onMouseOver={(e) =>
                               ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                                "#4CAF 50aa")
+                                "#4CAF49")
                                             }
                             onMouseOut={(e) =>
                               ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
                                 "#4CAF50")
                             }
-                            onClick={() => onSchedule()}
+                            onClick={() => onSchedule(doc)}
                         >
                             Schedule Appointment
                             </button>
@@ -285,13 +299,23 @@ function ScheduleModal({
   onClose,
   selectedLocation,
   selectedDoctor,
+  onConfirm,
 }: {
   open: boolean;
   onClose: () => void;
-  selectedLocation: Location;
-  selectedDoctor: { name: string; specialty: string } | null;
+  selectedLocation: Location | null;
+  selectedDoctor: Doctor | null;
+  onConfirm: (payload: {date: string; location: Location | null; doctor: Doctor | null}) => void;
 }) {
+  const [date, setDate] = useState("");
+
   if (!open) return null;
+
+  const handleSubmit = (event: React.FormEvent) => {
+      event.preventDefault();
+      onConfirm({ date, 
+        location: selectedLocation, doctor: selectedDoctor });
+  };
 
   return (
         <div
@@ -321,6 +345,44 @@ function ScheduleModal({
               boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
             }}
           >
+
+            <span
+              onClick={() => onClose()}
+              style={{
+                float: "right",
+                cursor: "pointer",
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              &times;
+            </span>
+
+            <h2 style={{ textAlign: "center" }}>Confirm your Appointment</h2>
+            <div style={{ marginTop: "1rem", fontSize: "1rem" }}>
+              <p>
+                <strong>Location:</strong>{" "}
+                {selectedLocation ? selectedLocation.popUp : "N/A"}
+              </p>
+              <p>
+                <strong>Doctor:</strong>{" "}
+                {selectedDoctor ? `${selectedDoctor.name} (${selectedDoctor.specialty})` : "N/A"}
+              </p>
+            </div>
+              <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
+              <label htmlFor="date">Date (MM/DD/YYYY):</label>
+              <input
+                type="text"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                id="date"
+                name="date"
+                placeholder="MM/DD/YYYY"
+                required
+                pattern="\d{2}/\d{2}/\d{4}"
+                style={inputStyle}
+              />
+
             <button
               type="submit"
               style={{
@@ -338,6 +400,7 @@ function ScheduleModal({
             >
               Schedule
             </button>
+            </form>
         </div>
       </div>
   );
