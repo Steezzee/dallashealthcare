@@ -98,17 +98,21 @@ export default function HealthPage() {
               border: 'none',
               borderRadius: '6px',
             }}
+            onMouseOver={(e) => {
+              if(selectedLocation)
+              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                "#45A049")
+              }
+            }
+            onMouseOut={(e) => {
+              if(selectedLocation)
+              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                "#4CAF50")
+              }
+            }
             title={selectedLocation ? "View doctors at selected location" : "Select a location to view doctors"}
-            onMouseOver={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#ACCCC1")
-            }
-            onMouseOut={(e) =>
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                selectedLocation ? '#4CAF50' : '#888')
-            }
           >
-            View Doctors
+            Schedule Appointment
           </button>
         </div>
       </aside>
@@ -239,6 +243,14 @@ function DoctorModal({
                                 cursor: 'pointer',
                                 marginLeft: 'auto',
                             }}
+                            onMouseOver={(e) =>
+                              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                                "#4CAF 50aa")
+                                            }
+                            onMouseOut={(e) =>
+                              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                                "#4CAF50")
+                            }
                             onClick={() => console.log("Add Appointment", location.popUp, doc)}
                         >
                             Schedule Appointment
