@@ -45,7 +45,7 @@ export default function Parent() {
 
     return(
         <> 
-            <AppointmentTracker appointments={appointments} />
+            {pathname === "/" && <AppointmentTracker appointments={appointments} />}
             {pathname === "/health" && (<HealthPageClient addAppointment={addAppointment} />
         )}
         </>
