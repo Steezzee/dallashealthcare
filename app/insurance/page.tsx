@@ -119,7 +119,7 @@ export default function Insurance() {
         </section>
       </main>
 
-      {/*  Upload Modal  */}
+      {/*  Upload  */}
       {isModalOpen && (
         <div
           onClick={(e) => {
@@ -212,7 +212,7 @@ export default function Insurance() {
                   transition: "background-color 0.3s, border-color 0.3s",
                 }}
               >
-                <p>Drag & drop your file here, or</p>
+                <p>Browse and add your file here!</p>
                 <input
                   type="file"
                   id="fileInput"
