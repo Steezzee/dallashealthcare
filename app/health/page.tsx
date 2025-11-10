@@ -13,6 +13,8 @@ export default function HealthPage() {
   const [filter, setFilter] = useState<'all' | 'inNetwork' | 'outOfNetwork'>('all');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [showDoctorModal, setShowDoctorModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState<{ name: string; specialty: string } | null>(null);
 
   return (  
    <div style = {{
@@ -142,25 +144,38 @@ export default function HealthPage() {
           <DoctorModal 
             location={selectedLocation}
             onClose={() => setShowDoctorModal(false)}
+            onSchedule={(doctor) => {
+              setSelectedDoctor(doctor);
+              setIsModalOpen(true);
+            }}
           />
         )}
+          <ScheduleModal
+            open={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            selectedLocation={selectedLocation}
+            selectedDoctor={selectedDoctor}
+          />
       </div>
   );
 }
 
 function DoctorModal({ 
   location, 
-  onClose, 
+  onClose,
+  onSchedule,
 }: { 
-  location: Location; 
-  onClose: () => void }) {
+  location: Location;
+  onClose: () => void;
+  onSchedule: () => (doctor: { name: string; specialty: string }) => void;
+}) {
     return (
         <div
             onClick={(click) => click.target === click.currentTarget && onClose()}
             style={{
                 position: 'fixed',
                 inset: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                backgroundColor: '#000000aa',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -251,7 +266,7 @@ function DoctorModal({
                               ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
                                 "#4CAF50")
                             }
-                            onClick={() => console.log("Add Appointment", location.popUp, doc)}
+                            onClick={() => onSchedule()}
                         >
                             Schedule Appointment
                             </button>
@@ -262,4 +277,68 @@ function DoctorModal({
         </div>
     </div>
     );
+}
+
+
+function ScheduleModal({
+  open,
+  onClose,
+  selectedLocation,
+  selectedDoctor,
+}: {
+  open: boolean;
+  onClose: () => void;
+  selectedLocation: Location;
+  selectedDoctor: { name: string; specialty: string } | null;
+}) {
+  if (!open) return null;
+
+  return (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#f8f9fa",
+              borderRadius: "12px",
+              padding: "2rem",
+              maxWidth: "500px",
+              width: "90%",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            }}
+          >
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                marginTop: "2rem",
+                padding: "0.8rem",
+                backgroundColor: "#30a05f",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                fontSize: "1rem",
+                cursor: "pointer",
+                transition: "background-color 0.3s",
+              }}
+            >
+              Schedule
+            </button>
+        </div>
+      </div>
+  );
 }
