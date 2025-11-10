@@ -1,6 +1,8 @@
 'use client';
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import AppointmentTracker, { Appointment } from "./AppointmentTracker";
+import HealthPageClient from "../../health/HealthPageClient"
+import {usePathname} from "next/navigation"
 
 const initial: Appointment[] = [
     { label: "Dentist", date: "10/7/25" },
@@ -9,16 +11,43 @@ const initial: Appointment[] = [
     { label: "Psychiatrist", date: "10/7/25" },
 ];
 
+const STORAGE_KEY = "appointments";
+
 export default function Parent() {
-    const [appointments, setAppointments] = useState<Appointment[]>(initial);
+    const [appointments, setAppointments] = useState<Appointment[]>(() => {
+    if(typeof window === "undefined") return initial;
+    try{
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) as Appointment[] : initial;
+    } catch {
+        return initial;
+    }
+});
+
+    const pathname = usePathname();
 
     const addAppointment = (label: string, date: string) => {
-        setAppointments(prev => [...prev, { label, date }]);
+        setAppointments(prev => {
+            const newList = [...prev, { label, date }]
+            try{
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
+                window.dispatchEvent(new Event("appointment-updated"));
+            } catch {}
+            return newList;
+        });
     };
+
+    useEffect(() => {
+        try{
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+        } catch {}
+    }, [appointments])
 
     return(
         <> 
             <AppointmentTracker appointments={appointments} />
+            {pathname === "/health" && (<HealthPageClient addAppointment={addAppointment} />
+        )}
         </>
     );
 }

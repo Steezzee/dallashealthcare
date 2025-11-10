@@ -7,7 +7,6 @@ import MyPrescriptions from "./_components/MyPrescriptions/MyPrescriptions";
 import MyNotes from "./_components/MyNotes/MyNotes";
 import AppointmentObject from "./_components/AppointmentTracker/AppointmentObject";
 
-
 import { revalidatePath } from "@/node_modules/next/cache";
 export default function Home() {
   return (
