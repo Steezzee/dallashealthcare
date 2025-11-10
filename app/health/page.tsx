@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
+import { useRouter } from "next/navigation"
 
 const MyHealth_Map = dynamic(
   () => import("../_components/MyHealth_Map").then(m => m.default),
@@ -25,6 +26,7 @@ export default function HealthPage() {
   const [showDoctorModal, setShowDoctorModal] = useState(false);
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const router = useRouter();
 
   return (  
    <div style = {{
@@ -168,6 +170,8 @@ export default function HealthPage() {
             onConfirm={(payload) => {
               console.log('test payload', payload);
               setIsScheduleOpen(false);
+              setShowDoctorModal(false);
+              router.push('/')
             }}
           />
       </div>
