@@ -27,8 +27,8 @@ export default function HealthPageClient({
 }) {
   const [filter, setFilter] = useState<'all' | 'inNetwork' | 'outOfNetwork'>('all');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const [showDoctorModal, setShowDoctorModal] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [showDoctorModal, setShowDoctorModal] = useState(false); //is the 1st apppointment popup open?
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const router = useRouter();
 
@@ -174,7 +174,7 @@ export default function HealthPageClient({
             selectedDoctor={selectedDoctor}
             onConfirm={(payload) => {
               if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
-                const label = `${payload.doctor.name}- ${payload.doctor.specialty} at ${payload.location.popUp}`;
+                const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
                 addAppointment?.(label, payload.date)
               }
               console.log('test payload', payload);

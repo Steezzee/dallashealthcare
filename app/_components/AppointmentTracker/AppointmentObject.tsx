@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from "react"; 
 import AppointmentTracker, { Appointment } from "./AppointmentTracker";
 import HealthPageClient from "../../health/HealthPageClient"
@@ -24,7 +25,7 @@ export default function Parent() {
     } catch {
         return initial;
     }
-});
+    });
 
     const pathname = usePathname();
 
@@ -45,10 +46,20 @@ export default function Parent() {
         } catch {}
     }, [appointments])
 
+    const handleDelete = (index: number) => {
+        setAppointments(list => {
+            const updatedList = list.filter((_, i) => i !== index);
+            try{
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
+            } catch {}
+            return updatedList;
+        });
+    };
+
     //remove out "/health" line to debug the list on the map page itself
     return(
         <> 
-            {pathname === "/" && <AppointmentTracker appointments={appointments} />} 
+            {pathname === "/" && <AppointmentTracker appointments={appointments} onDelete={handleDelete}/>} 
             {pathname === "/health" && (<HealthPageClient addAppointment={addAppointment} />
         )}
         </>
