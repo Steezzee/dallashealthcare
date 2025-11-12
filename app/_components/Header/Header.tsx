@@ -8,8 +8,9 @@ const Header: React.FC = () => {
     return (
         <header className={styles.header}>
             <ProfileSection />
-            <BannerTitle />
-            <IconRow />
+            <div className={styles.bannerCenterWrapper}>
+                <BannerTitle /></div>
+            {/*<IconRow />*/}
         </header>
     );
 };
