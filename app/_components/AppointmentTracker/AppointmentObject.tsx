@@ -4,6 +4,7 @@ import AppointmentTracker, { Appointment } from "./AppointmentTracker";
 import HealthPageClient from "../../health/HealthPageClient"
 import {usePathname} from "next/navigation"
 
+//populate appointment list with initial appointments
 const initial: Appointment[] = [
     { label: "Dentist", date: "10/7/25" },
     { label: "PCP", date: "12/7/25" },
@@ -11,6 +12,7 @@ const initial: Appointment[] = [
     { label: "Psychiatrist", date: "10/7/25" },
 ];
 
+//savng appointments between reloads
 const STORAGE_KEY = "appointments";
 
 export default function Parent() {
@@ -43,11 +45,12 @@ export default function Parent() {
         } catch {}
     }, [appointments])
 
+    //remove out "/health" line to debug the list on the map page itself
     return(
         <> 
-            {pathname === "/" && <AppointmentTracker appointments={appointments} />}
+            {pathname === "/" && <AppointmentTracker appointments={appointments} />} 
             {pathname === "/health" && (<HealthPageClient addAppointment={addAppointment} />
         )}
         </>
-    );
+    ); 
 }
