@@ -5,12 +5,12 @@ import AppointmentTracker, { Appointment } from "./AppointmentTracker";
 import HealthPageClient from "../../health/HealthPageClient"
 import {usePathname} from "next/navigation"
 
-//populate appointment list with initial appointments
+//populate appointment list with initial appointments.  Comment in to debug
 const initial: Appointment[] = [
-    { label: "Dentist", date: "10/7/25" },
-    { label: "PCP", date: "12/7/25" },
-    { label: "Therapy", date: "11/11/25" },
-    { label: "Psychiatrist", date: "10/7/25" },
+    //{ label: "Dentist", date: "10/7/25" },
+    //{ label: "PCP", date: "12/7/25" },
+    //{ label: "Therapy", date: "11/11/25" },
+    //{ label: "Psychiatrist", date: "10/7/25" },
 ];
 
 //savng appointments between reloads
