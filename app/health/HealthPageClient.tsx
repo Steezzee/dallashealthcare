@@ -23,16 +23,17 @@ const inputStyle: CSSProperties = {
 export default function HealthPageClient({
   addAppointment,
 }: {
-  addAppointment?: (label: string, date: string) => void
+  addAppointment?: (label: string, date: string) => void // not sure if the maybe is needed but it works, dont delete unless fixed issue
 }) {
   const [filter, setFilter] = useState<'all' | 'inNetwork' | 'outOfNetwork'>('all');
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const [showDoctorModal, setShowDoctorModal] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [showDoctorModal, setShowDoctorModal] = useState(false); //is the 1st apppointment popup open?
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const router = useRouter();
 
   return (  
+    //top filtering part of the left tab
    <div style = {{
       marginTop: '20px',
       gap: '20px',
@@ -91,7 +92,7 @@ export default function HealthPageClient({
           </label>
         </fieldset>
 
-        <div style={{ 
+        <div style={{  //dealing with showing selected clinics and selecting
           marginTop: '2rem', 
           fontSize: '0.9rem', 
           color: '#000000ff' }}>
@@ -114,10 +115,10 @@ export default function HealthPageClient({
               padding: '0.6rem',
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
               border: 'none',
-              borderRadius: '6px',
-            }}
+              borderRadius: '6px', 
+            }} 
             onMouseOver={(e) => {
-              if(selectedLocation)
+              if(selectedLocation) 
               ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
                 "#45A049")
               }
@@ -149,7 +150,7 @@ export default function HealthPageClient({
         padding: '1px',
        }} 
       >
-        <MyHealth_Map  
+        <MyHealth_Map   //open health map on general page
           filter={filter} 
           onLocationSelect={(location: Location) => {
             setSelectedLocation(location);
@@ -157,7 +158,7 @@ export default function HealthPageClient({
         />
         </div>
         {showDoctorModal && selectedLocation && (
-          <DoctorModal 
+          <DoctorModal //open the list of doctors for clinic
             location={selectedLocation}
             onClose={() => setShowDoctorModal(false)}
             onSchedule={(doctor) => {
@@ -166,14 +167,14 @@ export default function HealthPageClient({
             }}
           />
         )}
-          <ScheduleModal
+          <ScheduleModal //open a field to input date to schedule appointments after slecting doctor
             open={isScheduleOpen}
             onClose={() => setIsScheduleOpen(false)}
             selectedLocation={selectedLocation}
             selectedDoctor={selectedDoctor}
             onConfirm={(payload) => {
-              if(payload.location && payload.doctor){
-                const label = `${payload.doctor.name}- ${payload.doctor.specialty} at ${payload.location.popUp}`;
+              if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
+                const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
                 addAppointment?.(label, payload.date)
               }
               console.log('test payload', payload);
@@ -186,6 +187,7 @@ export default function HealthPageClient({
   );
 }
 
+/* modal window to select doctor from hospital*/
 function DoctorModal({ 
   location, 
   onClose,
@@ -238,8 +240,7 @@ function DoctorModal({
             </div>
         </div>
         <button
-            onClick={onClose}
-            aria-label="Close Doctor List"
+            onClick={onClose} 
             style={{
                 background: 'transparent',
                 border: 'none',
@@ -269,10 +270,10 @@ function DoctorModal({
                             }}
                         >
                             <div>
-                                <div style={{ fontWeight: '500' }}>{doc.name}</div>
+                                <div style={{ fontWeight: '500' }}>
+                                  {doc.name}</div>
                                 <div style={{ fontSize: '0.9rem', color: '#444' }}>
-                                    {doc.specialty}
-                                </div>
+                                    {doc.specialty}</div>
                             </div>
                         <button
                             style={{
@@ -306,6 +307,7 @@ function DoctorModal({
 }
 
 
+/* modal to scheduling an appointment with a selcted doctor (date)*/
 function ScheduleModal({
   open,
   onClose,
@@ -340,7 +342,7 @@ function ScheduleModal({
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#000000ff",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -354,7 +356,7 @@ function ScheduleModal({
               padding: "2rem",
               maxWidth: "500px",
               width: "90%",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              boxShadow: "0 4px 10px rgba(0,,0,0.1)",
             }}
           >
 
