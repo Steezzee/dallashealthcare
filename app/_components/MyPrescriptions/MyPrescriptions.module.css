@@ -36,9 +36,7 @@
   .prescriptionCard:hover{
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
-    margin-bottom: 1.25rem;
   }
-
 
 
   .prescriptionList{
