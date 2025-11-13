@@ -17,7 +17,7 @@
   
   .heading {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 1rem;
   }
 
@@ -28,18 +28,23 @@
     padding: 1rem 1.25rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom:2rem;
+
+    /*3d effect */
     border-left: 6px solid #2c9a54; 
     border-bottom: 3px solid #2c9a54;
-  }
-
-  .prescriptionCard:not(:last-child) {
-    margin-bottom: 1.25rem;
   }
 
   .prescriptionCard:hover{
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
   }
+
+
+
+  .prescriptionCard:not(:last-child) {
+    margin-bottom: 1.25rem;
+  }
+
 
   .prescriptionList{
     display: grid;

@@ -20,25 +20,28 @@ const MyInfo: React.FC = () => (
           <span>{userInfo.name}</span>
         </div>
   
+
         <div className={styles.infoRow}>
           <span className={styles.label}>Date of Birth:</span>
-          <span>{userInfo.dob}</span>
+          <span> {userInfo.dob} </span>
         </div>
   
-        <div className={styles.infoRow}>
-          <span>Active Insurances:</span>
-        </div>
-  
-        {/* List of insurances (BCBS & Delta) */}
-        <div className={styles.insuranceList}>
-          {userInfo.insurances.map((insurance, i) => (
-            
-            <div key={i} className={styles.insuranceCard}>
-              {insurance}
-            </div>
-          ))}
-        </div>
 
+
+
+        <div className={styles.infoRow}>
+          <span> Active Insurances:  </span>
+        </div>
+  
+        {/*BCBS & Delta */}
+          <div className={styles.insuranceList}>
+            {userInfo.insurances.map((insurance, i) => (
+              
+              <div key={i} className={styles.insuranceCard}> {insurance} </div>
+            ))}
+
+
+          </div>
 
       </div>
     </div>

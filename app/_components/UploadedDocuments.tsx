@@ -50,6 +50,7 @@ const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index:
                         <span>{date}</span>
                         </div>
                 ))}
+                
                 {/* Render uploaded docs after default docs*/}
                 {docs.map(({ title, fileNum, date, fileUrl}, index) => (
                     <div key={`doc-${index}`} className={styles.docEntry}>

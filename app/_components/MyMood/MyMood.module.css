@@ -19,28 +19,12 @@
   margin-bottom: 0.75rem;
 }
 
-.emojiButton {
-  font-size: 1.8rem;
-  background:none;
-}
-
-.moodSelector { 
-  display:flex; 
-  gap:8px; 
-  margin-bottom: 8px; 
-}
-
-
-
-.emojiButton:hover {
-  transform: scale(1.4);
-}
 
 
 .entry {
   font-size: 1.2rem;
   width: 100%;
-  height: 130px;
+  height: 140px;
   padding: 10px;
   border-radius: 8px;
   border: 1px #ccc;
