@@ -5,7 +5,7 @@ import styles from './skullfractureform.module.css';
 import { useRouter } from 'next/navigation';
 
 
-const ArmFractureForm: React.FC = () => {
+const SkullFractureForm: React.FC = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
@@ -67,4 +67,4 @@ const ArmFractureForm: React.FC = () => {
 };
 
 
-export default ArmFractureForm;
+export default SkullFractureForm;
