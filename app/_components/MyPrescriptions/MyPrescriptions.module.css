@@ -26,7 +26,6 @@
     border: 0.7px solid #9b9b9e;
     border-radius: 10px;
     padding: 1rem 1.25rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom:2rem;
 
     /*3d effect */
@@ -38,15 +37,16 @@
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
     margin-bottom: 1.25rem;
-
   }
 
 
 
   .prescriptionList{
-    display: grid;
+    display: flex;
     gap:1rem;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    flex-direction: column;
     width: 100%;    
   }
+
+
 
