@@ -62,34 +62,39 @@ const InsuranceCards: React.FC = () => {
               <p><strong>Member ID: </strong> {insurance.memberID}</p>
               <p><strong>Group #: </strong>  {insurance.groupNumber}</p>
               <p><strong>Plan: </strong>{insurance.planType}</p>
+
             </div>
           ))}
         </div>
       </div>
 
-      {/* Modal */}
-      {selectedCard && (
-        <div className={styles.modalOverlay} onClick={() => setSelectedCard(null)}>
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-          >
-            <span className={styles.close} onClick={() => setSelectedCard(null)}>
-              &times;
-            </span>
-            <h4 className={styles.provider}>{selectedCard.providerName}</h4>
-            <p><strong>Member:</strong> {selectedCard.member}</p>
-            <p><strong>Dependents:</strong> {selectedCard.dependents}</p>
-            <p><strong>Member ID:</strong> {selectedCard.memberID}</p>
-            <p><strong>Group #:</strong> {selectedCard.groupNumber}</p>
-            <p><strong>Plan:</strong> {selectedCard.planType}</p>
-            <p><strong>Phone:</strong> {selectedCard.phone}</p>
-            <p><strong>Medical Claims Address:</strong> {selectedCard.address}</p>
-            <p><strong>Coverage:</strong> {selectedCard.coverageDetails}</p>
-          </div>
+
+
+  {selectedCard && (
+    <div className={styles.modalOverlay} onClick={() => setSelectedCard(null)}>
+      <div className={styles.modalContent}>
+
+        <span className={styles.close} onClick={() => setSelectedCard(null)}>
+            &times;
+        </span>
+        
+        <h4 className={styles.provider}>{selectedCard.providerName}</h4>
+
+          <p><strong>Member:</strong> {selectedCard.member}</p>
+          <p><strong>Dependents:</strong> {selectedCard.dependents}</p>
+          <p><strong>Member ID:</strong> {selectedCard.memberID}</p>
+          <p><strong>Group #:</strong> {selectedCard.groupNumber}</p>
+          <p><strong>Plan:</strong> {selectedCard.planType}</p>
+          <p><strong>Phone:</strong> {selectedCard.phone}</p>
+          <p><strong>Medical Claims Address:</strong> {selectedCard.address}</p>
+          <p><strong>Coverage:</strong> {selectedCard.coverageDetails}</p>
+
         </div>
-      )}
-    </>
+      </div>
+    )}
+  </>
+  
+  
   );
 };
 

@@ -26,6 +26,8 @@
     width: 100%;
     max-width: 340px;
   }
+
+
   .modalOverlay {
     position: fixed;
     top: 0;
@@ -37,19 +39,16 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.25s ease-in-out;
   }
 
+
   .modalContent {
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
     padding: 2rem;
     width: 90%;
-    max-width: 450px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     position: relative;
-    animation: scaleUp 0.25s ease-in-out;
-    font-family: 'Kanit', sans-serif;
   }
   
   .close {
@@ -63,7 +62,4 @@
     transition: color 0.2s ease;
   }
   
-  .close:hover {
-    color: #00796b;
-  }
-  
+ 
