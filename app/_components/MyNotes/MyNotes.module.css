@@ -6,17 +6,16 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     flex-direction: column;
 }
-
 .container:hover{
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.5);
     transform: translateY(-2px);
 }
-
 .heading {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
 }
+
 
 .notesList {
     display: flex;
@@ -24,53 +23,22 @@
     gap: 1rem;
 }
 
-  .noteCard {
-    background-color: #f3faf7;
-    border: 1px solid #d1fae5;
-    border-radius: 10px;
-    padding: 0.9rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-left: 6px solid #2c9a54; 
-    border-bottom: 3px solid #2c9a54; 
-  }
+.noteCard {
+  background-color: #f3faf7;
+  border: 1px solid #d1fae5;
+  border-radius: 10px;
+  padding: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+  /* make it look 3D */
+  border-left: 6px solid #2c9a54; 
+  border-bottom: 3px solid #2c9a54; 
+}
 
 .noteCard:hover{
   transform: translateY(-3px);
   box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
 }
 
-.journal {
-    width: 100%;
-    margin-top: 0.7rem;
-    height: 100px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    resize: none;
-    font-family: inherit;
-    font-size: 1rem;
-  }
-
-  .journal:focus{
-    border-color: #09bc7a;
-    box-shadow: 0 0 0 3px rgba(44, 204, 97, 0.15);
-    outline: none;
-  }
-
-  .saveButton {
-    margin-top: 10px;
-    background-color: #09bc7a;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  
-  .saveButton:hover {
-    background-color: #4bf2ac;
-  }
   
 

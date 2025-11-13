@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./MyNotes.module.css";
-
+{/*USED FOR DOCTORSNOTES.TSX */}
 
 type Notes = {
     name:string;
