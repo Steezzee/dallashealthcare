@@ -34,24 +34,19 @@ export default function Parent() {
             const newList = [...prev, { label, date }]
             try{
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
-                window.dispatchEvent(new Event("appointment-updated"));
             } catch {}
             return newList;
         });
     };
 
     useEffect(() => {
-        try{
         localStorage.setItem("appointments", JSON.stringify(appointments));
-        } catch {}
     }, [appointments])
 
     const handleDelete = (index: number) => {
         setAppointments(list => {
             const updatedList = list.filter((_, i) => i !== index);
-            try{
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
-            } catch {}
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
             return updatedList;
         });
     };

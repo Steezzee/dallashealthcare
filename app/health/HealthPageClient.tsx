@@ -1,15 +1,11 @@
 'use client';
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
 import { useRouter } from "next/navigation"
-
-const MyHealth_Map = dynamic(
-  () => import("../_components/MyHealth_Map").then(m => m.default),
-  { ssr: false, loading: () => <div style={{ height: 600 }}>Loading map…</div> }
-);
+import MyHealth_Map from "../_components/MyHealth_Map";
+import styles from './HealthPageClient.module.css'
 
 const inputStyle: CSSProperties = {
   width: "100%",
@@ -117,18 +113,6 @@ export default function HealthPageClient({
               border: 'none',
               borderRadius: '6px', 
             }} 
-            onMouseOver={(e) => {
-              if(selectedLocation) 
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#45A049")
-              }
-            }
-            onMouseOut={(e) => {
-              if(selectedLocation)
-              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                "#4CAF50")
-              }
-            }
             title={selectedLocation ? "View doctors at selected location" : "Select a location to view doctors"}
           >
             Schedule Appointment
@@ -140,7 +124,6 @@ export default function HealthPageClient({
         marginTop: '10px',
         width: '1200px',
         height: '600px',
-        aspectRatio: '1 / 1',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         overflow: 'hidden',
         flexShrink: 0,
@@ -276,23 +259,7 @@ function DoctorModal({
                                     {doc.specialty}</div>
                             </div>
                         <button
-                            style={{
-                                background: '#4CAF50',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: 6,
-                                padding: '0.5rem 1rem',
-                                cursor: 'pointer',
-                                marginLeft: 'auto',
-                            }}
-                            onMouseOver={(e) =>
-                              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                                "#4CAF49")
-                                            }
-                            onMouseOut={(e) =>
-                              ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                                "#4CAF50")
-                            }
+                            className = {styles.submitButtons}
                             onClick={() => onSchedule(doc)}
                         >
                             Schedule Appointment
