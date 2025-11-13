@@ -42,7 +42,7 @@ export default function Cost() {
       router.push("./cost/armfractureform"); 
       console.log("Clicked card:", name);
     } else if (name === "Skull Fractures") {
-      //router.push("skullfractureform")
+      router.push("./cost/skullfractureform")
       console.log("Clicked card:", name);
     } else {
       console.log("Clicked card:", name);
