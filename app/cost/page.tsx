@@ -44,8 +44,12 @@ export default function Cost() {
     } else if (name === "Skull Fractures") {
       router.push("./cost/skullfractureform")
       console.log("Clicked card:", name);
-    } else {
+    } else if (name === "Phalanges Fractures (Broken Finger(s))") {
+      router.push("./cost/fingerfractureform");
       console.log("Clicked card:", name);
+    } else if (name === "Rib Fractures") {
+      router.push("./cost/ribfractureform");
+      console.log("Clicked card: ", name)
     }
   };
 
