@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function AppointmentTracker({ appointments, onDelete }: Props) {
-    //console.log("AppointmentTracker received:", appointments);
+    console.log("AppointmentTracker received:", appointments);
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>
@@ -28,7 +28,7 @@ export default function AppointmentTracker({ appointments, onDelete }: Props) {
             <ul className={styles.list}>
                 {appointments.map(({ label, date }, number) => (
                     <li className={styles.item} key={label + date}>
-                        <input className={styles.checkbox} />
+                        <input type="checkbox" className={styles.checkbox} />
                         <span className={styles.label}>
                             {label} - {date}
                         </span>

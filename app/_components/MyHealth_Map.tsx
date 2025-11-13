@@ -5,11 +5,11 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 
+//fields associated with each clinic
 export type Doctor = {
     name: string;
     specialty: string;
 }
-
 export type Location = {
     popUp: string;
     position: [number, number];

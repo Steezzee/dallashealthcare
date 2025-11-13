@@ -4,8 +4,14 @@ import { useState } from "react";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
 import { useRouter } from "next/navigation"
-import MyHealth_Map from "../_components/MyHealth_Map";
 import styles from './HealthPageClient.module.css'
+import dynamic from "next/dynamic";
+
+//window is not defined and deployment issues on Vercel if this isnt here, apparently.
+const MyHealth_Map = dynamic(
+  () => import("../_components/MyHealth_Map").then(m => m.default),
+  { ssr: false }
+);
 
 const inputStyle: CSSProperties = {
   width: "100%",

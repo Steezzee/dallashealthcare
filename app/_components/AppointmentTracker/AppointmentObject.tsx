@@ -33,6 +33,7 @@ export default function Parent() {
         setAppointments(prev => {
             const newList = [...prev, { label, date }]
             localStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
+            //window.dispatchEvent(new Event("appointment-updated"));
             return newList;
         });
     };
