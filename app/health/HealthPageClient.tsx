@@ -39,15 +39,7 @@ export default function HealthPageClient({
       gap: '20px',
       display: 'flex',
     }}>
-      <aside style={{
-        width: '280px',
-        border: '1px solid #ddd',
-        padding: '.5rem',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        background: '#f9f9f9',  
-        top: 72,
-        height: '600px',
-      }}>
+      <aside className = {styles.networkFilterBox}>
         <fieldset>
           <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
             Network Status:</legend>
@@ -116,19 +108,7 @@ export default function HealthPageClient({
           </button>
         </div>
       </aside>
-    <div 
-      style={{
-        marginTop: '10px',
-        width: '1200px',
-        height: '600px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        overflow: 'hidden',
-        flexShrink: 0,
-        display: 'flex',
-        alignItems: 'stretch',
-        padding: '1px',
-       }} 
-      >
+    <div className = {styles.mapBoxStyle}>
         <MyHealth_Map   //open health map on general page
           filter={filter} 
           onLocationSelect={(location: Location) => {
@@ -179,38 +159,10 @@ function DoctorModal({
     return (
         <div
             onClick={(click) => click.target === click.currentTarget && onClose()}
-            style={{
-                position: 'fixed',
-                inset: 0,
-                backgroundColor: '#000000aa',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 1000,
-                padding: '1rem',
-            }}
+            className = {styles.doctorsWindow}
         >
-        <div
-            style={{
-                backgroundColor: '#ffffffff',
-                borderRadius: '12px',
-                width: "min(400px, 90vw)",
-                maxHeight: '80vh',
-                overflowY: 'hidden',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-        <div
-            style={{
-                padding: '1rem',
-                borderBottom: '1px solid #444',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}
-        >
+        <div className = {styles.doctorsPopup}>
+        <div className = {styles.doctorsSelectionArea}>
             <div>
                 <div style={{ fontWeight: '600' }}>{location.popUp}</div>
                 <div style={{ fontSize: '0.9rem', color: '#444' }}>
@@ -219,33 +171,17 @@ function DoctorModal({
         </div>
         <button
             onClick={onClose} 
-            style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#444',
-                fontSize: '1.5rem',
-                cursor: 'pointer',
-                lineHeight: 1,
-                padding: ".1rem .5rem",
-                }}
+            className= {styles.clickOutBox}
             >
             &times;
             </button>
         </div>
             <div style={{ padding: '1rem', overflowY: 'auto' }}>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                <ul>
                     {location.doctors.map((doc: Doctor) => (
                         <li
                             key={`${doc.name}-${doc.specialty}`}
-                            style={{
-                                marginBottom: '0.75rem',
-                                border: '1px solid #444',
-                                borderRadius: '8px',
-                                padding: '0.75rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.75rem',
-                            }}
+                            className = {styles.individualDoctor}
                         >
                             <div>
                                 <div style={{ fontWeight: '500' }}>
@@ -298,29 +234,9 @@ function ScheduleModal({
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "#000000ff",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
+          className = {styles.doctorsWindow}
         >
-          <div
-            style={{
-              backgroundColor: "#f8f9fa",
-              borderRadius: "12px",
-              padding: "2rem",
-              maxWidth: "500px",
-              width: "90%",
-              boxShadow: "0 4px 10px rgba(0,,0,0.1)",
-            }}
-          >
+          <div className = {styles.scheduleBox}>
 
             <span
               onClick={() => onClose()}
@@ -334,7 +250,7 @@ function ScheduleModal({
               &times;
             </span>
 
-            <h2 style={{ textAlign: "center" }}>Confirm your Appointment</h2>
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Confirm your Appointment</h2>
             <div style={{ marginTop: "1rem", fontSize: "1rem" }}>
               <p>
                 <strong>Location:</strong>{" "}
@@ -361,16 +277,7 @@ function ScheduleModal({
 
             <button
               type="submit"
-              style={{
-                width: "100%",
-                padding: "0.8rem",
-                backgroundColor: "#30a05f",
-                color: "white",
-                border: "none",
-                fontSize: "1rem",
-                cursor: "pointer",
-                transition: "background-color 0.3s",
-              }}
+              className = {styles.submitButtonLarge}
             >
               Schedule
             </button>

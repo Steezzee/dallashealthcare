@@ -11,6 +11,101 @@
     margin-left: auto;
 }
 
+.submitButtonLarge {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #30a05f;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 6;
+}
+
 .submitButtons:hover {
     background-color: #439446;
+}
+
+.networkFilterBox {
+    width: 280px;
+    border: 1px solid #ddd;
+    padding: .5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #f9f9f9, ;
+    top: 72;
+    height: 600px;
+}
+
+.mapBoxStyle {
+    margin-top: 10px;
+    width: 1200px;
+    height: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
+    padding: 1px;
+}
+
+.doctorsWindow {
+    position: fixed;
+    inset: 0;
+    background-color: #000000aa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.doctorsPopup {
+    background-color: #ffffffff;
+    border-radius: 12px;
+    width: min(400px, 90vw);
+    max-height: 80vh;
+    overflow-y: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.doctorsSelectionArea {
+    border-bottom: 1px solid #444;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.individualDoctor {
+    margin-bottom: 0.75rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.clickOutBox {
+    background: transparent;
+    border: none;
+    color: #444;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: .1rem .5rem;
+
+}
+
+.scheduleBox {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 10px rgba(0,,0,0.1);
 }
