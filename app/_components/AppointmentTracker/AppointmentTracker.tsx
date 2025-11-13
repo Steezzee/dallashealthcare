@@ -26,7 +26,7 @@ export default function AppointmentTracker({ appointments, onDelete }: Props) {
             <ul className={styles.list}>
                 {appointments.map(({ label, date }, number) => (
                     <li className={styles.item} key={label + date}>
-                        <input type="checkbox" className={styles.checkbox} />
+                        <input style = {{width:".6rem" }} className={styles.checkbox} />
                         <span className={styles.label}>
                             {label} - {date}
                         </span>
