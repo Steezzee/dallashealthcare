@@ -32,9 +32,7 @@ export default function Parent() {
     const addAppointment = (label: string, date: string) => {
         setAppointments(prev => {
             const newList = [...prev, { label, date }]
-            try{
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
-            } catch {}
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(newList));
             return newList;
         });
     };
