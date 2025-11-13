@@ -30,7 +30,8 @@ const MyInfo: React.FC = () => (
 
 
         <div className={styles.infoRow}>
-          <span> Active Insurances:  </span>
+          <span style = {{ fontWeight: 600, }}> 
+            Active Insurances:  </span>
         </div>
   
         {/*BCBS & Delta */}
