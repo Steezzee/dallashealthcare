@@ -6,14 +6,14 @@ const fitnessData = {
     goalWeight: "145 lbs",
     calories: "478 kcal",
     workoutsDone: 4,
-    maxWorkouts: 7,
+    max: 7,
     steps: "6,424",
 };
 
 
 
 const MyFitness: React.FC = () => {
-  const progress = (fitnessData.workoutsDone / fitnessData.maxWorkouts) * 100; {/* calc progress  */}
+  const progress = (fitnessData.workoutsDone / fitnessData.max) * 100; {/* calc progress  */}
 
   return (
 
@@ -48,7 +48,7 @@ const MyFitness: React.FC = () => {
         <li className={styles.fitnessLine}>
           <span>Workouts This Week:  </span>
           <span>
-            {fitnessData.workoutsDone}/{fitnessData.maxWorkouts}
+            {fitnessData.workoutsDone}/{fitnessData.max}
           </span>
         </li>
 
@@ -58,12 +58,12 @@ const MyFitness: React.FC = () => {
 
       <div className={styles.progressBar}>
 
-          <div className={styles.progressFill}
-            style={{ width: `${progress}%` }}
-          ></div>
-
-
+        <div 
+          className={styles.progressFill}
+          style={{ width: `${progress}%` }} >
         </div>
+
+      </div>
     </div>
   );
 };
