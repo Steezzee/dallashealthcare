@@ -13,6 +13,7 @@ export default function Cost() {
   const router = useRouter();
   const [users, setUsers] = useState<Array<Item & { visible: boolean }>>([]);
   const [search, setSearch] = useState("");
+  const [showCards, setShowCards] = useState(false);
 
   // Load JSON data
   useEffect(() => {
@@ -24,17 +25,18 @@ export default function Cost() {
     );
   }, []);
 
-  // Show cards when user searches certain term
-  useEffect(() => {
+  // Show cards when user searches certain term -- use 'broken bone' to show functionality 
+  const handleShowCards = () => {
     const shouldShow = search.trim().toLowerCase() === "broken bone";
-
+    setShowCards(shouldShow);
     setUsers(prev =>
       prev.map(user => ({
         ...user,
         visible: shouldShow,
-      }))
+      })
+      )
     );
-  }, [search]);
+  };
 
   // Navigation handler based on card name
   const handleCardClick = (name: string) => {
@@ -66,18 +68,21 @@ export default function Cost() {
           className="border p-2 rounded w-full max-w-sm text-black"
         />
 
+        { /* added a button here */ }
+        <button onClick ={handleShowCards} className="bg-blue-300 text-black gap-8 justify-items-center px-22 py-2 rounded mt-2">
+          Search
+        </button>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-          {users.map((user) => (
+          {users.map((user) =>
+          user.visible ? (
             <div
               key={user.id}
-              className={`border p-4 rounded bg-white text-black cursor-pointer ${
-                user.visible ? "block" : "hidden"
-              }`}
-              onClick={() => handleCardClick(user.name)}
-            >
-              <strong>{user.name}</strong>
+              className="border p-4 rounded bg-white text-black cursor-pointer" onClick={() => handleCardClick(user.name)}>
+              <strong> {user.name} </strong>
             </div>
-          ))}
+          ) : null
+          )}
         </div>
       </main>
     </div>
