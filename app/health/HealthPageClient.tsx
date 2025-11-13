@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from "react";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
@@ -40,8 +38,6 @@ export default function HealthPageClient({
       marginTop: '20px',
       gap: '20px',
       display: 'flex',
-      flexDirection: 'row',
-      minHeight: '100vh'
     }}>
       <aside style={{
         width: '280px',
@@ -52,10 +48,9 @@ export default function HealthPageClient({
         top: 72,
         height: '600px',
       }}>
-        <h2 style={{ marginBottom: '1rem', fontWeight: 'bold' }}>Filter Locations by:</h2>
-        <fieldset style={{ border: 'none', padding: 0 }}>
+        <fieldset>
           <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-            Network Status</legend>
+            Network Status:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
             <input
@@ -94,16 +89,13 @@ export default function HealthPageClient({
           </label>
         </fieldset>
 
-        <div style={{  //dealing with showing selected clinics and selecting
-          marginTop: '2rem', 
+        <div style={{  //dealing with showing selected clinics and selecting 
           fontSize: '0.9rem', 
           color: '#000000ff' }}>
           <div
             style={{ 
               fontWeight: 'bold',
               fontSize: '1rem',
-              marginBottom: 8,
-              minHeight: 18,
             }}>
             {selectedLocation ? `Selected: ${selectedLocation.popUp}` : 'No location selected'}
           </div>
@@ -116,7 +108,6 @@ export default function HealthPageClient({
               color: 'white',
               padding: '0.6rem',
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              border: 'none',
               borderRadius: '6px', 
             }} 
             title={selectedLocation ? "View doctors at selected location" : "Select a location to view doctors"}
@@ -134,7 +125,6 @@ export default function HealthPageClient({
         overflow: 'hidden',
         flexShrink: 0,
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'stretch',
         padding: '1px',
        }} 
@@ -219,7 +209,6 @@ function DoctorModal({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                gap: '.75rem',
             }}
         >
             <div>
@@ -374,12 +363,10 @@ function ScheduleModal({
               type="submit"
               style={{
                 width: "100%",
-                marginTop: "2rem",
                 padding: "0.8rem",
                 backgroundColor: "#30a05f",
                 color: "white",
                 border: "none",
-                borderRadius: "6px",
                 fontSize: "1rem",
                 cursor: "pointer",
                 transition: "background-color 0.3s",
