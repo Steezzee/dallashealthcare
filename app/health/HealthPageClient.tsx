@@ -1,11 +1,12 @@
 import { useState } from "react";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
-import { useRouter } from "next/navigation"
 import styles from './HealthPageClient.module.css'
 import dynamic from "next/dynamic";
 
-//window is not defined and deployment issues on Vercel if this isnt here, apparently.
+//window is not defined and deployment issues on Vercel if this isnt here, apparently.  Issue with serverside rendering when importing I spent way too long on
+//if someone could help fix this, it would be a nice bonus.  Otherwise, DONT TOUCH
+//code is based on rendering solution from here https://stackoverflow.com/questions/53139884/next-js-disable-server-side-rendering-on-some-pages
 const MyHealth_Map = dynamic(
   () => import("../_components/MyHealth_Map").then(m => m.default),
   { ssr: false }
@@ -30,7 +31,6 @@ export default function HealthPageClient({
   const [showDoctorModal, setShowDoctorModal] = useState(false); //is the 1st apppointment popup open?
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
-  const router = useRouter();
 
   return (  
     //top filtering part of the left tab
@@ -96,7 +96,7 @@ export default function HealthPageClient({
             onClick={() => selectedLocation && setShowDoctorModal(true)}
             style={{
               width: '100%',
-              background: selectedLocation ? '#4CAF50' : '#888',
+              background: selectedLocation ? '#4CAF50' : '#888',  //if selectedlocatiion is selected, turn greyed-out button to green
               color: 'white',
               padding: '0.6rem',
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
