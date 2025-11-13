@@ -52,7 +52,7 @@ export default function Cost() {
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 items-center sm:items-start">
-        <section className="text-xl font-semibold">My Cost page</section>
+        <section className="text-xl font-semibold">Enter Procedure Below:</section>
 
         <input
           type="text"
