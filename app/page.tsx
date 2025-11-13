@@ -1,10 +1,9 @@
 import Image from "next/image";
-import AppointmentTracker from '../app/_components/AppointmentTracker/AppointmentTracker';
 import MyInfo from '../app/_components/MyInfo/MyInfo';
 import MyFitness from '../app/_components/MyFitness/MyFitness';
 import MyMood from '../app/_components/MyMood/MyMood';
 import MyPrescriptions from "./_components/MyPrescriptions/MyPrescriptions";
-import MyNotes from "./_components/MyNotes/MyNotes";
+import DoctorsNotes from "./_components/MyNotes/DoctorsNotes";
 import AppointmentObject from "./_components/AppointmentTracker/AppointmentObject";
 
 import { revalidatePath } from "@/node_modules/next/cache";
@@ -29,7 +28,7 @@ export default function Home() {
       <AppointmentObject />
       <MyFitness />
       <MyMood />
-      <MyNotes />
+      <DoctorsNotes />
 
 
       

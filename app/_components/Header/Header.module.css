@@ -6,3 +6,9 @@
     padding: .5rem 1rem;
     border-bottom: 1px solid #0E3C35;
 }
+
+.bannerCenterWrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
