@@ -2,43 +2,59 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import data from "./data.json";
+import procedureDatajson from "./data.json";
+import hospitalsDatajson from "./data2.json";
+//import ReportPopup from "./ReportPopup";
 
 interface Item {
   id: number;
   name: string;
 }
+//convert json to array
+const procedureData = procedureDatajson as Item[];
+const hospitalsData = hospitalsDatajson as Item[]
 
 export default function Cost() {
   const router = useRouter();
-  const [users, setUsers] = useState<Array<Item & { visible: boolean }>>([]);
-  const [search, setSearch] = useState("");
-  const [showCards, setShowCards] = useState(false);
+  const [procedure, setProcedures] = useState<Array<Item & { visible: boolean }>>([]);
+  const [hospitals, setHospitals] = useState<Array<Item & { visible: boolean }>>([]);
+  const [procedureSearch, setprocedureSearch] = useState("");
+  const [hospitalSearch, setHospitalSearch] = useState("");
 
   // Load JSON data
   useEffect(() => {
-    setUsers(
-      data.map((item: Item) => ({
-        ...item,
-        visible: false,
-      }))
-    );
+    setProcedures(procedureData.map((item) => ({
+       ...item, 
+       visible: false })));
+
+    setHospitals(hospitalsData.map((item) => ({ //added hospitals
+       ...item, 
+       visible: false }))); 
   }, []);
 
-  // Show cards when user searches certain term -- use 'broken bone' to show functionality 
-  const handleShowCards = () => {
-    const shouldShow = search.trim().toLowerCase() === "broken bone";
-    setShowCards(shouldShow);
-    setUsers(prev =>
-      prev.map(user => ({
-        ...user,
+  // hard coded data: user types broken bone for options to appear
+  const handleprocedureSearch = () => {
+    const shouldShow = procedureSearch.trim().toLowerCase() === "broken bone";
+    setProcedures((prev) =>
+      prev.map((inj) => ({
+        ...inj,
         visible: shouldShow,
-      })
-      )
+      }))
     );
   };
 
-  // Navigation handler based on card name
+  // hard-coded data: user types dallas for options to appear
+  const handleHospitalSearch = () => {
+    const term = hospitalSearch.trim().toLowerCase();
+    setHospitals((prev) =>
+      prev.map((hosp) => ({...hosp,
+        visible: hosp.name.toLowerCase().includes(term) && term.length > 0,
+      }))
+    );
+  };
+
+  // Navigation handler for injury cards
+   // Navigation handler based on card name
   const handleCardClick = (name: string) => {
     if (name === "Arm Fractures") {
       router.push("./cost/armfractureform"); 
@@ -56,35 +72,90 @@ export default function Cost() {
   };
 
   return (
-    <div className="font-sans grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-8 items-center sm:items-start">
-        <section className="text-xl font-semibold">Enter Procedure Below:</section>
+    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-gray-100">
 
-        <input
-          type="text"
-          placeholder="Type 'Broken Bone'"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border p-2 rounded w-full max-w-sm text-black"
-        />
+      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-gray-100 p-6 min-h-screen">
 
-        { /* added a button here */ }
-        <button onClick ={handleShowCards} className="bg-blue-300 text-black gap-8 justify-items-center px-22 py-2 rounded mt-2">
-          Search
-        </button>
+        {/* procedure search */}
+        <section className="bg-green-200 rounded-xl w-200 flex flex-col h-150 justify-self-start self-start"> 
+          <h2 className="text-xl font-semibold text-center px-4 py-4">Search Procedure</h2>
+          <input
+            type="text"
+            placeholder="Type: broken bone"
+            value={procedureSearch}
+            onChange={(e) => setprocedureSearch(e.target.value)}
+            className="border p-2 rounded text-black"
+          />
+          <button
+            onClick={handleprocedureSearch}
+            className="bg-green-400 text-black px-4 py-2 rounded"
+          >
+            Search
+          </button>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-          {users.map((user) =>
-          user.visible ? (
-            <div
-              key={user.id}
-              className="border p-4 rounded bg-white text-black cursor-pointer" onClick={() => handleCardClick(user.name)}>
-              <strong> {user.name} </strong>
-            </div>
-          ) : null
-          )}
+          <div className="flex flex-col gap-3 mt-4">
+            {procedure.map(
+              (proced) =>
+                proced.visible && (
+                  <div
+                    key={proced.id}
+                    className="bg-white p-3 border rounded cursor-pointer hover:bg-gray-100"
+                    onClick={() => handleCardClick(proced.name)}
+                  >
+                    <strong>{proced.name}</strong>
+                  </div>
+                )
+            )}
+          </div>
+        </section>
+          <div className="flex flex-col gap-8 self-start">
+            
+        {/*hospital search */}
+        <section className="bg-green-200 p-6 rounded-xl w-130 flex flex-col gap-4">
+          <h2 className="text-xl font-semibold text-center">Search Hospital</h2>
+          <input
+            type="text"
+            placeholder="Type: dallas"
+            value={hospitalSearch}
+            onChange={(e) => setHospitalSearch(e.target.value)}
+            className="border p-2 rounded text-black"
+          /> 
+          <button
+            onClick={handleHospitalSearch}
+            className="bg-green-400 text-black px-4 py-2 rounded"
+          >
+            Search
+          </button>
+            
+          <div className="flex flex-col gap-3 mt-4">
+            {hospitals.map(
+              (hospital) =>
+                hospital.visible && (
+                  <div
+                    key={hospital.id}
+                    className="bg-white p-3 border rounded"
+                  >
+                    <strong>{hospital.name}</strong>
+                  </div>
+                )
+            )}
+        
+          </div>
+        </section>
+      
+      {/*Computed Cost, so total cost computed from procedure of chosen hospital (work in progress)*/}
+        <section className="bg-green-200 p-6 rounded-xl w-130 flex flex-col gap-4 h-50">
+          <h2 className="text-xl font-semibold text-center">Computed Cost</h2>
+
+          <button
+           
+            className="bg-green-400 text-black px-4 py-2 rounded">
+             {/* <ReportPopup */}
+            Calculate 
+          </button>
+        </section>
         </div>
       </main>
     </div>
-  );
+  ); 
 }
