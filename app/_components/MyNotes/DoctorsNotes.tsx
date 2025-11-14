@@ -14,6 +14,7 @@ const notesData: Notes[] = [
         date: "10/7/2025",
         contents: "Do not eat solids for the next 24 hours."
     },
+
     {
         name: "Albuterol Side Effects",
         date: "10/15/2025",
@@ -29,13 +30,18 @@ const DoctorsNotes: React.FC = () => (
         <div className={styles.notesList}>
         {notesData.map((note, i) => (
           <div className={styles.noteCard} key={i}>
+
             <p><strong>Name :</strong> {note.name}</p>
             <p><strong>Date: </strong> {note.date}</p>
             <p><strong>Contents: </strong>{note.contents}</p>
+
+
           </div>
         ))}
+        
       </div>
--    </div>
+
+    </div>
 );
 
 export default DoctorsNotes;
