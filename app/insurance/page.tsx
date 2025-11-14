@@ -73,7 +73,6 @@ export default function Insurance() {
         flexDirection: "row",
         minHeight: "100vh",
         fontFamily: "'Kanit', sans-serif",
-        backgroundColor: '#D5EBE3',
 
       }}
     >
