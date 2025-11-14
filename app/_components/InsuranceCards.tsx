@@ -24,7 +24,7 @@ const cardInfo: Insurance[] = [
     phone: "1-800-521-2227",
     address: "123 Blue St, Dallas, TX 75201",
     coverageDetails:
-      "Covers 80% for in-network care, 60% out-of-network. Includes ER and preventive services.",
+      "Covers 80% for in-network care, 40% out-of-network. PCP: $40, ER: $300, UC: $25",
     member: "Noah Ark",
     dependents: "Grace Ark, Nolan Ark, Noel Ark",
   },
@@ -34,9 +34,9 @@ const cardInfo: Insurance[] = [
     groupNumber: "9872",
     planType: "Dental Basic",
     phone: "1-888-335-8227",
-    address: "500 Smile Ave, Irving, TX 75063",
+    address: "500 Smile Ave, Irving, TX 75111",
     coverageDetails:
-      "Covers 100% for preventive cleanings and 50% for major dental procedures.",
+      "Covers 100% for semi-annual cleanings and 40% for major dental procedures.",
     member: "Noah Ark",
     dependents: "Grace Ark, Nolan Ark, Noel Ark",
 
