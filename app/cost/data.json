@@ -1,7 +1,6 @@
 [
   { "id": 1, "name": "Skull Fractures" },
   { "id": 2, "name": "Arm Fractures" },
-  { "id": 3, "name": "Skull Fractures" },
-  { "id": 4, "name": "Phalanges Fractures (Broken Finger(s))" },
-  { "id": 5, "name": "Rib Fractures" }
+  { "id": 3, "name": "Phalanges Fractures (Broken Finger(s))" },
+  { "id": 4, "name": "Rib Fractures" }
 ]
