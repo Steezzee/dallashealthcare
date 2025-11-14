@@ -139,7 +139,7 @@ export default function Cost() {
                 hospital.visible && (
                   <div
                     key={hospital.id}
-                    className="bg-white p-3 border rounded"
+                    className="bg-white p-3 border rounded cursor-pointer hover:bg-gray-100"
                   >
                     <strong>{hospital.name}</strong>
                   </div>
