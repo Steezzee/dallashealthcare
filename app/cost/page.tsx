@@ -92,7 +92,8 @@ export default function Cost() {
           />
           <button
             onClick={handleprocedureSearch}
-            className="bg-sky-950 text-white px-4 py-2 rounded"
+            className="bg-sky-950 text-white px-4 py-2 rounded 
+            container hover:-translate-y-0.5 transition-all duration-200" 
           >
             Search
           </button>
@@ -126,7 +127,8 @@ export default function Cost() {
           /> 
           <button
             onClick={handleHospitalSearch}
-            className="bg-sky-950 text-white px-4 py-2 rounded"
+            className="bg-sky-950 text-white px-4 py-2 rounded
+            container hover:-translate-y-0.5 transition-all duration-200"
           >
             Search
           </button>
@@ -153,7 +155,8 @@ export default function Cost() {
 
           <button onClick={() => setshowReport(true)}
            
-            className="bg-sky-950 text-white px-4 py-2 rounded">
+            className="bg-sky-950 text-white px-4 py-2 rounded container 
+            hover:-translate-y-0.5 transition-all duration-200">
             Calculate 
             
           </button>
