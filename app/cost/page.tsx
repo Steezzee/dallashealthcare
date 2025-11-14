@@ -88,12 +88,12 @@ export default function Cost() {
             placeholder="Type: broken bone"
             value={procedureSearch}
             onChange={(e) => setprocedureSearch(e.target.value)}
-            className="border p-2 rounded text-black"
+            className="border p-2 rounded text-black ml-9 mb-6 w-180"
           />
           <button
             onClick={handleprocedureSearch}
             className="bg-sky-950 text-white px-4 py-2 rounded 
-            container hover:-translate-y-0.5 transition-all duration-200" 
+            container hover:-translate-y-0.5 transition-all duration-200 ml-9 w-180" 
           >
             Search
           </button>
