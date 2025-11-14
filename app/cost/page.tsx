@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import procedureDatajson from "./data.json";
 import hospitalsDatajson from "./data2.json";
-//import ReportPopup from "./ReportPopup";
+import ReportPopup from "./ReportPopup";
 
 interface Item {
   id: number;
@@ -20,7 +20,8 @@ export default function Cost() {
   const [hospitals, setHospitals] = useState<Array<Item & { visible: boolean }>>([]);
   const [procedureSearch, setprocedureSearch] = useState("");
   const [hospitalSearch, setHospitalSearch] = useState("");
-
+  const [showReport, setshowReport] = useState(false)
+  
   // Load JSON data
   useEffect(() => {
     setProcedures(procedureData.map((item) => ({
@@ -53,7 +54,7 @@ export default function Cost() {
     );
   };
 
-  // Navigation handler for injury cards
+  
    // Navigation handler based on card name
   const handleCardClick = (name: string) => {
     if (name === "Arm Fractures") {
@@ -69,7 +70,10 @@ export default function Cost() {
       router.push("./cost/ribfractureform");
       console.log("Clicked card: ", name)
     }
+
+    
   };
+
 
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-gray-100">
@@ -77,7 +81,7 @@ export default function Cost() {
       <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-gray-100 p-6 min-h-screen">
 
         {/* procedure search */}
-        <section className="bg-green-200 rounded-xl w-200 flex flex-col h-150 justify-self-start self-start"> 
+        <section className="bg-sky-100 rounded-xl w-200 flex flex-col h-150 justify-self-start self-start"> 
           <h2 className="text-xl font-semibold text-center px-4 py-4">Search Procedure</h2>
           <input
             type="text"
@@ -88,7 +92,7 @@ export default function Cost() {
           />
           <button
             onClick={handleprocedureSearch}
-            className="bg-green-400 text-black px-4 py-2 rounded"
+            className="bg-sky-950 text-white px-4 py-2 rounded"
           >
             Search
           </button>
@@ -111,7 +115,7 @@ export default function Cost() {
           <div className="flex flex-col gap-8 self-start">
             
         {/*hospital search */}
-        <section className="bg-green-200 p-6 rounded-xl w-130 flex flex-col gap-4">
+        <section className="bg-sky-100 p-6 rounded-xl w-130 flex flex-col gap-4">
           <h2 className="text-xl font-semibold text-center">Search Hospital</h2>
           <input
             type="text"
@@ -122,7 +126,7 @@ export default function Cost() {
           /> 
           <button
             onClick={handleHospitalSearch}
-            className="bg-green-400 text-black px-4 py-2 rounded"
+            className="bg-sky-950 text-white px-4 py-2 rounded"
           >
             Search
           </button>
@@ -144,18 +148,20 @@ export default function Cost() {
         </section>
       
       {/*Computed Cost, so total cost computed from procedure of chosen hospital (work in progress)*/}
-        <section className="bg-green-200 p-6 rounded-xl w-130 flex flex-col gap-4 h-50">
+        <section className="bg-sky-100 p-6 rounded-xl w-130 flex flex-col gap-4 h-50">
           <h2 className="text-xl font-semibold text-center">Computed Cost</h2>
 
-          <button
+          <button onClick={() => setshowReport(true)}
            
-            className="bg-green-400 text-black px-4 py-2 rounded">
-             {/* <ReportPopup */}
+            className="bg-sky-950 text-white px-4 py-2 rounded">
             Calculate 
+            
           </button>
+          {showReport && <ReportPopup onClose={()=>setshowReport(false)}/>}
         </section>
         </div>
       </main>
     </div>
   ); 
 }
+
