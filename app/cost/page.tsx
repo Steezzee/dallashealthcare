@@ -76,9 +76,9 @@ export default function Cost() {
 
 
   return (
-    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-gray-100">
+    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20" style={{ backgroundColor: "#D5EBE3" }}>
 
-      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-gray-100 p-6 min-h-screen">
+      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center p-6 min-h-screen">
 
         {/* procedure search */}
         <section className="bg-sky-100 rounded-xl w-200 flex flex-col h-150 justify-self-start self-start"> 
