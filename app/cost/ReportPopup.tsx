@@ -11,8 +11,8 @@ export default function ReportPopup({onClose}: ReportPopupProp){
     // background/homepage
         <div className="fixed inset-0 bg-transparent bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
             <div className="mt-10 flex flex-col gap-5 text-black">
-            <button className="absolute top-4 right-4" onClick={onClose}><CircleX size={30}/></button> 
-            <div className="-mt-20 flex flex-col gap-5 text-black 
+            <button className="relative top-4 left-88" onClick={onClose}><CircleX size={30}/></button> 
+            <div className="-mt-5 flex flex-col gap-5 text-black 
                   max-h-[90vh] overflow-y-auto p-6 bg-white rounded-xl shadow-xl">
 {/*Main title*/}
                 <h1 className="text-2xl font-bold text-center">ESTIMATED COST</h1>
