@@ -58,11 +58,6 @@ const LoginPage: React.FC = () => {
 
             {error && <p style={styles.error}>{error}</p>}
 
-            <p style={{ marginTop: 10 }}>
-              Dummy credentials:{" "}
-              <b>{dummyEmail}</b> / <b>{dummyPass}</b>
-            </p>
-
             <p>
               Don’t have an account?{" "}
               <a href="#" style={styles.link}>
