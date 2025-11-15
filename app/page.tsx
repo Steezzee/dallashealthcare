@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
       <div style={styles.container}>
         {!loggedInUser ? (
           <form onSubmit={handleLogin} style={styles.form}>
-            <h2>Login</h2>
+            <h2>Login to MyDallasHealth</h2>
 
             <input
               type="text"
@@ -73,22 +73,12 @@ const LoginPage: React.FC = () => {
 
             {error && <p style={styles.error}>{error}</p>}
 
-            <p style={{ marginTop: 10 }}>
-              Dummy credentials:{" "}
-              <b>{dummyEmail}</b> / <b>{dummyPass}</b>
-            </p>
-
-            <p>
-              Don’t have an account?{" "}
-              <a href="#" style={styles.link}>
-                Register here
-              </a>
-            </p>
+            
           </form>
         ) : (
           <div>
             <h2>
-              Welcome, <span style={{ color: "#007bff" }}>{loggedInUser}</span>
+              Welcome, <span style={{ color: "#AFCEC3" }}>{loggedInUser}</span>
             </h2>
             <button onClick={handleLogout} style={styles.button}>
               Logout
@@ -137,13 +127,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: 10,
     fontSize: 16,
     color: "white",
-    backgroundColor: "#007bff",
+    backgroundColor: "#AFCEC3",
     border: "none",
     borderRadius: 5,
     cursor: "pointer",
   },
   link: {
-    color: "#007bff",
+    color: "#AFCEC3",
     cursor: "pointer",
     textDecoration: "none",
   },
