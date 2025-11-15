@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tabs = [
-    { label: "MyHomepage", href: "/", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
+    { label: "MyHomepage", href: "/home", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
     { label: "MyInsurance", href: "/insurance", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
     { label: "MyHealth", href: "/health", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },
     { label: "MyCost", href: "/cost", color: "#0E3C35", fontFamily: "Kanit, sans-serif" },

@@ -1,40 +1,155 @@
-import Image from "next/image";
-import MyInfo from '../app/_components/MyInfo/MyInfo';
-import MyFitness from '../app/_components/MyFitness/MyFitness';
-import MyMood from '../app/_components/MyMood/MyMood';
-import MyPrescriptions from "./_components/MyPrescriptions/MyPrescriptions";
-import DoctorsNotes from "./_components/MyNotes/DoctorsNotes";
-import AppointmentObject from "./_components/AppointmentTracker/AppointmentObject";
+'use client';
 
-import { revalidatePath } from "@/node_modules/next/cache";
-export default function Home() {
+import React, { useState } from "react";
+import { useRouter, usePathname } from 'next/navigation';
+
+
+const dummyEmail = "noahark2003@gmail.com";
+const dummyPass = "password";
+
+
+const LoginPage: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+
+  // Checking login creds and navigating to homepage
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+
+    if (username === dummyEmail && password === dummyPass) {
+      setLoggedInUser(username);
+      setError(null);
+      localStorage.setItem("loggedInUser", username);
+
+      router.push('./home'); // Redirect to home page if login successful
+    } else {
+      setError("Invalid username or password.");
+    }
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem("loggedInUser");
+  };
+
   return (
-    <main
-      style={{
-        display: 'grid', //flex
-        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-        flexDirection: 'row',
-        alignItems: 'start', //flex-start
-        gap: '1.4rem 2rem', // space between columns
-        padding: '2rem',
-        margin: 0,
-        minHeight: '80vh',
-      }}
-    >
+    <html>
+      <body>
+      <div style={styles.body}>
+      <div style={styles.container}>
+        {!loggedInUser ? (
+          <form onSubmit={handleLogin} style={styles.form}>
+            <h2>Login</h2>
 
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              style={styles.input}
+            />
 
-      <MyInfo />
-      <MyPrescriptions />
-      <AppointmentObject />
-      <MyFitness />
-      <MyMood />
-      <DoctorsNotes />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={styles.input}
+            />
 
+            <button type="submit" style={styles.button}>
+              Login
+            </button>
 
-      
-      {/* Uncomment and add these as you build more components */}
-      {/* <PrescriptionsTracker /> */}
-      {/* <HealthSummary /> */}
-    </main>
+            {error && <p style={styles.error}>{error}</p>}
+
+            <p style={{ marginTop: 10 }}>
+              Dummy credentials:{" "}
+              <b>{dummyEmail}</b> / <b>{dummyPass}</b>
+            </p>
+
+            <p>
+              Don’t have an account?{" "}
+              <a href="#" style={styles.link}>
+                Register here
+              </a>
+            </p>
+          </form>
+        ) : (
+          <div>
+            <h2>
+              Welcome, <span style={{ color: "#007bff" }}>{loggedInUser}</span>
+            </h2>
+            <button onClick={handleLogout} style={styles.button}>
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+      </body>
+    </html>
   );
-}
+};
+
+export default LoginPage;
+
+const styles: { [key: string]: React.CSSProperties } = {
+  body: {
+    fontFamily: "'Kanit', sans-serif",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    margin: 0,
+    backgroundColor: "#D5EBE3",
+  },
+  container: {
+    width: 300,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+    textAlign: "center",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  input: {
+    margin: "10px 0",
+    padding: 10,
+    fontSize: 16,
+    border: "1px solid #ccc",
+    borderRadius: 5,
+  },
+  button: {
+    padding: 10,
+    fontSize: 16,
+    color: "white",
+    backgroundColor: "#007bff",
+    border: "none",
+    borderRadius: 5,
+    cursor: "pointer",
+  },
+  link: {
+    color: "#007bff",
+    cursor: "pointer",
+    textDecoration: "none",
+  },
+  error: {
+    color: "red",
+    fontSize: 14,
+    marginTop: 8,
+  },
+};
