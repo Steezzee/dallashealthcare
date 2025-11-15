@@ -19,19 +19,19 @@ const cardInfo: Insurance[] = [
   {
     providerName: "Blue Cross Blue Shield",
     memberID: "93718936",
-    groupNumber: "7893",
+    groupNumber: "7893-JHBSO",
     planType: "PPO",
     phone: "1-800-521-2227",
     address: "123 Blue St, Dallas, TX 75201",
     coverageDetails:
-      "Covers 80% for in-network care, 40% out-of-network. PCP: $40, ER: $300, UC: $25",
+      "PCP: $40, ER: $300, UC: $25 - Covers 80% for in-network care, 40% out-of-network.",
     member: "Noah Ark",
     dependents: "Grace Ark, Nolan Ark, Noel Ark",
   },
   {
     providerName: "Delta Dental",
     memberID: "3629861",
-    groupNumber: "9872",
+    groupNumber: "9872-AKJNDP",
     planType: "Dental Basic",
     phone: "1-888-335-8227",
     address: "500 Smile Ave, Irving, TX 75111",
