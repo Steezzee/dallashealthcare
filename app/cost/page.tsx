@@ -6,6 +6,7 @@ import procedureDatajson from "./data.json";
 import hospitalsDatajson from "./data2.json";
 import ReportPopup from "./ReportPopup";
 import {Circle} from "lucide-react";
+import ErrorPopup from "./ErrorPopup";
 
 interface Item {
   id: number;
@@ -22,6 +23,10 @@ export default function Cost() {
   const [procedureSearch, setprocedureSearch] = useState("");
   const [hospitalSearch, setHospitalSearch] = useState("");
   const [showReport, setshowReport] = useState(false)
+  const [showErrorPopup, setshowErrorPopup] = useState(false);
+  const[messageError, setError] = useState("");
+  const handleClose = () => {setshowErrorPopup(false);};
+  
   
   // Load JSON data
   useEffect(() => {
@@ -37,11 +42,17 @@ export default function Cost() {
   // hard coded data: user types broken bone for options to appear
   const handleprocedureSearch = () => {
     const shouldShow = procedureSearch.trim().toLowerCase() === "broken bone";
+     if(!shouldShow){
+      setError("Invalid procedure.");
+      setshowErrorPopup(true);
+      return;
+    }
     setProcedures((prev) =>
       prev.map((inj) => ({
         ...inj,
         visible: shouldShow,
-      }))
+      }
+  ))
     );
   
   };
@@ -51,6 +62,12 @@ export default function Cost() {
   // hard-coded data: user types dallas for options to appear
   const handleHospitalSearch = () => {
     const term = hospitalSearch.trim().toLowerCase();
+    const listTerms = hospitals.some(h=> h.name.toLowerCase().includes(term));
+    if(!listTerms && term.length>0){
+      setError("Invalid Location.");
+      setshowErrorPopup(true);
+      return;
+    }
     setHospitals((prev) =>
       prev.map((hosp) => ({...hosp,
         visible: hosp.name.toLowerCase().includes(term) && term.length > 0,
@@ -80,9 +97,9 @@ export default function Cost() {
 
 
   return (
-    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-gray-100">
+    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-white-100">
 
-      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-gray-100 p-5 min-h-screen">
+      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
 
         {/* procedure search */}
         <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
@@ -189,7 +206,11 @@ export default function Cost() {
             Calculate 
             
           </button>
+          
           {showReport && <ReportPopup onClose={()=>setshowReport(false)}/>}
+
+          {showErrorPopup &&( <ErrorPopup message={messageError} onClose={()=>setshowErrorPopup(false)}/>)}
+            
         </section>
         </div>
       </main>
