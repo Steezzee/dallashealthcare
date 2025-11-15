@@ -53,7 +53,7 @@ export default function Parent() {
     //remove out "/health" line to debug the list on the map page itself
     return(
         <> 
-            {pathname === "/" && <AppointmentTracker appointments={appointments} onDelete={handleDelete}/>} 
+            {pathname === "/home" && <AppointmentTracker appointments={appointments} onDelete={handleDelete}/>} 
             {pathname === "/health" && (<HealthPageClient addAppointment={addAppointment} />
         )}
         </>
