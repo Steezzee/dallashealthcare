@@ -18,6 +18,18 @@ export default function Insurance() {
   const [fileNum, setFileNum] = useState("");
   const [date, setDate] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [toast, setToast] = useState<string | null>(null); //for pop-up function
+  const [toastId, setToastId] = useState(0);  //to reset pop-up so it doesn't just play once
+
+  useEffect(() => {
+  if (!toast) return;
+
+  const timer = setTimeout(() => {
+    setToast(null);
+  }, 18000); // 1000 = 1 second
+
+  return () => clearTimeout(timer);
+  }, [toast]);
 
 
   useEffect(() => {
