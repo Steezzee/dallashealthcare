@@ -203,17 +203,15 @@ export default function Insurance() {
                 style={inputStyle}
               />
 
-              <label htmlFor="date">Date (MM/DD/YYYY):</label>
+              <label htmlFor="date">Date of file (MM/DD/YYYY):</label>
               <input
-                type="text"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                id="date"
-                name="date"
-                placeholder="MM/DD/YYYY"
-                required
-                pattern="\d{2}/\d{2}/\d{4}"
-                style={inputStyle}
+                type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  id="date"
+                  name="date"
+                  required
+                  style={inputStyle}
               />
 
               <div

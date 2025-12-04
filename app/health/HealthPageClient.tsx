@@ -4,6 +4,8 @@ import type { CSSProperties } from "react";
 import styles from './HealthPageClient.module.css'
 import dynamic from "next/dynamic";
 
+
+
 //window is not defined and deployment issues on Vercel if this isnt here, apparently.  Issue with serverside rendering when importing I spent way too long on
 //if someone could help fix this, it would be a nice bonus.  Otherwise, DONT TOUCH
 //code is based on rendering solution from here https://stackoverflow.com/questions/53139884/next-js-disable-server-side-rendering-on-some-pages
@@ -212,6 +214,7 @@ function ScheduleModal({
   selectedLocation,
   selectedDoctor,
   onConfirm,
+
 }: {
   open: boolean;
   onClose: () => void;
@@ -220,13 +223,20 @@ function ScheduleModal({
   onConfirm: (payload: {date: string; location: Location | null; doctor: Doctor | null}) => void;
 }) {
   const [date, setDate] = useState("");
+  const today = new Date().toISOString().split("T")[0];
 
   if (!open) return null;
 
   const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
-      onConfirm({ date, 
-        location: selectedLocation, doctor: selectedDoctor });
+        if (!date) return;
+
+        if (date < today) {
+          alert("You cannot select a past date for your appointment.");
+          return;
+        }
+      
+      onConfirm({ date, location: selectedLocation, doctor: selectedDoctor });
   };
 
   return (
@@ -262,26 +272,25 @@ function ScheduleModal({
               </p>
             </div>
               <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
-              <label htmlFor="date">Date (MM/DD/YYYY):</label>
-              <input
-                type="text"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                id="date"
-                name="date"
-                placeholder="MM/DD/YYYY"
-                required
-                pattern="\d{2}/\d{2}/\d{4}"
-                style={inputStyle}
-              />
+                <label htmlFor="date">Select appointment date:</label>
+                <input
+                  type="date"                     // ⬅️ native calendar picker
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  id="date"
+                  name="date"
+                  min={today}
+                  required
+                  style={inputStyle}
+                />
 
-            <button
-              type="submit"
-              className = {styles.submitButtonLarge}
-            >
-              Schedule
-            </button>
-            </form>
+                <button
+                  type="submit"
+                  className={styles.submitButtonLarge}
+                >
+                  Schedule
+                </button>
+              </form>
         </div>
       </div>
   );
