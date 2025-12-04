@@ -179,7 +179,7 @@ export default function Insurance() {
             <h2 style={{ textAlign: "center" }}>Upload a Document</h2>
 
             <form onSubmit = {handleSubmit}>
-              <label htmlFor="title">Title:</label>
+              <label htmlFor="title">Title of the Document Submission:</label>
               <input
                 type="text"
                 value={title}
@@ -191,7 +191,7 @@ export default function Insurance() {
                 style={inputStyle}
               />
 
-              <label htmlFor="fileNumber">File Number:</label>
+              <label htmlFor="fileNumber">Additional Notes (Optional):</label>
               <input
                 type="text"
                 value={fileNum}
@@ -199,20 +199,17 @@ export default function Insurance() {
                 id="fileNumber"
                 name="fileNumber"
                 placeholder="Enter file number"
-                required
                 style={inputStyle}
               />
 
-              <label htmlFor="date">Date (MM/DD/YYYY):</label>
+              <label htmlFor="date">Date of Issuing:</label>
               <input
-                type="text"
+                type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 id="date"
                 name="date"
-                placeholder="MM/DD/YYYY"
                 required
-                pattern="\d{2}/\d{2}/\d{4}"
                 style={inputStyle}
               />
 
