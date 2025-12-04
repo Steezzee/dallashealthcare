@@ -27,22 +27,21 @@ export default function Home() {
     <main
       style={{
         display: 'grid', //flex
-        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+        //gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+        gridTemplateColumns: 'repeat(2, minmax(350px, 1fr))',
         flexDirection: 'row',
         alignItems: 'start', //flex-start
-        gap: '1.4rem 2rem', // space between columns
+        gap: '2rem 3rem', // space between columns
         padding: '2rem',
         margin: 0,
         minHeight: '80vh',
       }}
     >
 
-      <MyInfo />
-      <MyPrescriptions />
-      <AppointmentObject />
-      <MyFitness />
-      <MyMood />
-      <DoctorsNotes />
+        <MyInfo />
+        <AppointmentObject />
+        <MyPrescriptions />
+        <DoctorsNotes />
 
     </main>
   );
