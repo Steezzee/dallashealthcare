@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
 import styles from './HealthPageClient.module.css'
@@ -31,9 +31,41 @@ export default function HealthPageClient({
   const [showDoctorModal, setShowDoctorModal] = useState(false); //is the 1st apppointment popup open?
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [toast, setToast] = useState<string | null>(null); //for pop-up function
 
-  return (  
-    //top filtering part of the left tab
+  useEffect(() => {
+  if (!toast) return;
+
+  const timer = setTimeout(() => {
+    setToast(null);
+  }, 3000); // 1000 = 1 second
+
+  return () => clearTimeout(timer);
+  }, [toast]);
+
+  return (
+  <>
+    {toast && (
+      <div
+        style={{
+          position: "fixed",
+          top: "10px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#4CAF50",
+          color: "white",
+          padding: "0.6rem 1rem",
+          borderRadius: "6px",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+          zIndex: 1000,
+          fontSize: "0.95rem",
+        }}
+      >
+        {toast}
+      </div>
+    ) }
+
+    {/*top filtering part of the left tab*/}
    <div style = {{
       marginTop: '20px',
       gap: '20px',
@@ -42,7 +74,7 @@ export default function HealthPageClient({
       <aside className = {styles.networkFilterBox}>
         <fieldset>
           <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-            Network Status:</legend>
+            Current Insurance Network Coverage:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
             <input
@@ -132,6 +164,7 @@ export default function HealthPageClient({
           filter={filter} 
           onLocationSelect={(location: Location) => {
             setSelectedLocation(location);
+            setToast(`Selected ${location.popUp}`);
           }}
         />
         </div>
@@ -162,8 +195,8 @@ export default function HealthPageClient({
             }}
           />
       </div>
-  );
-}
+  </>
+);
 
 /* modal window to select doctor from hospital*/
 function DoctorModal({ 
