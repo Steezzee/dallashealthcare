@@ -8,12 +8,10 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     align-items: flex-start;
     gap: 1rem;
+    
 }
 
-  .container:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.4);
-  }
+ 
   
   .heading {
     font-size: 1.5rem;
@@ -33,10 +31,7 @@
     border-bottom: 3px solid #2c9a54;
   }
 
-  .prescriptionCard:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
-  }
+
 
 
   .prescriptionList{

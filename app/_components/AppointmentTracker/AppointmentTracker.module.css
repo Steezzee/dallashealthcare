@@ -1,15 +1,21 @@
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: column;
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     flex-direction: column;
-    width: 100%;
+    min-width: 450 px;
+
+   
+   /* width: 100%;
     max-width: 500px;   
-    margin: 2rem auto; 
+    margin: 2rem auto; */
 }
+
+
+
 
 .container:hover{
     box-shadow: 0 6px 14px rgba(123, 153, 142, 0.5);
