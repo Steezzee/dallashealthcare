@@ -32,6 +32,7 @@ export default function HealthPageClient({
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [toast, setToast] = useState<string | null>(null); //for pop-up function
+  const [toastId, setToastId] = useState(0);  //to reset pop-up so it doesn't just play once
 
   useEffect(() => {
   if (!toast) return;
@@ -46,13 +47,14 @@ export default function HealthPageClient({
   return (
   <>
     {toast && (
-      <div
+      <div className = {styles.toast}
+        key={toastId}
         style={{
           position: "fixed",
-          top: "10px",
+          bottom: "100px",
           left: "50%",
           transform: "translateX(-50%)",
-          background: "#4CAF50",
+          background: "#717a72ff",
           color: "white",
           padding: "0.6rem 1rem",
           borderRadius: "6px",
@@ -60,10 +62,10 @@ export default function HealthPageClient({
           zIndex: 1000,
           fontSize: "0.95rem",
         }}
-      >
+        >
         {toast}
       </div>
-    ) }
+    )}
 
     {/*top filtering part of the left tab*/}
    <div style = {{
@@ -165,6 +167,7 @@ export default function HealthPageClient({
           onLocationSelect={(location: Location) => {
             setSelectedLocation(location);
             setToast(`Selected ${location.popUp}`);
+            setToastId((prev) => prev + 1);
           }}
         />
         </div>
