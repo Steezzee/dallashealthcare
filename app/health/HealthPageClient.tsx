@@ -80,33 +80,52 @@ export default function HealthPageClient({
             Out-of-Network only
           </label>
         </fieldset>
-
-        <div style={{  //dealing with showing selected clinics and selecting 
-          fontSize: '0.9rem', 
-          color: '#000000ff' }}>
           <div
-            style={{ 
-              fontWeight: 'bold',
-              fontSize: '1rem',
-            }}>
-            {selectedLocation ? `Selected: ${selectedLocation.popUp}` : 'No location selected'}
-          </div>
-          <button
-            disabled={!selectedLocation}
-            onClick={() => selectedLocation && setShowDoctorModal(true)}
             style={{
-              width: '100%',
-              background: selectedLocation ? '#4CAF50' : '#888',  //if selectedlocatiion is selected, turn greyed-out button to green
-              color: 'white',
-              padding: '0.6rem',
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              borderRadius: '6px', 
-            }} 
-            title={selectedLocation ? "View doctors at selected location" : "Select a location to view doctors"}
+              fontSize: "0.9rem",
+              color: "#000000ff",
+            }}
           >
-            Schedule Appointment
-          </button>
-        </div>
+            {selectedLocation ? (
+              <>
+                <div //a location is selected
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Selected: {selectedLocation.popUp}
+                </div>
+                <button
+                  onClick={() => setShowDoctorModal(true)}
+                  style={{
+                    width: "100%",
+                    background: "#4CAF50",
+                    color: "white",
+                    padding: "0.6rem",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "6px",
+                    marginTop: "0.5rem",
+                  }}
+                  title="View doctors at selected location"
+                >
+                  Schedule Appointment
+                </button>
+              </>
+            ) : (  // a location is not selected
+              <div
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  padding: "0.75rem 0",
+                  color: "#444",
+                }}
+              >
+                Select a hospital to schedule an appointment
+              </div>
+            )}
+          </div>
       </aside>
     <div className = {styles.mapBoxStyle}>
         <MyHealth_Map   //open health map on general page
