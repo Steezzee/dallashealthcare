@@ -39,7 +39,7 @@ export default function HealthPageClient({
 
   const timer = setTimeout(() => {
     setToast(null);
-  }, 3000); // 1000 = 1 second
+  }, 18000); // 1000 = 1 second
 
   return () => clearTimeout(timer);
   }, [toast]);
@@ -181,25 +181,27 @@ export default function HealthPageClient({
             }}
           />
         )}
-          <ScheduleModal //open a field to input date to schedule appointments after slecting doctor
-            open={isScheduleOpen}
-            onClose={() => setIsScheduleOpen(false)}
-            selectedLocation={selectedLocation}
-            selectedDoctor={selectedDoctor}
-            onConfirm={(payload) => {
-              if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
-                const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
-                addAppointment?.(label, payload.date)
-              }
-              console.log('test payload', payload);
-              setIsScheduleOpen(false);
-              setShowDoctorModal(false);
-              setSelectedDoctor(null);
-            }}
-          />
-      </div>
-  </>
-);
+            <ScheduleModal //open a field to input date to schedule appointments after slecting doctor
+              open={isScheduleOpen}
+              onClose={() => setIsScheduleOpen(false)}
+              selectedLocation={selectedLocation}
+              selectedDoctor={selectedDoctor}
+              onConfirm={(payload) => {
+                if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
+                  const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
+                  addAppointment?.(label, payload.date)
+                  setToast( `Appointment booked with ${payload.doctor.name} at ${payload.location.popUp} on ${payload.date}.`);
+                  setToastId((prev) => prev + 1);
+                }
+                console.log('test payload', payload);
+                setIsScheduleOpen(false);
+                setShowDoctorModal(false);
+                setSelectedDoctor(null);
+              }}
+            />
+        </div>
+    </>
+  );
 
 /* modal window to select doctor from hospital*/
 function DoctorModal({ 
@@ -346,5 +348,6 @@ function ScheduleModal({
               </form>
         </div>
       </div>
-  );
+    );
+  }
 }
