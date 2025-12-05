@@ -7,10 +7,15 @@ import hospitalsDatajson from "./data2.json";
 import ReportPopup from "./ReportPopup";
 import {Circle} from "lucide-react";
 import ErrorPopup from "./ErrorPopup";
+import {Info} from "lucide-react";
+import InformationPop from "./InformationPop";
+
+
 
 interface Item {
   id: number;
   name: string;
+  info: string;
 }
 //convert json to array
 const procedureData = procedureDatajson as Item[];
@@ -25,6 +30,8 @@ export default function Cost() {
   const [showReport, setshowReport] = useState(false)
   const [showErrorPopup, setshowErrorPopup] = useState(false);
   const[messageError, setError] = useState("");
+  const [showInfo, setShowInfo] = useState(false);
+  const [infoMessage, setInfoMessage] = useState("");
  // const handleClose = () => {setshowErrorPopup(false);};
   
   
@@ -138,6 +145,15 @@ export default function Cost() {
                     onClick={() => handleCardClick(proced.name)}
                   >
                     <strong>{proced.name}</strong>
+                    <Info 
+                    size={24}
+                    className = "text-sky-800 hover:text-sky-950 cursor-pointer"
+                    onClick={(e) =>  {
+                      e.stopPropagation(); // stops from card clicking to forms yet
+                      setInfoMessage(proced.info);
+                      setShowInfo(true);
+                    }}
+                    />
                   </div>
                 )
             )}
@@ -210,7 +226,7 @@ export default function Cost() {
           {showReport && <ReportPopup onClose={()=>setshowReport(false)}/>}
 
           {showErrorPopup &&( <ErrorPopup message={messageError} onClose={()=>setshowErrorPopup(false)}/>)}
-            
+          {showInfo && (<InformationPop message={infoMessage}onClose={() => setShowInfo(false)}/>)}
         </section>
         </div>
       </main>

@@ -10,6 +10,7 @@ const RibFractureForm: React.FC = () => {
 
   const handleSubmit = () => {
     // Add form validation here or possibly save in local storage
+   
     router.push('/cost');
   };
 
