@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import type { Location, Doctor } from "../_components/MyHealth_Map";
 import type { CSSProperties } from "react";
 import styles from './HealthPageClient.module.css'
@@ -33,9 +33,43 @@ export default function HealthPageClient({
   const [showDoctorModal, setShowDoctorModal] = useState(false); //is the 1st apppointment popup open?
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);  //is the 2nd apppointment popup open?
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [toast, setToast] = useState<string | null>(null); //for pop-up function
+  const [toastId, setToastId] = useState(0);  //to reset pop-up so it doesn't just play once
 
-  return (  
-    //top filtering part of the left tab
+  useEffect(() => {
+  if (!toast) return;
+
+  const timer = setTimeout(() => {
+    setToast(null);
+  }, 18000); // 1000 = 1 second
+
+  return () => clearTimeout(timer);
+  }, [toast]);
+
+  return (
+  <>
+    {toast && (
+      <div className = {styles.toast}
+        key={toastId}
+        style={{
+          position: "fixed",
+          bottom: "100px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#717a72ff",
+          color: "white",
+          padding: "0.6rem 1rem",
+          borderRadius: "6px",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+          zIndex: 1000,
+          fontSize: "0.95rem",
+        }}
+        >
+        {toast}
+      </div>
+    )}
+
+    {/*top filtering part of the left tab*/}
    <div style = {{
       marginTop: '20px',
       gap: '20px',
@@ -44,7 +78,7 @@ export default function HealthPageClient({
       <aside className = {styles.networkFilterBox}>
         <fieldset>
           <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
-            Network Status:</legend>
+            Current Insurance Network Coverage:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
             <input
@@ -82,39 +116,60 @@ export default function HealthPageClient({
             Out-of-Network only
           </label>
         </fieldset>
-
-        <div style={{  //dealing with showing selected clinics and selecting 
-          fontSize: '0.9rem', 
-          color: '#000000ff' }}>
           <div
-            style={{ 
-              fontWeight: 'bold',
-              fontSize: '1rem',
-            }}>
-            {selectedLocation ? `Selected: ${selectedLocation.popUp}` : 'No location selected'}
-          </div>
-          <button
-            disabled={!selectedLocation}
-            onClick={() => selectedLocation && setShowDoctorModal(true)}
             style={{
-              width: '100%',
-              background: selectedLocation ? '#4CAF50' : '#888',  //if selectedlocatiion is selected, turn greyed-out button to green
-              color: 'white',
-              padding: '0.6rem',
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-              borderRadius: '6px', 
-            }} 
-            title={selectedLocation ? "View doctors at selected location" : "Select a location to view doctors"}
+              fontSize: "0.9rem",
+              color: "#000000ff",
+            }}
           >
-            Schedule Appointment
-          </button>
-        </div>
+            {selectedLocation ? (
+              <>
+                <div //a location is selected
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Selected: {selectedLocation.popUp}
+                </div>
+                <button
+                  onClick={() => setShowDoctorModal(true)}
+                  style={{
+                    width: "100%",
+                    background: "#4CAF50",
+                    color: "white",
+                    padding: "0.6rem",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "6px",
+                    marginTop: "0.5rem",
+                  }}
+                  title="View doctors at selected location"
+                >
+                  Schedule Appointment
+                </button>
+              </>
+            ) : (  // a location is not selected
+              <div
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  padding: "0.75rem 0",
+                  color: "#444",
+                }}
+              >
+                Select a hospital to schedule an appointment
+              </div>
+            )}
+          </div>
       </aside>
     <div className = {styles.mapBoxStyle}>
         <MyHealth_Map   //open health map on general page
           filter={filter} 
           onLocationSelect={(location: Location) => {
             setSelectedLocation(location);
+            setToast(`Selected ${location.popUp}`);
+            setToastId((prev) => prev + 1);
           }}
         />
         </div>
@@ -128,25 +183,27 @@ export default function HealthPageClient({
             }}
           />
         )}
-          <ScheduleModal //open a field to input date to schedule appointments after slecting doctor
-            open={isScheduleOpen}
-            onClose={() => setIsScheduleOpen(false)}
-            selectedLocation={selectedLocation}
-            selectedDoctor={selectedDoctor}
-            onConfirm={(payload) => {
-              if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
-                const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
-                addAppointment?.(label, payload.date)
-              }
-              console.log('test payload', payload);
-              setIsScheduleOpen(false);
-              setShowDoctorModal(false);
-              setSelectedDoctor(null);
-            }}
-          />
-      </div>
+            <ScheduleModal //open a field to input date to schedule appointments after slecting doctor
+              open={isScheduleOpen}
+              onClose={() => setIsScheduleOpen(false)}
+              selectedLocation={selectedLocation}
+              selectedDoctor={selectedDoctor}
+              onConfirm={(payload) => {
+                if(payload.location && payload.doctor){  //cancatenate location, name, and specialty in one "label" string then send to addAppointment
+                  const label = `${payload.doctor.name} - ${payload.doctor.specialty} at ${payload.location.popUp}`;
+                  addAppointment?.(label, payload.date)
+                  setToast( `Appointment booked with ${payload.doctor.name} at ${payload.location.popUp} on ${payload.date}.`);
+                  setToastId((prev) => prev + 1);
+                }
+                console.log('test payload', payload);
+                setIsScheduleOpen(false);
+                setShowDoctorModal(false);
+                setSelectedDoctor(null);
+              }}
+            />
+        </div>
+    </>
   );
-}
 
 /* modal window to select doctor from hospital*/
 function DoctorModal({ 
@@ -274,7 +331,7 @@ function ScheduleModal({
               <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
                 <label htmlFor="date">Select appointment date:</label>
                 <input
-                  type="date"                     // ⬅️ native calendar picker
+                  type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   id="date"
@@ -293,5 +350,6 @@ function ScheduleModal({
               </form>
         </div>
       </div>
-  );
+    );
+  }
 }

@@ -109,3 +109,26 @@
     width: 90%;
     box-shadow: 0 4px 10px rgba(0,0,0.1);
 }
+
+.toast {
+  animation: toastFadeSlide 3s ease-in-out forwards;
+}
+
+@keyframes toastFadeSlide {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}

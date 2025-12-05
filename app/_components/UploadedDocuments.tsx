@@ -11,9 +11,9 @@ type Doc = {
 };
 
 const defaultDocs: Doc[] = [
-    { title: "Debra_Smith_BCBS_051", fileNum: "1433232", date: "12/25/25", fileUrl: "/Debra_Smith_BCBS_051.pdf", /*made pdfs here to click existing docs */
+    { title: "Debra_Smith_BCBS_051", fileNum: "Print this out", date: "12/25/25", fileUrl: "/Debra_Smith_BCBS_051.pdf", /*made pdfs here to click existing docs */
   },
-    { title: "George_Lucas_BCBS_223", fileNum: "4872402", date: "11/22/25", fileUrl:"/George_Lucas_BCBS_223.pdf"},
+    { title: "George_Lucas_BCBS_223", fileNum: "Latest Visit From Step-Father", date: "11/22/25", fileUrl:"/George_Lucas_BCBS_223.pdf"},
 ];
 
 const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index: number, isDefault: boolean) => void; }) => {
@@ -27,8 +27,8 @@ const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index:
             </h3>
             <div className={styles.tableHeader}>
                 <span>  Document Name  </span>
-                <span>  Claim Number  </span>
-                <span>  Date </span>
+                <span>  Date  </span>
+                <span>  Notes: </span>
                 <span> </span> { /* for delete button */ }
             </div>
             <div className={styles.tableBody}>
@@ -45,8 +45,8 @@ const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index:
                         >
                           {title}
                         </span>                        
-                        <span>{fileNum}</span>
                         <span>{date}</span>
+                        <span>{fileNum}</span>
                         </div>
                 ))}
                 
@@ -67,8 +67,8 @@ const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index:
                             >
                             {title}
                             </span>
-                        <span>{fileNum}</span>
                         <span>{date}</span>
+                        <span>{fileNum}</span>
                         <button
                             onClick={() => onDelete(index, false)}
                             className={styles.deleteButton}
