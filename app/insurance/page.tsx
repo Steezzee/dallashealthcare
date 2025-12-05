@@ -218,7 +218,7 @@ export default function Insurance() {
                 style={inputStyle}
               />
 
-              <label>File Number:</label>
+              <label>Notes:</label>
               <input
                 type="text"
                 value={fileNum}
