@@ -1,14 +1,16 @@
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: column;
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
     flex-direction: column;
-
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    max-width:430px;
+    /*max-width:430px;*/
 }
+
+
+
 
 .container:hover {
     transform: translateY(-2px);

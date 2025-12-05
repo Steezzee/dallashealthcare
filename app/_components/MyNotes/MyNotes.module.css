@@ -6,10 +6,7 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     flex-direction: column;
 }
-.container:hover{
-    box-shadow: 0 6px 14px rgba(123, 153, 142, 0.5);
-    transform: translateY(-2px);
-}
+
 .heading {
     font-size: 1.5rem;
     font-weight: 600;
@@ -35,10 +32,7 @@
   border-bottom: 3px solid #2c9a54; 
 }
 
-.noteCard:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 6px 14px rgba(123, 153, 142, 0.6);
-}
+
 
   
 

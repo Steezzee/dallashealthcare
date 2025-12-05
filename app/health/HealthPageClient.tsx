@@ -4,6 +4,8 @@ import type { CSSProperties } from "react";
 import styles from './HealthPageClient.module.css'
 import dynamic from "next/dynamic";
 
+
+
 //window is not defined and deployment issues on Vercel if this isnt here, apparently.  Issue with serverside rendering when importing I spent way too long on
 //if someone could help fix this, it would be a nice bonus.  Otherwise, DONT TOUCH
 //code is based on rendering solution from here https://stackoverflow.com/questions/53139884/next-js-disable-server-side-rendering-on-some-pages
