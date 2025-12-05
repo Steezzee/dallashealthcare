@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./MyInfo.module.css";
+import { useRouter } from 'next/navigation';
+
 
 const userInfo = {
     name: "Noah Ark",
@@ -8,8 +10,13 @@ const userInfo = {
 
 };
 
-const MyInfo: React.FC = () => (
+const MyInfo: React.FC = () => {
 
+  const router = useRouter();
+  const clickInsurance = (insurance: string) => {
+    router.push("/insurance")
+  };
+return(
     <div className={styles.container}>
       <h2 className={styles.heading}>My Information</h2>
   
@@ -38,7 +45,19 @@ const MyInfo: React.FC = () => (
           <div className={styles.insuranceList}>
             {userInfo.insurances.map((insurance, i) => (
               
-              <div key={i} className={styles.insuranceCard}> {insurance} </div>
+              <div key={i} className={styles.insuranceCard} 
+              onClick = {() =>clickInsurance(insurance)}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.03)";
+                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "";
+              }}
+             > 
+                {insurance} 
+              </div>
             ))}
 
 
@@ -46,7 +65,8 @@ const MyInfo: React.FC = () => (
 
       </div>
     </div>
-  );
+);
+};
   
 
 export default MyInfo;
