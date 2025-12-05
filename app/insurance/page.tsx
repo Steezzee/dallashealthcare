@@ -210,20 +210,40 @@ export default function Insurance() {
 
               <div style={fileDropStyle}>
                 <p>Browse and add your file here!</p>
+                <p>Only .PDF, .XML, .JSON, .TXT, and .CSV</p>
+                <p>files are allowed for upload!</p>
 
                 <input
                   type="file"
                   id="fileInput"
                   name="file"
                   required
+                  accept=".pdf, .xml, .json, .txt, .csv"
                   style={{ display: "none" }}
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
-                      setFile(e.target.files[0]);
+                      //setFile(e.target.files[0]);
+                      const selected = e.target.files[0];
+
+                      const allowedFileTypes = [
+                        "application/pdf", 
+                        "application/xml",
+                        "application/json", 
+                        "text/plain",
+                        "text/csv"
+                      ];
+
+                      if(!allowedFileTypes.includes(selected.type)){
+                        alert("Only PDF, XML, JSON, TXT, and CSV files are allowed for upload!")
+                        e.target.value = "";
+                        return;
+                      }
+
+                      setFile(selected);
                     }
                   }}
                 />
-
+                {/*Change so it shows that something has been uploaded*/}
                 <label htmlFor="fileInput" style={fileBrowseStyle}>
                   Browse Files
                 </label>
