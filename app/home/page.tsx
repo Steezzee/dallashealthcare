@@ -33,6 +33,7 @@ export default function Home() {
         padding: '2rem',
         margin: 0,
         minHeight: '80vh',
+        backgroundColor: '#D5EBE3',
       }}
     >
 
