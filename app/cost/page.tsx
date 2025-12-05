@@ -25,7 +25,7 @@ export default function Cost() {
   const [showReport, setshowReport] = useState(false)
   const [showErrorPopup, setshowErrorPopup] = useState(false);
   const[messageError, setError] = useState("");
-  const handleClose = () => {setshowErrorPopup(false);};
+ // const handleClose = () => {setshowErrorPopup(false);};
   
   
   // Load JSON data
@@ -41,9 +41,9 @@ export default function Cost() {
 
   // hard coded data: user types broken bone for options to appear
   const handleprocedureSearch = () => {
-    const shouldShow = procedureSearch.trim().toLowerCase() === "broken bone";
+    const shouldShow = procedureSearch.trim().toLowerCase() === "fracture";
      if(!shouldShow){
-      setError("Invalid procedure.");
+      setError("Invalid procedure. Try typing 'fracture'");
       setshowErrorPopup(true);
       return;
     }
@@ -64,7 +64,7 @@ export default function Cost() {
     const term = hospitalSearch.trim().toLowerCase();
     const listTerms = hospitals.some(h=> h.name.toLowerCase().includes(term));
     if(!listTerms && term.length>0){
-      setError("Invalid Location.");
+      setError("Invalid Location. Try typing 'dallas'");
       setshowErrorPopup(true);
       return;
     }
@@ -217,4 +217,3 @@ export default function Cost() {
     </div>
   ); 
 }
-
