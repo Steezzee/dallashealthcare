@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import MyInfo from '../_components/MyInfo/MyInfo';
-import MyFitness from '../_components/MyFitness/MyFitness';
-import MyMood from '../_components/MyMood/MyMood';
 import MyPrescriptions from "../_components/MyPrescriptions/MyPrescriptions";
 import DoctorsNotes from "../_components/MyNotes/DoctorsNotes";
 import AppointmentObject from "../_components/AppointmentTracker/AppointmentObject";
