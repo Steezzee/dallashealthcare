@@ -59,6 +59,8 @@ export default function Insurance() {
       if (typeof window !== "undefined") {
           localStorage.setItem("uploadedDocs", JSON.stringify(updatedDocs));
       }
+      
+      setToast("File was uploaded successfully!");
 
       setIsModalOpen(false);
       setTitle("");
@@ -134,6 +136,23 @@ export default function Insurance() {
       }}
       >
         <UploadedDocuments docs={docs} onDelete={requestDelete} />
+          {/* Toast message */}
+          {toast && (
+            <div style={{
+              position: "fixed",
+              bottom: "2rem",
+              right: "2rem",
+              backgroundColor: "#4eb378ff",
+              color: "white",
+              padding: "1rem 1.5rem",
+              borderRadius: "8px",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+              zIndex: 2000,
+              animation: "fadeinout 3s"
+            }}>
+              {toast}
+            </div>
+          )}
 
         <button
           onClick={() => setIsModalOpen(true)}
@@ -260,7 +279,7 @@ export default function Insurance() {
                   Browse Files
                 </label>
               </div>
-
+                    
               <button type="submit" style={uploadBtnStyle}>
                 Upload
               </button>
