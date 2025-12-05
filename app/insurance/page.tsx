@@ -193,6 +193,7 @@ export default function Insurance() {
                 value={fileNum}
                 onChange={(e) => setFileNum(e.target.value)}
                 required
+                maxLength={16} //keeping this to a shorten input (might change later)
                 style={inputStyle}
               />
 
@@ -202,6 +203,8 @@ export default function Insurance() {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
+                min="1900-01-01"
+                max={new Date().toISOString().split("T")[0]}
                 style={inputStyle}
               />
 
