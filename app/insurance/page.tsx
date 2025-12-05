@@ -19,6 +19,8 @@ export default function Insurance() {
   const [date, setDate] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState<number|null>(null);
 
   useEffect(() => {
       if (typeof window !== "undefined") {
@@ -53,6 +55,30 @@ export default function Insurance() {
       setFile(null);
   };
 
+  const requestDelete = (index: number, isDefault: boolean) =>{
+    if (isDefault){
+      alert("Deleting default documents requires aditional state management...");
+    return;
+    }
+
+    setDeleteIndex(index);
+    setIsDeleteModalOpen(true); //this is for the confirmation popup
+  }
+
+  const confirmDelete = () => {
+    if(deleteIndex === null) 
+        return;
+
+    const updatedDocs = docs.filter((_, i) => i !== deleteIndex);
+    setDocs(updatedDocs);
+
+    localStorage.setItem("uploadedDocs", JSON.stringify(updatedDocs));
+    setIsDeleteModalOpen(false);
+    setDeleteIndex(null);
+
+  }
+
+  /*
   const handleDelete = (index: number, isDefault: boolean) => {
       if (isDefault) {
           alert("Deleting default documents requires additional state management...");
@@ -64,7 +90,7 @@ export default function Insurance() {
           }
       }
   };
-
+*/
 
   return (
     <div
@@ -95,7 +121,7 @@ export default function Insurance() {
         gap: "1rem",
       }}
       >
-        <UploadedDocuments docs={docs} onDelete={handleDelete} />
+        <UploadedDocuments docs={docs} onDelete={requestDelete} />
 
         <button
           onClick={() => setIsModalOpen(true)}
@@ -134,99 +160,54 @@ export default function Insurance() {
       </div>
     </main>
 
-
-      {/*  Upload  */}
-      {isModalOpen && (
+{isModalOpen && (
         <div
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsModalOpen(false);
           }}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
+          style={modalOverlay}
         >
-          <div
-            style={{
-              backgroundColor: "#f8f9fa",
-              borderRadius: "12px",
-              padding: "2rem",
-              maxWidth: "500px",
-              width: "90%",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-            }}
-          >
+          <div style={modalContent}>
             <span
               onClick={() => setIsModalOpen(false)}
-              style={{
-                float: "right",
-                cursor: "pointer",
-                fontSize: "1.5rem",
-                fontWeight: "bold",
-              }}
+              style={closeButton}
             >
               &times;
             </span>
 
             <h2 style={{ textAlign: "center" }}>Upload a Document</h2>
 
-            <form onSubmit = {handleSubmit}>
-              <label htmlFor="title">Title:</label>
+            <form onSubmit={handleSubmit}>
+              <label>Title:</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                id="title"
-                name="title"
-                placeholder="Enter title"
                 required
                 style={inputStyle}
               />
 
-              <label htmlFor="fileNumber">File Number:</label>
+              <label>File Number:</label>
               <input
                 type="text"
                 value={fileNum}
                 onChange={(e) => setFileNum(e.target.value)}
-                id="fileNumber"
-                name="fileNumber"
-                placeholder="Enter file number"
                 required
                 style={inputStyle}
               />
 
-              <label htmlFor="date">Date of file (MM/DD/YYYY):</label>
+              <label>Date of file:</label>
               <input
                 type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  id="date"
-                  name="date"
-                  required
-                  style={inputStyle}
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                style={inputStyle}
               />
 
-              <div
-                id="drop-area"
-                style={{
-                  border: "2px dashed #4CAF50",
-                  borderRadius: "8px",
-                  padding: "2rem",
-                  textAlign: "center",
-                  marginTop: "1.5rem",
-                  backgroundColor: "#fff",
-                  transition: "background-color 0.3s, border-color 0.3s",
-                }}
-              >
+              <div style={fileDropStyle}>
                 <p>Browse and add your file here!</p>
+
                 <input
                   type="file"
                   id="fileInput"
@@ -239,46 +220,89 @@ export default function Insurance() {
                     }
                   }}
                 />
-                <label
-                  htmlFor="fileInput"
-                  style={{
-                    display: "inline-block",
-                    backgroundColor: "#4CAF50",
-                    color: "white",
-                    padding: "0.5rem 1.5rem",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s",
-                  }}
-                >
+
+                <label htmlFor="fileInput" style={fileBrowseStyle}>
                   Browse Files
                 </label>
               </div>
 
-              <button
-                type="submit"
-                style={{
-                  width: "100%",
-                  marginTop: "2rem",
-                  padding: "0.8rem",
-                  backgroundColor: "#30a05f",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "6px",
-                  fontSize: "1rem",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s",
-                }}
-              >
+              <button type="submit" style={uploadBtnStyle}>
                 Upload
               </button>
             </form>
           </div>
         </div>
       )}
+
+      {/* delete modal */}
+      {isDeleteModalOpen && (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsDeleteModalOpen(false);
+          }}
+          style={modalOverlay}
+        >
+          <div style={deleteModalStyle}>
+            <h3>Are you sure you want to delete this document?</h3>
+
+            <div style={{ display: "flex", marginTop: "1.5rem", gap: "1rem" }}>
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                style={cancelButtonStyle}
+              >
+                Cancel
+              </button>
+
+              <button onClick={confirmDelete} style={deleteButtonStyle}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+/* looks/styles*/
+
+const modalOverlay: React.CSSProperties = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+};
+
+const modalContent: React.CSSProperties = {
+  backgroundColor: "#f8f9fa",
+  borderRadius: "12px",
+  padding: "2rem",
+  maxWidth: "500px",
+  width: "90%",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+};
+
+const deleteModalStyle: React.CSSProperties = {
+  backgroundColor: "white",
+  borderRadius: "10px",
+  padding: "2rem",
+  width: "90%",
+  maxWidth: "400px",
+  textAlign: "center",
+};
+
+const closeButton: React.CSSProperties = {
+  float: "right",
+  cursor: "pointer",
+  fontSize: "1.5rem",
+  fontWeight: "bold",
+};
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -287,4 +311,53 @@ const inputStyle: React.CSSProperties = {
   borderRadius: "6px",
   fontSize: "1rem",
   marginTop: "0.5rem",
+};
+
+const fileDropStyle: React.CSSProperties = {
+  border: "2px dashed #4CAF50",
+  borderRadius: "8px",
+  padding: "2rem",
+  textAlign: "center",
+  marginTop: "1.5rem",
+  backgroundColor: "#fff",
+};
+
+const fileBrowseStyle: React.CSSProperties = {
+  display: "inline-block",
+  backgroundColor: "#4CAF50",
+  color: "white",
+  padding: "0.5rem 1.5rem",
+  borderRadius: "6px",
+  cursor: "pointer",
+};
+
+const uploadBtnStyle: React.CSSProperties = {
+  width: "100%",
+  marginTop: "2rem",
+  padding: "0.8rem",
+  backgroundColor: "#30a05f",
+  color: "white",
+  border: "none",
+  borderRadius: "6px",
+  fontSize: "1rem",
+  cursor: "pointer",
+};
+
+const cancelButtonStyle: React.CSSProperties = {
+  flex: 1,
+  padding: "0.7rem",
+  border: "none",
+  backgroundColor: "#ccc",
+  borderRadius: "6px",
+  cursor: "pointer",
+};
+
+const deleteButtonStyle: React.CSSProperties = {
+  flex: 1,
+  padding: "0.7rem",
+  border: "none",
+  backgroundColor: "#CA425F",
+  color: "white",
+  borderRadius: "6px",
+  cursor: "pointer",
 };
