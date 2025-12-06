@@ -137,7 +137,7 @@ export default function Cost() {
           <button
             onClick={handleprocedureSearch}
             className="bg-sky-950 text-white px-4 py-2 rounded 
-            container hover:-translate-y-0.5 transition-all duration-200 ml-9 w-[690px]" 
+            container hover:-translate-y-0.5 transition-all duration-200 ml-8 w-[690px]" 
           >
             Search
           </button>
@@ -145,7 +145,7 @@ export default function Cost() {
           {/* conditional card for selected procedure */}
 
           {savedProcedure && (
-            <div className="bg-blue-50 border-3 border-blue-500 m1-9 p-4 rounded w-[690px] mt-10 items-center">
+            <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10 items-center">
               <h3 className="font-bold text-lg text-black mb-2">
                   Selected Procedure:
                 </h3>
