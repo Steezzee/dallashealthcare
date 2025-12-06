@@ -17,7 +17,9 @@ const Logout: React.FC = () => {
       <button
       onClick={logOutUser}
       style={{
-        backgroundColor: "#0E3C35", color: "white", borderRadius: "50px",
+        backgroundColor: "#0E3C35", 
+        color: "white", 
+        borderRadius: "60px",
         padding: "0.6rem 1.2rem",
         fontWeight: 600,
         fontSize: "0.9rem",
@@ -25,10 +27,10 @@ const Logout: React.FC = () => {
         fontFamily: "Kanit, sans-serif",
       }}
       onMouseEnter={(e) =>
-        (e.currentTarget.style.backgroundColor = "#374151")
+        (e.currentTarget.style.backgroundColor = "#249b89")
       }
       onMouseLeave={(e) =>
-        (e.currentTarget.style.backgroundColor = "#1F2937")
+        (e.currentTarget.style.backgroundColor = "#0E3C35")
       }
       > 
         Logout
