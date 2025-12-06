@@ -50,6 +50,7 @@ const FingerFractureForm: React.FC = () => {
 
   return (
     <div className={styles["form-container"]}>
+      <h3>You have chosen <b>finger fracture.</b></h3>
       <h3>Please answer the following questions:</h3>
 
       <div className={styles.question}>
