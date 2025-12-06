@@ -125,6 +125,8 @@ export default function Insurance() {
           padding: "2rem",
           minHeight: "60vh",
           flex: 1,
+          backgroundColor: "#D5EBE3",
+
         }}
       >
       <div
