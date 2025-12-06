@@ -8,6 +8,7 @@ import ReportPopup from "./ReportPopup";
 import { Circle, Info } from "lucide-react";
 import ErrorPopup from "./ErrorPopup";
 import InformationPop from "./InformationPop";
+import { ReactServerDOMTurbopackClient } from "@/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/entrypoints";
 
 interface Item {
   id: number;
@@ -59,19 +60,24 @@ export default function Cost() {
 
   // Procedure search
   const handleprocedureSearch = () => {
-    const shouldShow = procedureSearch.trim().toLowerCase() === "fracture";
-    if (!shouldShow) {
+    {/*const shouldShow = procedureSearch.trim().toLowerCase() === "fracture";
+     if(!shouldShow){
       setError("Invalid procedure. Try typing 'fracture'");
       setshowErrorPopup(true);
       return;
-    }
+    } 
+
     setProcedures((prev) =>
       prev.map((inj) => ({
         ...inj,
         visible: shouldShow,
       }
   ))
-    );
+    ); */}
+    if(!procedureSearch) return;
+
+    handleCardClick(procedureSearch);
+  
   };
 
   // hard-coded data: user types dallas for options to appear
@@ -123,23 +129,36 @@ export default function Cost() {
           </div>
 
           <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
+          <select
+            value = {procedureSearch}
+            onChange = {(e) => {
+              const selected = e.target.value
+              setprocedureSearch(selected);
+              if(selected){
+                handleprocedureSearch();
+                handleCardClick(selected);
+              }
 
-          <input
-            type="text"
-            placeholder="Type: ..."
-            value={procedureSearch}
-            onChange={(e) => setprocedureSearch(e.target.value)}
+            }}
+              
             className="border p-2 rounded text-black ml-9 mb-6 w-[690px]"
-          />
-
+          >
+            <option value =""> Select a procedure to estimate your cost...</option>
+            <option value ="Skull Fractures"> Skull Fractures</option>
+            <option value ="Arm Fractures"> Arm Fractures</option>
+            <option value ="Phalanges Fractures"> Finger Fractures</option>
+            <option value ="Rib Fractures"> Rib Fractures</option>
+          </select>
+          {/*
           <button
             onClick={handleprocedureSearch}
             className="bg-sky-950 text-white px-4 py-2 rounded ml-8 w-[690px] hover:-translate-y-0.5 transition-all duration-200"
           >
             Search
           </button>
+         */}
+          {/* conditional card for selected procedure */}
 
-          {/* Selected procedure box */}
           {savedProcedure && (
             <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10 items-center">
               <h3 className="font-bold text-lg text-black mb-2">Selected Procedure:</h3>
