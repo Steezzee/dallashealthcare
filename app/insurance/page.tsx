@@ -166,12 +166,12 @@ export default function Insurance() {
             padding: "1rem 2rem",
             fontSize: "1.2rem",
             cursor: "pointer",
-            transition: "background-color 0.3s",
+            transition: "background-color 0.2s",
             width: "30%",
 
           }}
           onMouseOver={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#ACCCC1")
+            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#249b89")
           }
           onMouseOut={(e) =>
             ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#0E3C35")
