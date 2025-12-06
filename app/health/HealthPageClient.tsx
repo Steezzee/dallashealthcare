@@ -57,6 +57,7 @@ export default function HealthPageClient({
           left: "50%",
           transform: "translateX(-50%)",
           background: "#717a72ff",
+
           color: "white",
           padding: "0.6rem 1rem",
           borderRadius: "6px",
@@ -71,13 +72,15 @@ export default function HealthPageClient({
 
     {/*top filtering part of the left tab*/}
    <div style = {{
-      marginTop: '20px',
+      marginTop: '0',
       gap: '20px',
       display: 'flex',
+      backgroundColor: "#D5EBE3",
+      minHeight: "100vh",
     }}>
       <aside className = {styles.networkFilterBox}>
         <fieldset>
-          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
+          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', fontSize:'20px' }}>
             Current Insurance Network Coverage:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
