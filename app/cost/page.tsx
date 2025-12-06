@@ -119,7 +119,7 @@ export default function Cost() {
               </span>
             </div>
           </div>
-          <h2 className="text-xl font-semibold text-center px-2 py-2">Search Procedure</h2>
+          <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
           <input
             type="text"
             placeholder="Type: ..."
@@ -171,7 +171,7 @@ export default function Cost() {
               </span>
             </div>
           </div>
-          <h2 className="text-xl font-semibold text-center">Search Hospital</h2>
+          <h2 className="text-xl font-semibold text-center">STEP 2: Search Hospital</h2>
           <input
             type="text"
             placeholder="Type: ..."
@@ -213,7 +213,7 @@ export default function Cost() {
               </span>
             </div>
           </div>
-          <h2 className="text-xl font-semibold text-center">Computed Cost</h2>
+          <h2 className="text-xl font-semibold text-center">STEP 3: Computed Cost</h2>
 
           <button onClick={() => setshowReport(true)}
            
