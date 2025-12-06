@@ -8,8 +8,45 @@ import { useRouter } from 'next/navigation';
 const ArmFractureForm: React.FC = () => {
   const router = useRouter();
 
+  const STORAGE_KEY = "procedureData";
+
+  // states to track input from fomr
+
+  const [selectedArm, setSelectedArm] = React.useState<string[]>([]);
+  const [selectedLocation, setSelectedLocation] = React.useState<string[]>([]);
+  const [selectedClassification, setSelectedClassification] = React.useState<string[]>([]);
+
+  const handleCheckBox = (
+    value: string,
+    setState: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    setState((prev) => {
+      if (prev.includes(value))
+      {
+        // if already selected, remove
+        return prev.filter((item) => item !== value);
+      }
+      else {
+        // If not selected, add
+        return [...prev, value];
+      }
+    } );
+  }
+  
+
   const handleSubmit = () => {
     // Add form validation here or possibly save in local storage
+
+    const procedureData = {
+      procedureType: "Arm Fracture",
+      selections: {
+        arm: selectedArm,
+        location: selectedLocation,
+        classification: selectedClassification,
+      }
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(procedureData));
    
     router.push('/cost');
   };
@@ -21,26 +58,26 @@ const ArmFractureForm: React.FC = () => {
       <div className={styles.question}>
         <label>Which arm is fractured?</label>
         <div className={styles.options}>
-          <label><input type="checkbox" /> Left Arm</label>
-          <label><input type="checkbox" /> Right Arm</label>
-          <label><input type="checkbox" /> Both Arms</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Left Arm', setSelectedArm)}/> Left Arm</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Right Arm', setSelectedArm)}/> Right Arm</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Both Arm', setSelectedArm)}/> Both Arms</label>
         </div>
       </div>
 
       <div className={styles.question}>
-        <label>What was the arm fracture classified as by location?</label>
+        <label>What is the location of the arm fracture?</label>
         <div className={styles.options}>
-          <label><input type="checkbox" /> Proximal</label>
-          <label><input type="checkbox" /> Mid-shaft</label>
-          <label><input type="checkbox" /> Distal</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Proximal', setSelectedLocation)}/> Proximal</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Mid-shaft', setSelectedLocation)}/> Mid-shaft</label>
+          <label><input type="checkbox" onChange={() => handleCheckBox('Distal', setSelectedLocation)}/> Distal</label>
         </div>
       </div>
 
       <div className={styles.question}>
-        <label>What was the arm fracture classified as by break?</label>
+        <label>What type of break is the arm fracture?</label>
         <div className={styles.options}>
           {['Displaced', 'Non-Displaced', 'Intra-articular', 'Extra-articular', 'Transverse', 'Oblique', 'Spiral', 'Comminuted', 'Greenstick', 'Pathological'].map(item => (
-            <label key={item}><input type="checkbox" /> {item}</label>
+            <label key={item}><input type="checkbox" onChange={() => handleCheckBox(`${item}`, setSelectedClassification)}/> {item}</label>
           ))}
         </div>
       </div>

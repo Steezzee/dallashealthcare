@@ -32,6 +32,8 @@ export default function Cost() {
   const[messageError, setError] = useState("");
   const [showInfo, setShowInfo] = useState(false);
   const [infoMessage, setInfoMessage] = useState("");
+  const [savedProcedure, setSavedProcedure] = useState<any>(null);
+
  // const handleClose = () => {setshowErrorPopup(false);};
   
   
@@ -44,6 +46,11 @@ export default function Cost() {
     setHospitals(hospitalsData.map((item) => ({ //added hospitals
        ...item, 
        visible: false }))); 
+
+    const saved = localStorage.getItem("procedureData");
+    if (saved) {
+      setSavedProcedure(JSON.parse(saved));
+    }
   }, []);
 
   // hard coded data: user types broken bone for options to appear
@@ -91,7 +98,7 @@ export default function Cost() {
     } else if (name === "Skull Fractures") {
       router.push("./cost/skullfractureform")
       console.log("Clicked card:", name);
-    } else if (name === "Phalanges Fractures (Broken Finger(s))") {
+    } else if (name === "Phalanges Fractures") {
       router.push("./cost/fingerfractureform");
       console.log("Clicked card:", name);
     } else if (name === "Rib Fractures") {
@@ -135,6 +142,42 @@ export default function Cost() {
             Search
           </button>
 
+          {/* conditional card for selected procedure */}
+
+          {savedProcedure && (
+            <div className="bg-blue-50 border-3 border-blue-500 m1-9 p-4 rounded w-[690px] mt-10 items-center">
+              <h3 className="font-bold text-lg text-black mb-2">
+                  Selected Procedure:
+                </h3>
+              <div className="flex justify-between items-center">
+                <h3 className="font-medium text-lg text-black mb-2">
+                  {savedProcedure.procedureType}
+                </h3>
+                <div className="text-sm text-gray-700 mt-2">
+                  {Object.entries(savedProcedure.selections).map(([key, values]) => {
+                    const valuesArr = values as string[];
+                    if (valuesArr.length === 0) return null; // no selections
+                    if (valuesArr.length > 0) {
+                      return (
+                        <p key={key}>
+                          <strong className="capitalize">{key}:</strong> {valuesArr.join(', ')}
+                        </p>
+                      );
+                    }
+                      return null;
+                  })}
+                </div>
+              <button onClick={() => {
+                localStorage.removeItem('procedureData');
+                setSavedProcedure(null);
+              }}
+              className="text-red-500 hover:text-red-800 font-bold">
+                Clear Procedure
+              </button>
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col gap-3 mt-4">
             {procedure.map(
               (proced) =>
@@ -163,7 +206,7 @@ export default function Cost() {
             
         {/*hospital search */}
         <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
-          <div className="absolute -top-0 -left-0">
+          <div className="absolute top-0 left-0">
             <div className= "relative">
               <Circle size={30} strokeWidth={2} className="text-black"/>
               <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">
