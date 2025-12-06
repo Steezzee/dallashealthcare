@@ -70,7 +70,7 @@ export default function Cost() {
   const handleHospitalSearch = () => {
     const term = hospitalSearch.trim().toLowerCase();
     const listTerms = hospitals.some(h=> h.name.toLowerCase().includes(term));
-    if(!listTerms && term.length>0){
+    if(!(listTerms && term.length>0)){
       setError("Invalid Location. Try typing 'dallas'");
       setshowErrorPopup(true);
       return;
