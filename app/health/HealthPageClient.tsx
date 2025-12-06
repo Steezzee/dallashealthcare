@@ -80,7 +80,7 @@ export default function HealthPageClient({
     }}>
       <aside className = {styles.networkFilterBox}>
         <fieldset>
-          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center', fontSize:'20px' }}>
+          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center' }}>
             Current Insurance Network Coverage:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>

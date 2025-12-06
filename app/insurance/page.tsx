@@ -159,12 +159,12 @@ export default function Insurance() {
         <button
           onClick={() => setIsModalOpen(true)}
           style={{
-            backgroundColor: "#C4D9D2",
-            color: "black",
+            backgroundColor: "#0E3C35",
+            color: "white",
             border: "none",
             borderRadius: "10px",
             padding: "1rem 2rem",
-            fontSize: "1.1rem",
+            fontSize: "1.2rem",
             cursor: "pointer",
             transition: "background-color 0.3s",
             width: "30%",
@@ -174,7 +174,7 @@ export default function Insurance() {
             ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#ACCCC1")
           }
           onMouseOut={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#C4D9D2")
+            ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#0E3C35")
           }
         >
           Upload Document
