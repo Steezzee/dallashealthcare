@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 import ProfileSection from "./ProfileSection";
 import BannerTitle from "./BannerTitle";
-import IconRow from "./IconRow";
+import Logout from "./Logout";
 
 const Header: React.FC = () => {
     return (
@@ -10,7 +10,7 @@ const Header: React.FC = () => {
             <ProfileSection />
             <div className={styles.bannerCenterWrapper}>
                 <BannerTitle /></div>
-            {/*<IconRow />*/}
+            <Logout />
         </header>
     );
 };
