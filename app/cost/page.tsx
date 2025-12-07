@@ -38,7 +38,7 @@ export default function Cost() {
  
 
 
-  // hospital modal
+  // hospital modal clearing hospital 
   const [showClearHospitalConfirm, setShowClearHospitalConfirm] = useState(false); 
 // dropdown state
   const [dropdownOpen, setDropdownOpen] = useState(false);
