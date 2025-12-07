@@ -18,7 +18,7 @@ export default function InformationPop({ message, onClose }: InformationPopProp)
 {/*Main title*/}
             
 
-{/*Formatting for each section of the computed cost price */}          
+{/*compute cost */}          
 <section>							
 <p className="text-xl font-semibold mb-3">{message}</p>
 </section>
