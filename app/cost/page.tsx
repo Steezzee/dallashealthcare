@@ -8,14 +8,14 @@ import ReportPopup from "./ReportPopup";
 import { Circle, Info } from "lucide-react";
 import ErrorPopup from "./ErrorPopup";
 import InformationPop from "./InformationPop";
-import { ReactServerDOMTurbopackClient } from "@/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/entrypoints";
 
 interface Item {
   id: number;
   name: string;
   info: string;
 }
-// convert json to array
+
+// Convert JSON to array
 const procedureData = procedureDatajson as Item[];
 const hospitalsData = hospitalsDatajson as Item[];
 
@@ -35,55 +35,31 @@ export default function Cost() {
   const [infoMessage, setInfoMessage] = useState("");
 
   const [savedProcedure, setSavedProcedure] = useState<any>(null);
-
-  // Selected hospital state
   const [selectedHospital, setSelectedHospital] = useState<any>(null);
+ 
 
-  // Confirmation for clearing procedure
+  // dropdown state
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // confirmation for clearing procedure
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   useEffect(() => {
-    setProcedures(procedureData.map((item) => ({
-       ...item, 
-       visible: false })));
+    setProcedures(procedureData.map((item) => ({ ...item, visible: false })));
+    setHospitals(hospitalsData.map((item) => ({ ...item, visible: false })));
 
-    setHospitals(hospitalsData.map((item) => ({ //added hospitals
-       ...item, 
-       visible: false })));
-    // Load saved procedure
     const saved = localStorage.getItem("procedureData");
-    if (saved) {
-      setSavedProcedure(JSON.parse(saved));
-    }
+    if (saved) setSavedProcedure(JSON.parse(saved));
 
-    // Load saved hospital
     const savedHosp = localStorage.getItem("selectedHospital");
     if (savedHosp) setSelectedHospital(JSON.parse(savedHosp));
   }, []);
 
-  // Procedure search
   const handleprocedureSearch = () => {
-    {/*const shouldShow = procedureSearch.trim().toLowerCase() === "fracture";
-     if(!shouldShow){
-      setError("Invalid procedure. Try typing 'fracture'");
-      setshowErrorPopup(true);
-      return;
-    } 
-
-    setProcedures((prev) =>
-      prev.map((inj) => ({
-        ...inj,
-        visible: shouldShow,
-      }
-  ))
-    ); */}
-    if(!procedureSearch) return;
-
+    if (!procedureSearch) return;
     handleCardClick(procedureSearch);
-  
   };
 
-  // hard-coded data: user types dallas for options to appear
   const handleHospitalSearch = () => {
     const term = hospitalSearch.trim().toLowerCase();
     const listTerms = hospitals.some((h) => h.name.toLowerCase().includes(term));
@@ -95,13 +71,10 @@ export default function Cost() {
     }
 
     setHospitals((prev) =>
-      prev.map((hosp) => ({...hosp,
-        visible: hosp.name.toLowerCase().includes(term)&& term.length > 0,
-      }))
+      prev.map((hosp) => ({ ...hosp, visible: hosp.name.toLowerCase().includes(term) && term.length > 0 }))
     );
   };
 
-  // Navigation to forms
   const handleCardClick = (name: string) => {
     if (name === "Arm Fractures") {
       router.push("./cost/armfractureform"); 
@@ -126,7 +99,7 @@ export default function Cost() {
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
       <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
 
-        {/*Procedure Search */}
+        {/* STEP 1: Procedure Search */}
         <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
 
           <div className="absolute -top-0.000001 -left-0.00000001">
@@ -137,67 +110,79 @@ export default function Cost() {
           </div>
 
           <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
-          <select
-            value = {procedureSearch}
-            onChange = {(e) => {
-              const selected = e.target.value
-              setprocedureSearch(selected);
-              if(selected){
-                handleprocedureSearch();
-                handleCardClick(selected);
-              }
 
-            }}
-              
-            className="border p-2 rounded text-black ml-9 mb-6 w-[690px]"
-          >
-            <option value =""> Select a procedure to estimate your cost...</option>
-            <option value ="Skull Fractures"> Skull Fractures</option>
-            <option value ="Arm Fractures"> Arm Fractures</option>
-            <option value ="Phalanges Fractures"> Finger Fractures</option>
-            <option value ="Rib Fractures"> Rib Fractures</option>
-          </select>
-          {/*
-          <button
-            onClick={handleprocedureSearch}
-            className="bg-sky-950 text-white px-4 py-2 rounded ml-8 w-[690px] hover:-translate-y-0.5 transition-all duration-200"
-          >
-            Search
-          </button>
-         */}
-          {/* conditional card for selected procedure */}
+          {/* dropdown with icons */}
+          <div className="relative ml-9 mb-6 w-[690px]">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="border p-2 rounded w-full text-left bg-white flex justify-between items-center"
+            >
+              {procedureSearch || "Select a procedure to estimate your cost..."}
+              <span className="ml-2">▾</span>
+            </button>
 
+            {dropdownOpen && (
+              <div className="absolute w-full bg-white border rounded mt-1 z-20 shadow-lg max-h-64 overflow-y-auto">
+                {procedureData.map((proced) => (
+                  <div
+                    key={proced.id}
+                    className="p-3 flex justify-between items-center hover:bg-gray-100 cursor-pointer"
+                  >
+                    <span
+                      className="text-black"
+                      onClick={() => {
+                        setprocedureSearch(proced.name);
+                        setDropdownOpen(false);
+                        handleCardClick(proced.name);
+                      }}
+                    >
+                      {proced.name}
+                    </span>
+                    <Info
+                      size={22}
+                      className="text-sky-800 hover:text-sky-900 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setInfoMessage(proced.info);
+                        setShowInfo(true);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* display saved procedure */}
           {savedProcedure && (
-            <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10 items-center">
+            <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10">
               <h3 className="font-bold text-lg text-black mb-2">Selected Procedure:</h3>
               <div className="flex justify-between items-center">
                 <h3 className="font-medium text-lg text-black mb-2">
                   {savedProcedure.procedureType}
                 </h3>
-
                 <div className="text-sm text-gray-700 mt-2">
                   {Object.entries(savedProcedure.selections).map(([key, values]) => {
                     const valuesArr = values as string[];
-                   if (valuesArr.length === 0) return null; // no selections
-                    if (valuesArr.length > 0) {
-                      return (
-                        <p key={key}>
-                          <strong className="capitalize">{key}:</strong> {valuesArr.join(', ')}
-                        </p>
-                      );
-                    }
-                      return null;                  })}
+                    if (!valuesArr.length) return null;
+                    return (
+                      <p key={key}>
+                        <strong className="capitalize">{key}:</strong> {valuesArr.join(", ")}
+                      </p>
+                    );
+                  })}
                 </div>
-              <button 
-              onClick = {handleClearProcedure}
-              className="text-red-500 hover:text-red-800 font-bold">
+                <button
+                  onClick={handleClearProcedure}
+                  className="text-red-500 hover:text-red-800 font-bold"
+                >
                   Clear Procedure
                 </button>
               </div>
             </div>
           )}
 
-          {/* Procedure options */}
+          {/* procedure options list */}
           <div className="flex flex-col gap-3 mt-4">
             {procedure.map(
               (proced) =>
@@ -208,7 +193,6 @@ export default function Cost() {
                     className="bg-white p-3 border rounded cursor-pointer hover:bg-gray-100 w-[690px] ml-9 flex justify-between"
                   >
                     <strong>{proced.name}</strong>
-
                     <Info
                       size={24}
                       className="text-sky-800 hover:text-sky-950 cursor-pointer"
@@ -224,18 +208,17 @@ export default function Cost() {
           </div>
         </section>
 
+        
         <div className="flex flex-col gap-8 self-start">
 
-          {/* Hospital Search*/}
+          {/* Hospital Search */}
           <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
-
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
                 <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">2</span>
               </div>
             </div>
-
             <h2 className="text-xl font-semibold text-center">STEP 2: Search Hospital</h2>
 
             <input
@@ -253,22 +236,16 @@ export default function Cost() {
               Search
             </button>
 
-            {/* Hospital selected*/}
             {selectedHospital && (
               <div className="bg-blue-50 border-2 border-blue-500 p-3 rounded">
                 <h3 className="font-bold">Selected Hospital:</h3>
                 <p className="text-black text-lg">{selectedHospital.name}</p>
-
                 <button
                   className="text-red-500 font-bold mt-2"
                   onClick={() => {
                     setSelectedHospital(null);
                     localStorage.removeItem("selectedHospital");
-
-                    setHospitals((prev) =>
-                      prev.map((h) => ({ ...h, visible: false }))
-                    );
-
+                    setHospitals((prev) => prev.map((h) => ({ ...h, visible: false })));
                     setHospitalSearch("");
                   }}
                 >
@@ -277,7 +254,6 @@ export default function Cost() {
               </div>
             )}
 
-            {/* Hospital options */}
             <div className="flex flex-col gap-3 mt-4">
               {hospitals
                 .filter((h) => h.visible && !selectedHospital)
@@ -288,11 +264,7 @@ export default function Cost() {
                     onClick={() => {
                       setSelectedHospital(hospital);
                       localStorage.setItem("selectedHospital", JSON.stringify(hospital));
-
-                      setHospitals((prev) =>
-                        prev.map((h) => ({ ...h, visible: false }))
-                      );
-
+                      setHospitals((prev) => prev.map((h) => ({ ...h, visible: false })));
                       setHospitalSearch("");
                     }}
                   >
@@ -300,19 +272,16 @@ export default function Cost() {
                   </div>
                 ))}
             </div>
-
           </section>
 
-          {/* Computing cost */}
+          {/* Compute Cost */}
           <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
-
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
                 <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">3</span>
               </div>
             </div>
-
             <h2 className="text-xl font-semibold text-center">STEP 3: Computed Cost</h2>
 
             <button

@@ -1,29 +1,41 @@
-"use client"
-import React from 'react'
-import { CircleX } from 'lucide-react';
+"use client";
+import React from "react";
+import { CircleX } from "lucide-react";
 
-interface InformationPopProp{
-    message:string;
-    onClose: () => void;
-};
-//main report pop up
+interface InformationPopProp {
+  message: string;
+  onClose: () => void;
+}
+
 export default function InformationPop({ message, onClose }: InformationPopProp) {
-    return(
-    // background/homepage
-        <div className="fixed inset-0 z-[999] bg-transparent bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="mt-10 flex flex-col gap-5 text-black">
-            <button className="relative top-3" onClick={onClose}><CircleX size={25}/></button> 
-            <div className="-mt-8 flex flex-col gap-5 text-black 
-                  max-h-[90vh] overflow-y-auto p-6 bg-white rounded-xl shadow-xl">
-{/*Main title*/}
-            
+  return (
+    <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
 
-{/*Formatting for each section of the computed cost price */}          
-<section>							
-<p className="text-xl font-semibold mb-3">{message}</p>
-</section>
+      {/* main container */}
+      <div className="relative bg-white rounded-2xl shadow-2xl w-[90%] max-w-xl p-6 animate-fadeIn scale-animation">
 
-</div>
-</div>
-</div>
-    )}
+        {/* close */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 hover:scale-110 transition-transform"
+        >
+          <CircleX size={28} className="text-gray-600 hover:text-black" />
+        </button>
+
+        {/* title */}
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900">
+          Additional Information
+        </h2>
+
+     
+        <div className="max-h-[60vh] overflow-y-auto pr-2">
+
+          <p className="text-lg leading-relaxed text-gray-800 whitespace-pre-line">
+            {message}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  );
+}
