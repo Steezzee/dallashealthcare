@@ -24,6 +24,8 @@
 
 .tableBody {
     margin-top: 5px;
+    min-height: 500px;
+    overflow-y: auto;
 }
 
 .docEntry {
