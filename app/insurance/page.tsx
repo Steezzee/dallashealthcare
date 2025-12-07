@@ -144,6 +144,7 @@ export default function Insurance() {
               position: "fixed",
               bottom: "2rem",
               right: "2rem",
+              height: "500px",
               backgroundColor: "#4eb378ff",
               color: "white",
               padding: "1rem 1.5rem",
