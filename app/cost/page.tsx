@@ -39,6 +39,9 @@ export default function Cost() {
   // Selected hospital state
   const [selectedHospital, setSelectedHospital] = useState<any>(null);
 
+  // Confirmation for clearing procedure
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+
   useEffect(() => {
     setProcedures(procedureData.map((item) => ({
        ...item, 
@@ -114,6 +117,11 @@ export default function Cost() {
       console.log("Clicked card: ", name)
     }  };
 
+  // Safety check before deleting procedure 
+  const handleClearProcedure = () => {
+    setShowClearConfirm(true);
+  };
+
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
       <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
@@ -180,12 +188,9 @@ export default function Cost() {
                     }
                       return null;                  })}
                 </div>
-              <button onClick={() => {
-                    localStorage.removeItem("procedureData");
-                    setSavedProcedure(null);
-                  }}
-                  className="text-red-500 hover:text-red-800 font-bold"
-                >
+              <button 
+              onClick = {handleClearProcedure}
+              className="text-red-500 hover:text-red-800 font-bold">
                   Clear Procedure
                 </button>
               </div>
@@ -320,8 +325,52 @@ export default function Cost() {
             {showReport && <ReportPopup onClose={() => setshowReport(false)} />}
             {showErrorPopup && <ErrorPopup message={messageError} onClose={() => setshowErrorPopup(false)} />}
             {showInfo && <InformationPop message={infoMessage} onClose={() => setShowInfo(false)} />}
+            {showClearConfirm && (
+              <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1000,
+              }}>
+                <div style={{
+                  backgroundColor: 'white',
+                  padding: '2rem',
+                  borderRadius: '8px',
+                  maxWidth: '400px',
+                  textAlign: 'center',
+                }}>
+                  <h3 className="text-lg font-semibold mb-4">Confirm Clear Procedure</h3>
+                  <p className="mb-6">Are you sure you want to clear the selected procedure?</p>
+                  <div style= {{
+                    display: 'flex',
+                    gap: '1rem',
+                    justifyContent: 'center',
+                  }}>
+                    <button
+                      onClick={() =>
+                        setShowClearConfirm(false)}
+                         className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        >
+                          Cancel
+                        </button><button onClick={() => {
+                          localStorage.removeItem("procedureData");
+                          setSavedProcedure(null);
+                          setShowClearConfirm(false);
+                        }}
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                          Confirm
+                        </button>
+                        </div>
+                </div>
+              </div>
+            )}
           </section>
-
         </div>
       </main>
     </div>
