@@ -14,7 +14,6 @@ interface Item {
   name: string;
   info: string;
 }
-
 // Convert JSON to array
 const procedureData = procedureDatajson as Item[];
 const hospitalsData = hospitalsDatajson as Item[];
@@ -38,7 +37,10 @@ export default function Cost() {
   const [selectedHospital, setSelectedHospital] = useState<any>(null);
  
 
-  // dropdown state
+
+  // hospital modal clearing hospital 
+  const [showClearHospitalConfirm, setShowClearHospitalConfirm] = useState(false); 
+// dropdown state
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // confirmation for clearing procedure
@@ -95,11 +97,16 @@ export default function Cost() {
     setShowClearConfirm(true);
   };
 
+  // Open hospital confirmation
+  const handleClearHospital = () => {
+    setShowClearHospitalConfirm(true);
+  };
+
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
       <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
 
-        {/* STEP 1: Procedure Search */}
+        {/* procedure search*/}
         <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
 
           <div className="absolute -top-0.000001 -left-0.00000001">
@@ -111,7 +118,7 @@ export default function Cost() {
 
           <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
 
-          {/* dropdown with icons */}
+          {/* dropdown */}
           <div className="relative ml-9 mb-6 w-[690px]">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -208,7 +215,6 @@ export default function Cost() {
           </div>
         </section>
 
-        
         <div className="flex flex-col gap-8 self-start">
 
           {/* Hospital Search */}
@@ -219,6 +225,7 @@ export default function Cost() {
                 <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">2</span>
               </div>
             </div>
+
             <h2 className="text-xl font-semibold text-center">STEP 2: Search Hospital</h2>
 
             <input
@@ -236,24 +243,21 @@ export default function Cost() {
               Search
             </button>
 
+            {/* hospital selected */}
             {selectedHospital && (
               <div className="bg-blue-50 border-2 border-blue-500 p-3 rounded">
                 <h3 className="font-bold">Selected Hospital:</h3>
                 <p className="text-black text-lg">{selectedHospital.name}</p>
                 <button
                   className="text-red-500 font-bold mt-2"
-                  onClick={() => {
-                    setSelectedHospital(null);
-                    localStorage.removeItem("selectedHospital");
-                    setHospitals((prev) => prev.map((h) => ({ ...h, visible: false })));
-                    setHospitalSearch("");
-                  }}
+                  onClick={handleClearHospital}
                 >
                   Clear Hospital
                 </button>
               </div>
             )}
 
+            {/* hospital options */}
             <div className="flex flex-col gap-3 mt-4">
               {hospitals
                 .filter((h) => h.visible && !selectedHospital)
@@ -282,6 +286,7 @@ export default function Cost() {
                 <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">3</span>
               </div>
             </div>
+
             <h2 className="text-xl font-semibold text-center">STEP 3: Computed Cost</h2>
 
             <button
@@ -294,48 +299,89 @@ export default function Cost() {
             {showReport && <ReportPopup onClose={() => setshowReport(false)} />}
             {showErrorPopup && <ErrorPopup message={messageError} onClose={() => setshowErrorPopup(false)} />}
             {showInfo && <InformationPop message={infoMessage} onClose={() => setShowInfo(false)} />}
+
+            {/* procedure confirmation */}
             {showClearConfirm && (
               <div style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
+                position: 'fixed', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
                 bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 1000,
+                backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                justifyContent: 'center', alignItems: 'center', zIndex: 1000
               }}>
                 <div style={{
-                  backgroundColor: 'white',
-                  padding: '2rem',
+                  backgroundColor: 'white', 
+                  padding: '2rem', 
                   borderRadius: '8px',
-                  maxWidth: '400px',
-                  textAlign: 'center',
+                  maxWidth: '400px', 
+                  textAlign: 'center'
                 }}>
                   <h3 className="text-lg font-semibold mb-4">Confirm Clear Procedure</h3>
                   <p className="mb-6">Are you sure you want to clear the selected procedure?</p>
-                  <div style= {{
-                    display: 'flex',
-                    gap: '1rem',
-                    justifyContent: 'center',
-                  }}>
-                    <button
-                      onClick={() =>
-                        setShowClearConfirm(false)}
-                         className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                        >
-                          Cancel
-                        </button><button onClick={() => {
-                          localStorage.removeItem("procedureData");
-                          setSavedProcedure(null);
-                          setShowClearConfirm(false);
-                        }}
-                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                          Confirm
-                        </button>
-                        </div>
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '1rem', 
+                    justifyContent: 'center' 
+                    }}>
+                    <button 
+                    onClick={() => 
+                    setShowClearConfirm(false)} 
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                    <button 
+                    onClick={() => {
+                      localStorage.removeItem("procedureData");
+                      setSavedProcedure(null);
+                      setShowClearConfirm(false);
+                    }} 
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* hospital confirmation */}
+            {showClearHospitalConfirm && (
+              <div style={{
+                position: 'fixed', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0,
+                backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                justifyContent: 'center', alignItems: 'center', zIndex: 1000
+              }}>
+                <div style={{
+                  backgroundColor: 'white', 
+                  padding: '2rem', 
+                  borderRadius: '8px',
+                  maxWidth: '400px', 
+                  textAlign: 'center'
+                }}>
+                  <h3 className="text-lg font-semibold mb-4">Confirm Clear Hospital</h3>
+                  <p className="mb-6">Are you sure you want to clear the selected hospital?</p>
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '1rem', 
+                    justifyContent: 'center' 
+                    }}>
+                    <button 
+                    onClick={() => 
+                    setShowClearHospitalConfirm(false)} 
+                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+
+                    <button 
+                    onClick={() => {
+                      setSelectedHospital(null);
+                      localStorage.removeItem("selectedHospital");
+                      setHospitals((prev) => 
+                        prev.map((h) => 
+                          ({ ...h, visible: false })));
+                      setHospitalSearch("");
+                      setShowClearHospitalConfirm(false);
+                    }} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Confirm</button>
+                  </div>
                 </div>
               </div>
             )}
