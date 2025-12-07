@@ -23,7 +23,6 @@ export default function Cost() {
 
   const [procedure, setProcedures] = useState<Array<Item & { visible: boolean }>>([]);
   const [hospitals, setHospitals] = useState<Array<Item & { visible: boolean }>>([]);
-
   const [procedureSearch, setprocedureSearch] = useState("");
   const [hospitalSearch, setHospitalSearch] = useState("");
 
@@ -36,16 +35,13 @@ export default function Cost() {
   const [savedProcedure, setSavedProcedure] = useState<any>(null);
   const [selectedHospital, setSelectedHospital] = useState<any>(null);
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false); // For procedure dropdown
 
   useEffect(() => {
-    setProcedures(
-      procedureData.map((item) => ({ ...item, visible: false }))
-    );
-
-    setHospitals(
-      hospitalsData.map((item) => ({ ...item, visible: false }))
-    );
+    setProcedures(procedureData.map((item) => ({ ...item, visible: false })));
+    setHospitals(hospitalsData.map((item) => ({ ...item, visible: false })));
 
     const saved = localStorage.getItem("procedureData");
     if (saved) setSavedProcedure(JSON.parse(saved));
@@ -72,29 +68,34 @@ export default function Cost() {
     );
   };
 
-  // Navigation handler based on card name
+  // Navigation to forms
   const handleCardClick = (name: string) => {
     if (name === "Arm Fractures") {
       router.push("./cost/armfractureform"); 
       console.log("Clicked card:", name);
     } else if (name === "Skull Fractures") {
-      router.push("./cost/skullfractureform");
+      router.push("./cost/skullfractureform")
       console.log("Clicked card:", name);
     } else if (name === "Phalanges Fractures") {
       router.push("./cost/fingerfractureform");
       console.log("Clicked card:", name);
     } else if (name === "Rib Fractures") {
       router.push("./cost/ribfractureform");
-      console.log("Clicked card: ", name);
-    }
+      console.log("Clicked card: ", name)
+    }  };
+// Safety check before deleting procedure 
+  const handleClearProcedure = () => {
+    setShowClearConfirm(true);
   };
 
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
-      <main className="grid grid-cols-[750px_350px] gap-8 items-start bg-[#D5EBE3] p-5 min-h-screen">
-        {/*Step 1 */}
-        <section className="relative bg-sky-100 rounded-xl w-full h-[650px] flex flex-col">
-          <div className="absolute top-0 left-0">
+      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
+        
+        {/*procedure */}
+        <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
+
+          <div className="absolute -top-0 -left-0">
             <div className="relative">
               <Circle size={30} strokeWidth={2} className="text-black" />
               <span className="absolute inset-0 flex items-center justify-center text-black font-semibold">1</span>
@@ -103,82 +104,94 @@ export default function Cost() {
 
           <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
 
-          {/* dropdown */}
-          <div className="relative w-[690px] ml-9">
+          {/* custome dropdown*/}
+          <div className="relative ml-9 mb-6 w-[690px]">
+
+            
             <button
-              className="w-full border p-2 rounded text-left bg-white"
               onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="border p-2 rounded w-full text-left bg-white flex justify-between items-center"
             >
-              {procedureSearch || "Select a procedure"}
+              {procedureSearch || "Select a procedure to estimate your cost..."}
+              <span className="ml-2">▾</span>
             </button>
 
+            {/* dropdown menu */}
             {dropdownOpen && (
-              <ul className="absolute w-full max-h-60 overflow-y-auto border mt-1 bg-white rounded shadow-lg z-10">
-                {procedure.map((p) => (
-                  <li
-                    key={p.id}
-                    className="flex justify-between items-center p-2 cursor-pointer hover:bg-gray-100"
+              <div className="absolute w-full bg-white border rounded mt-1 z-20 shadow-lg max-h-64 overflow-y-auto">
+                {procedureData.map((proced) => (
+                  <div
+                    key={proced.id}
+                    className="p-3 flex justify-between items-center hover:bg-gray-100 cursor-pointer"
                   >
                     <span
+                      className="text-black"
                       onClick={() => {
-                        setprocedureSearch(p.name);
-                        handleCardClick(p.name);
+                        setprocedureSearch(proced.name);
                         setDropdownOpen(false);
+                        handleCardClick(proced.name);
                       }}
                     >
-                      {p.name}
+                      {proced.name}
                     </span>
-                    <span
-                      className="ml-2 text-sky-800 hover:text-sky-950"
+
+                    {/* info icon */}
+                    <Info
+                      size={22}
+                      className="text-sky-800 hover:text-sky-900"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setInfoMessage(p.info);
+                        setInfoMessage(proced.info);
                         setShowInfo(true);
                       }}
-                    >
-                      <Info />
-                    </span>
-                  </li>
+                    />
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
 
-          {/* saved procedure card */}
+          {/* conditional card for selected procedure */}
+
           {savedProcedure && (
             <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10">
               <h3 className="font-bold text-lg text-black mb-2">Selected Procedure:</h3>
               <div className="flex justify-between items-center">
-                <h3 className="font-medium text-lg text-black mb-2">{savedProcedure.procedureType}</h3>
-                <div className="text-sm text-gray-700 mt-2">
-                  {Object.entries(savedProcedure.selections).map(([key, values]) => {
-                    const valuesArr = values as string[];
-                    if (!valuesArr.length) return null;
-                    return (
-                      <p key={key}>
-                        <strong className="capitalize">{key}:</strong> {valuesArr.join(", ")}
-                      </p>
-                    );
-                  })}
-                </div>
+                <h3 className="font-medium text-lg text-black mb-2">
+                  {savedProcedure.procedureType}
+                </h3>
+
                 <button
-                  onClick={() => {
-                    localStorage.removeItem("procedureData");
-                    setSavedProcedure(null);
-                  }}
+                  onClick={handleClearProcedure}
                   className="text-red-500 hover:text-red-800 font-bold"
                 >
                   Clear Procedure
                 </button>
               </div>
+
+              {/* Selections */}
+              <div className="text-sm text-gray-700 mt-2">
+                {Object.entries(savedProcedure.selections).map(([key, values]) => {
+                  const arr = values as string[];
+                  if (!arr.length) return null;
+                  return (
+                    <p key={key}>
+                      <strong className="capitalize">{key}:</strong> {arr.join(", ")}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
           )}
+
         </section>
 
         
-        <div className="flex flex-col gap-8">
-          {/* Step 2: Hospital search */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-full flex flex-col gap-4">
+        <div className="flex flex-col gap-8 self-start">
+
+          {/* Hospital Search */}
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
+
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
@@ -203,16 +216,22 @@ export default function Cost() {
               Search
             </button>
 
+            {/* Selected Hospital */}
             {selectedHospital && (
-              <div className="bg-blue-50 border-2 border-blue-500 p-3 rounded mt-4">
+              <div className="bg-blue-50 border-2 border-blue-500 p-3 rounded">
                 <h3 className="font-bold">Selected Hospital:</h3>
                 <p className="text-black text-lg">{selectedHospital.name}</p>
+
                 <button
                   className="text-red-500 font-bold mt-2"
                   onClick={() => {
                     setSelectedHospital(null);
                     localStorage.removeItem("selectedHospital");
-                    setHospitals((prev) => prev.map((h) => ({ ...h, visible: false })));
+
+                    setHospitals((prev) =>
+                      prev.map((h) => ({ ...h, visible: false }))
+                    );
+
                     setHospitalSearch("");
                   }}
                 >
@@ -221,6 +240,7 @@ export default function Cost() {
               </div>
             )}
 
+            {/* Hospital Options */}
             <div className="flex flex-col gap-3 mt-4">
               {hospitals
                 .filter((h) => h.visible && !selectedHospital)
@@ -231,7 +251,9 @@ export default function Cost() {
                     onClick={() => {
                       setSelectedHospital(hospital);
                       localStorage.setItem("selectedHospital", JSON.stringify(hospital));
-                      setHospitals((prev) => prev.map((h) => ({ ...h, visible: false })));
+                      setHospitals((prev) =>
+                        prev.map((h) => ({ ...h, visible: false }))
+                      );
                       setHospitalSearch("");
                     }}
                   >
@@ -241,8 +263,9 @@ export default function Cost() {
             </div>
           </section>
 
-          {/* Step 3: Computed Cost */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-full flex flex-col gap-4">
+          {/* compute cost*/}
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
+
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
@@ -262,6 +285,57 @@ export default function Cost() {
             {showReport && <ReportPopup onClose={() => setshowReport(false)} />}
             {showErrorPopup && <ErrorPopup message={messageError} onClose={() => setshowErrorPopup(false)} />}
             {showInfo && <InformationPop message={infoMessage} onClose={() => setShowInfo(false)} />}
+
+            {/* Confirm clear procedure */}
+            {showClearConfirm && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  zIndex: 1000,
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    padding: "2rem",
+                    borderRadius: "8px",
+                    maxWidth: "400px",
+                    textAlign: "center",
+                  }}
+                >
+                  <h3 className="text-lg font-semibold mb-4">Confirm Clear Procedure</h3>
+                  <p className="mb-6">Are you sure you want to clear the selected procedure?</p>
+
+                  <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+                    <button
+                      onClick={() => setShowClearConfirm(false)}
+                      className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("procedureData");
+                        setSavedProcedure(null);
+                        setShowClearConfirm(false);
+                      }}
+                      className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >
+                      Confirm
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </div>
       </main>
