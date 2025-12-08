@@ -104,7 +104,7 @@ export default function HealthPageClient({
               onChange={() => setFilter('inNetwork')}
               style={{ marginRight: '0.5rem' }}
             />
-            In-Network only
+           <span>In-Network only: in your insurance</span>
           </label>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
@@ -116,7 +116,7 @@ export default function HealthPageClient({
               onChange={() => setFilter('outOfNetwork')}
               style={{ marginRight: '0.5rem' }}
             />
-            Out-of-Network only
+            <span>Out-of-Network only: not in your insurance</span>
           </label>
         </fieldset>
           <div
