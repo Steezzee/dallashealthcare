@@ -13,7 +13,7 @@ type Doc = {
 const defaultDocs: Doc[] = [
     { title: "Debra_Smith_BCBS_051", fileNum: "Print this out", date: "2025-12-12", fileUrl: "/Debra_Smith_BCBS_051.pdf", /*made pdfs here to click existing docs */
   },
-    { title: "George_Lucas_BCBS_223", fileNum: "Latest Visit From Step-Father", date: "2025-11-22", fileUrl:"/George_Lucas_BCBS_223.pdf"},
+    { title: "George_Lucas_DDS_223", fileNum: "Latest Visit From Step-Father", date: "2025-11-22", fileUrl:"/George_Lucas_BCBS_223.pdf"},
 ];
 
 const UploadedDocuments = ({ docs, onDelete, }: { docs: Doc[]; onDelete: (index: number, isDefault: boolean) => void; }) => {
