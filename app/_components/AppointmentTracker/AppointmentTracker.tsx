@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import styles from "./AppointmentTracker.module.css";
 
@@ -33,7 +35,10 @@ export default function AppointmentTracker({ appointments, onDelete }: Props) {
                         {onDelete && (<button 
                             type="button"
                             className={styles.deleteButton}
-                            onClick={() => onDelete(number)}>
+                            onClick={() => {
+                                if (window.confirm("Are you sure you want to delete this appointment"))
+                                onDelete(number)} 
+                            }>
                             Delete
                         </button>)}
                     </li>

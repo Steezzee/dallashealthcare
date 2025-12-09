@@ -92,10 +92,10 @@ export default function HealthPageClient({
               onChange={() => setFilter('all')}
               style={{ marginRight: '0.5rem' }}
             />
-            All Locations
+            All Locations 
           </label>
 
-          <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem'}}>
             <input
               type="radio"
               name="networkFilter"
@@ -104,7 +104,7 @@ export default function HealthPageClient({
               onChange={() => setFilter('inNetwork')}
               style={{ marginRight: '0.5rem' }}
             />
-           <span>In-Network only: in your insurance</span>
+           <span>In-Network only:<br /> covered by your insurance</span>
           </label>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
@@ -116,7 +116,7 @@ export default function HealthPageClient({
               onChange={() => setFilter('outOfNetwork')}
               style={{ marginRight: '0.5rem' }}
             />
-            <span>Out-of-Network only: not in your insurance</span>
+            <span>Out-of-Network only:<br /> not covered by your insurance</span>
           </label>
         </fieldset>
           <div
