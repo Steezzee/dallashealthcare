@@ -28,8 +28,9 @@ const LoginPage: React.FC = () => {
       setLoggedInUser(username);
       setError(null);
       localStorage.setItem("loggedInUser", username);
-
-      router.push('./home'); // Redirect to home page if login successful
+      setTimeout(() => {
+        router.push('./home'); // Redirect to home page if login successful
+        }, 1000);
     } else {
       setError("Invalid username or password.");
     }
@@ -67,9 +68,22 @@ const LoginPage: React.FC = () => {
               style={styles.input}
             />
 
-            <button type="submit" style={styles.button}>
-              Login
-            </button>
+          <button
+            type="submit"
+            style={{
+              padding: 10,
+              fontSize: 16,
+              color: "white",
+              border: "none",
+              borderRadius: 5,
+              cursor: "pointer",
+              backgroundColor: password ? "#4CAF50" : "#AFCEC3",
+              transition: "background-color 0.3s ease",
+            }}
+          >
+            Login
+          </button>
+
 
             {error && <p style={styles.error}>{error}</p>}
 
@@ -78,11 +92,9 @@ const LoginPage: React.FC = () => {
         ) : (
           <div>
             <h2>
-              Welcome, <span style={{ color: "#AFCEC3" }}>{loggedInUser}</span>
+              Welcome! <span style={{ color: "#AFCEC3" }}>{loggedInUser}</span>
             </h2>
-            <button onClick={handleLogout} style={styles.button}>
-              Logout
-            </button>
+           
           </div>
         )}
       </div>

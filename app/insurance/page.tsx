@@ -398,6 +398,7 @@ const uploadBtnStyle: React.CSSProperties = {
   borderRadius: "6px",
   fontSize: "1rem",
   cursor: "pointer",
+
 };
 
 const cancelButtonStyle: React.CSSProperties = {
