@@ -1,6 +1,7 @@
 'use client';
 
-import React from "react";
+import React, {useState} from "react";
+import { createPortal } from "react-dom";
 import styles from "./AppointmentTracker.module.css";
 
 export type Appointment = {
@@ -13,8 +14,106 @@ type Props = {
     onDelete?: (index: number) => void;
 };
 
+const modalOverlay: React.CSSProperties = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+};
+
+const cancelButtonStyle: React.CSSProperties = {
+    flex: 1,
+    padding: "0.7rem",
+    border: "none",
+    backgroundColor: "#ccc",
+    borderRadius: "6px",
+    cursor: "pointer",
+};
+
+const deleteButtonStyle: React.CSSProperties = {
+    flex: 1,
+    padding: "0.7rem",
+    border: "none",
+    backgroundColor: "#CA425F",
+    color: "white",
+    borderRadius: "6px",
+    cursor: "pointer",
+};
+
+const deleteModalStyle: React.CSSProperties = {
+    backgroundColor: "white",
+    borderRadius: "10px",
+    padding: "2rem",
+    width: "90%",
+    maxWidth: "400px",
+    textAlign: "center",
+};
+
 export default function AppointmentTracker({ appointments, onDelete }: Props) {
     console.log("AppointmentTracker received:", appointments);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [pendingDeleteIndex, setPendingDeleteIndex] = useState<number | null>(
+        null
+  );
+
+const openDeleteModal = (index: number) => {    
+    setPendingDeleteIndex(index);
+    setIsDeleteModalOpen(true);
+  };
+
+const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setPendingDeleteIndex(null);
+  };
+
+const confirmDelete = () => {
+    if (pendingDeleteIndex !== null && onDelete) {
+      onDelete(pendingDeleteIndex);
+    }
+    closeDeleteModal();
+  };
+
+  const buttonRowStyle: React.CSSProperties = {
+    display: "flex",
+    marginTop: "1.5rem",
+    gap: "1rem",
+};
+
+const buttonStyle = (isDelete: boolean): React.CSSProperties => ({
+    flex: 1,
+    padding: "0.7rem",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "600",
+    backgroundColor: isDelete ? "#CA425F" : "#ccc",
+    color: isDelete ? "white" : "black",
+});
+
+  const DeleteModal = () =>
+        createPortal(
+            <div style={modalOverlay} onClick={(e) => e.target === e.currentTarget && closeDeleteModal()}>
+                <div style={deleteModalStyle} onClick={(e) => e.stopPropagation()}>
+                    <h3 style={{ margin: "0 0 1rem 0" }}>Are you sure you want to delete this appointment?</h3>
+                    <div style={buttonRowStyle}>
+                        <button onClick={closeDeleteModal} style={buttonStyle(false)}>
+                            Cancel
+                        </button>
+                        <button onClick={confirmDelete} style={buttonStyle(true)}>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>,
+            document.body
+        );
+
     return (
         <div className={styles.container}>
             <h2 className={styles.heading}>
@@ -26,7 +125,7 @@ export default function AppointmentTracker({ appointments, onDelete }: Props) {
                 </h2>
             )}
             <ul className={styles.list}>
-                {appointments.map(({ label, date }, number) => (
+                {appointments.map(({ label, date }, index) => (
                     <li className={styles.item} key={label + date}>
                         <input style = {{width:".6rem" }} className={styles.checkbox} />
                         <span className={styles.label}>
@@ -35,15 +134,13 @@ export default function AppointmentTracker({ appointments, onDelete }: Props) {
                         {onDelete && (<button 
                             type="button"
                             className={styles.deleteButton}
-                            onClick={() => {
-                                if (window.confirm("Are you sure you want to delete this appointment"))
-                                onDelete(number)} 
-                            }>
+                            onClick={() => openDeleteModal(index)}>
                             Delete
                         </button>)}
                     </li>
                 ))}
-            </ul>
+             </ul>
+            {isDeleteModalOpen && <DeleteModal />}
         </div>
     );
 }

@@ -78,9 +78,59 @@ export default function HealthPageClient({
       backgroundColor: "#D5EBE3",
       minHeight: "100vh",
     }}>
+
+      
       <aside className = {styles.networkFilterBox}>
+        <div
+            style={{
+              fontSize: "0.9rem",
+              color: "#000000ff",
+            }}
+          >
+            {selectedLocation ? (
+              <>
+                <div //a location is selected
+                  style={{
+                    fontWeight: "semibold",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Selected: {selectedLocation.popUp}
+                </div>
+                <button
+                  onClick={() => setShowDoctorModal(true)}
+                  style={{
+                    width: "100%",
+                    background: "#4CAF50",
+                    color: "white",
+                    padding: "0.6rem",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "6px",
+                    marginTop: "0.5rem",
+                    marginBottom: "2rem"
+                  }}
+                  title="View doctors at selected location"
+                >
+                  Schedule Appointment
+                </button>
+              </>
+            ) : (  // a location is not selected
+              <div
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  padding: "0.75rem 0",
+                  color: "#444",
+                  marginBottom: "2rem"
+                }}
+              >
+                Select a hospital to schedule an appointment
+              </div>
+            )}
+          </div>
         <fieldset>
-          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'center' }}>
+          <legend style={{ fontWeight: 'bold', marginBottom: '0.5rem', textAlign: 'left'}}>
             Current Insurance Network Coverage:</legend>
 
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
@@ -119,52 +169,7 @@ export default function HealthPageClient({
             <span>Out-of-Network only:<br /> not covered by your insurance</span>
           </label>
         </fieldset>
-          <div
-            style={{
-              fontSize: "0.9rem",
-              color: "#000000ff",
-            }}
-          >
-            {selectedLocation ? (
-              <>
-                <div //a location is selected
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                  }}
-                >
-                  Selected: {selectedLocation.popUp}
-                </div>
-                <button
-                  onClick={() => setShowDoctorModal(true)}
-                  style={{
-                    width: "100%",
-                    background: "#4CAF50",
-                    color: "white",
-                    padding: "0.6rem",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "6px",
-                    marginTop: "0.5rem",
-                  }}
-                  title="View doctors at selected location"
-                >
-                  Schedule Appointment
-                </button>
-              </>
-            ) : (  // a location is not selected
-              <div
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  padding: "0.75rem 0",
-                  color: "#444",
-                }}
-              >
-                Select a hospital to schedule an appointment
-              </div>
-            )}
-          </div>
+
       </aside>
     <div className = {styles.mapBoxStyle}>
         <MyHealth_Map   //open health map on general page
