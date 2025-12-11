@@ -91,7 +91,7 @@ export default function HealthPageClient({
               <>
                 <div //a location is selected
                   style={{
-                    fontWeight: "bold",
+                    fontWeight: "semibold",
                     fontSize: "1rem",
                   }}
                 >

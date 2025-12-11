@@ -1,13 +1,13 @@
 'use client';
 
-import Image from "next/image";
-import MyInfo from '../_components/MyInfo/MyInfo';
-import MyPrescriptions from "../_components/MyPrescriptions/MyPrescriptions";
-import DoctorsNotes from "../_components/MyNotes/DoctorsNotes";
-import AppointmentObject from "../_components/AppointmentTracker/AppointmentObject";
 import { useEffect } from 'react';
-import { revalidatePath } from "@/node_modules/next/cache";
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const MyInfo = dynamic(() => import('../_components/MyInfo/MyInfo'), { ssr: false });
+const MyPrescriptions = dynamic(() => import("../_components/MyPrescriptions/MyPrescriptions"), { ssr: false });
+const DoctorsNotes = dynamic(() => import("../_components/MyNotes/DoctorsNotes"), { ssr: false });
+const AppointmentObject = dynamic(() => import("../_components/AppointmentTracker/AppointmentObject"), { ssr: false });
 
 
 export default function Home() {
