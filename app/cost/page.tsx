@@ -147,7 +147,8 @@ export default function Cost() {
 
   return (
     <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
-      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
+      <main className="flex flex-col items-center gap-10 p-5 w-full bg-[#D5EBE3]">
+
 
         {/* procedure search */}
         <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
@@ -229,7 +230,7 @@ export default function Cost() {
         </section>
 
         
-        <div className="flex flex-col gap-8 self-start">
+        <div className="flex flex-col gap-10 w-full items-center bg-[#D5EBE3]">
 
           {/* hospitla */}
           <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
