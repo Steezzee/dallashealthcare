@@ -9,7 +9,7 @@ interface setShowFingerModalProp{
 export default function ShowFingerModal({onClose}: setShowFingerModalProp){
     return(
     // background/homepage
-        <div className="fixed inset-0 bg-transparent bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+        <div className="fixed inset-0 bg-transparent bg-opacity-30 backdrop-blur-sm flex justify-center items-center z-[9999]">
             <div className="mt-10 flex flex-col gap-5 text-black">
             <button className="relative top-4 left-140" onClick={onClose}><CircleX size={30}/></button> 
             <div className="-mt-5 flex flex-col gap-5 text-black 
