@@ -160,7 +160,8 @@ export default function Cost() {
             </div>
           </div>
 
-          <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
+          <h2 className="text-xl font-semibold text-center px-5 py-5">STEP 1: Search Procedure</h2>
+
 
           {/* dropdown */}
           <div className="relative ml-9 mb-6 w-[330px]">
