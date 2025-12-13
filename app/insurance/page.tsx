@@ -135,7 +135,9 @@ export default function Insurance() {
         display:"flex",
         flexDirection: "column",
         gap: "1rem",
+        
       }}
+
       >
         <UploadedDocuments docs={docs} onDelete={requestDelete} />
           {/* Toast message */}
