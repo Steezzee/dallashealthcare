@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
       localStorage.setItem("loggedInUser", username);
       setTimeout(() => {
         router.push('./home'); // Redirect to home page if login successful
-        }, 1000);
+        }, 500);
     } else {
       setError("Invalid username or password.");
     }
@@ -77,7 +77,7 @@ const LoginPage: React.FC = () => {
               border: "none",
               borderRadius: 5,
               cursor: "pointer",
-              backgroundColor: password ? "#4CAF50" : "#AFCEC3",
+              backgroundColor: username && password ? "#4CAF50" : "#AFCEC3",
               transition: "background-color 0.3s ease",
             }}
           >
