@@ -144,7 +144,7 @@ export default function Insurance() {
               position: "fixed",
               bottom: "2rem",
               right: "2rem",
-              height: "500px",
+              //height: "500px",
               backgroundColor: "#4eb378ff",
               color: "white",
               padding: "1rem 1.5rem",
@@ -281,6 +281,19 @@ export default function Insurance() {
                 <label htmlFor="fileInput" style={fileBrowseStyle}>
                   Browse Files
                 </label>
+                    {file && (
+                      <p
+                        style={{
+                          marginTop: "1rem",
+                          color: "#2e7d32",
+                          fontSize: "0.95rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                      Selected: {file.name} ({Math.round(file.size / 1024)} KB)
+                      </p>
+                    )}
+
               </div>
                     
               <button type="submit" style={uploadBtnStyle}>
