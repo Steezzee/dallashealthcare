@@ -70,6 +70,9 @@ const Logout: React.FC = () => {
   );
 };
 
+{/*Logout*/}
+
+
 export default Logout;
 
           const styles: { [key: string]: React.CSSProperties } = {
