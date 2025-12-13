@@ -146,13 +146,13 @@ export default function Cost() {
   };
 
   return (
-    <div className="font-sans grid items-center justify-items-start min-h-screen p-4 pb-20 gap-8 sm:p-10 bg-[#D5EBE3]">
+    <div className="font-sans grid items-start justify-items-start min-h-screen p-4 pb-20 gap-8 sm:p-3 bg-[#D5EBE3]">
       <main className="flex flex-row items-start justify-center gap-10 p-5 w-full bg-[#D5EBE3]">
 
 
 
         {/* procedure search */}
-        <section className="relative bg-sky-100 rounded-xl w-[430px] h-[330px] flex flex-col">
+        <section className="relative bg-sky-100 rounded-xl w-[430px] h-[430px] flex flex-col">
           <div className="absolute -top-0.000001 -left-0.00000001">
             <div className="relative">
               <Circle size={30} strokeWidth={2} className="text-black" />
@@ -234,7 +234,7 @@ export default function Cost() {
         {/*<div className="flex flex-col gap-10 w-full items-center bg-[#D5EBE3]">*/}
 
           {/* hospitla */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[330px] flex flex-col gap-4">
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[430px] flex flex-col gap-4">
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
@@ -292,7 +292,7 @@ export default function Cost() {
           </section>
 
           {/*Compute Cost  */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[330px] flex flex-col gap-4 mt-0">
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[430px] flex flex-col gap-4 mt-0">
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
