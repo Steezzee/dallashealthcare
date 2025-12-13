@@ -146,11 +146,13 @@ export default function Cost() {
   };
 
   return (
-    <div className="font-sans grid items-center justify-items-center min-h-screen p-4 pb-20 gap-16 sm:p-20 bg-[#D5EBE3]">
-      <main className="grid grid-cols-[1fr_1fr] gap-8 items-start justify-items-center bg-white-100 p-5 min-h-screen">
+    <div className="font-sans grid items-center justify-items-start min-h-screen p-4 pb-20 gap-8 sm:p-10 bg-[#D5EBE3]">
+      <main className="flex flex-row items-start justify-center gap-10 p-5 w-full bg-[#D5EBE3]">
+
+
 
         {/* procedure search */}
-        <section className="relative bg-sky-100 rounded-xl w-[750px] h-[650px] flex flex-col">
+        <section className="relative bg-sky-100 rounded-xl w-[430px] h-[330px] flex flex-col">
           <div className="absolute -top-0.000001 -left-0.00000001">
             <div className="relative">
               <Circle size={30} strokeWidth={2} className="text-black" />
@@ -161,7 +163,7 @@ export default function Cost() {
           <h2 className="text-xl font-semibold text-center px-2 py-2">STEP 1: Search Procedure</h2>
 
           {/* dropdown */}
-          <div className="relative ml-9 mb-6 w-[690px]">
+          <div className="relative ml-9 mb-6 w-[330px]">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="border p-2 rounded w-full text-left bg-white flex justify-between items-center"
@@ -203,7 +205,7 @@ export default function Cost() {
 
           {/*  display saved procedure */}
           {savedProcedure && (
-            <div className="bg-blue-50 border-3 border-blue-500 ml-7 p-4 rounded w-[690px] mt-10">
+            <div className="bg-blue-50 border-3 border-blue-500 ml-10 p-2 rounded w-[320px] mt-5">
               <h3 className="font-bold text-lg text-black mb-2">Selected Procedure:</h3>
               <div className="flex justify-between items-center">
                 <h3 className="font-medium text-lg text-black mb-2">
@@ -229,10 +231,10 @@ export default function Cost() {
         </section>
 
         
-        <div className="flex flex-col gap-8 self-start">
+        {/*<div className="flex flex-col gap-10 w-full items-center bg-[#D5EBE3]">*/}
 
           {/* hospitla */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4">
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[330px] flex flex-col gap-4">
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
@@ -275,7 +277,7 @@ export default function Cost() {
               .map((hospital) => (
                 <div
                   key={hospital.id}
-                  className="bg-white p-3 border rounded cursor-pointer hover:bg-gray-100"
+                  className="bg-white p-0 border rounded cursor-pointer hover:bg-gray-100 text-center"
                   onClick={() => {
                     setSelectedHospital(hospital);
                     localStorage.setItem("selectedHospital", JSON.stringify(hospital));
@@ -290,7 +292,7 @@ export default function Cost() {
           </section>
 
           {/*Compute Cost  */}
-          <section className="relative bg-sky-100 p-6 rounded-xl w-[330px] flex flex-col gap-4 mt-4">
+          <section className="relative bg-sky-100 p-6 rounded-xl w-[430px] h-[330px] flex flex-col gap-4 mt-0">
             <div className="absolute top-0 left-0">
               <div className="relative">
                 <Circle size={30} strokeWidth={2} className="text-black" />
@@ -308,7 +310,7 @@ export default function Cost() {
             </button>
           </section>
 
-        </div>
+        {/* </div>*/}
       </main>
 
       
